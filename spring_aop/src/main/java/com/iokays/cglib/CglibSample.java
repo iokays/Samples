@@ -7,7 +7,6 @@ import net.sf.cglib.proxy.*;
 import net.sf.cglib.reflect.*;
 import net.sf.cglib.util.ParallelSorter;
 import net.sf.cglib.util.StringSwitcher;
-import org.checkerframework.checker.units.qual.C;
 import org.objectweb.asm.Type;
 
 import java.lang.reflect.InvocationTargetException;
