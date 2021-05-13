@@ -1,4 +1,4 @@
-package com.iokays.cglib;
+package com.iokays.aop.cglib;
 
 import net.sf.cglib.beans.*;
 import net.sf.cglib.core.KeyFactory;

@@ -1,4 +1,4 @@
-package com.iokays.aopalliance;
+package com.iokays.aop.aopalliance;
 
 public class AopallianceSample {
 

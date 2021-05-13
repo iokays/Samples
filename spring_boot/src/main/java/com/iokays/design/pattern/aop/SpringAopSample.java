@@ -1,4 +1,4 @@
-package com.iokays.spring.aop;
+package com.iokays.design.pattern.aop;
 
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -38,6 +38,7 @@ class AfterReturningExceptionAdvice implements AfterReturningAdvice {
 
 
 class TracingInterceptor implements MethodInterceptor {
+    @Override
     public Object invoke(MethodInvocation i) throws Throwable {
         System.out.println("method "+i.getMethod()+" is called on "+ i.getThis()+" with args "+i.getArguments());
         Object ret=i.proceed();

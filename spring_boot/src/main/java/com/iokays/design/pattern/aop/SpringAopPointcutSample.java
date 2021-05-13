@@ -1,4 +1,4 @@
-package com.iokays.spring.aop;
+package com.iokays.design.pattern.aop;
 
 
 import org.aopalliance.intercept.MethodInterceptor;

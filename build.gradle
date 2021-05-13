@@ -3,9 +3,6 @@ plugins {
     id 'org.springframework.boot' version '2.4.5'
 }
 
-allprojects {
-}
-
 subprojects {
 
     apply plugin: 'java'
@@ -30,17 +27,15 @@ subprojects {
     }
 }
 
-project(':spring_aop') {
+project(':design_pattern') {
+}
+
+project(':spring_boot') {
 
     dependencies {
         compile 'cglib:cglib:3.3.0'
-        compile 'aopalliance:aopalliance:1.0'
-        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-starter-jdbc:2.4.5'
     }
 }
 
-project(':spring_ioc') {
-    dependencies {
-    }
-}
 
