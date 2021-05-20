@@ -40,8 +40,28 @@ project(':spring_aop') {
         compile project(':design_pattern')
         compile 'cglib:cglib:3.3.0'
         compile 'org.springframework.boot:spring-boot-starter:2.4.5'
-        compile 'org.springframework.boot:spring-boot-starter-jdbc:2.4.5'
     }
 }
+
+project(':spring_web') {
+
+    apply plugin: 'org.springframework.boot'
+
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+    }
+}
+
+
+project(':spring_security') {
+
+    apply plugin: 'org.springframework.boot'
+
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+        compile 'org.springframework.boot:spring-boot-starter-security:2.4.5'
+    }
+}
+
 
 

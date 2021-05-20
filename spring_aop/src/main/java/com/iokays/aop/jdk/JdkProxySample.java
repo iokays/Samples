@@ -1,12 +1,11 @@
 package com.iokays.aop.jdk;
 
 import com.iokays.design.pattern.delegate.QuackBehavior;
+import io.swagger.annotations.ApiModel;
 
 import java.lang.reflect.Proxy;
 
-/**
- * @author pengyuanbing
- */
+@ApiModel(description = "JDK动态代理实例")
 public class JdkProxySample {
 
     public static void main(String[] args) {

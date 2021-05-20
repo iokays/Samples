@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class HandlerMethod {
+    Class<?> : beanType
+    Method : method
+    Method : bridgedMethod
+    MethodParameter[] : parameters
+    HandlerMethod : resolvedFromHandlerMethod
+}
+
+class InvocableHandlerMethod
+
+class ServletInvocableHandlerMethod
+
+HandlerMethod <|-- InvocableHandlerMethod
+InvocableHandlerMethod <|-- ServletInvocableHandlerMethod
+
+@enduml
