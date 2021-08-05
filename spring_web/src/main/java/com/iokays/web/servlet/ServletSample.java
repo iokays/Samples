@@ -7,7 +7,7 @@ public class ServletSample implements Servlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-
+        
     }
 
     @Override

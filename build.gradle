@@ -1,7 +1,10 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.4.5'
+    id "org.springframework.boot" version "2.4.5"
 }
+
+sourceCompatibility = 11
+targetCompatibility = 11
 
 allprojects {
     apply plugin: 'java'
@@ -23,7 +26,7 @@ subprojects {
         compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
         compile 'com.google.guava:guava:30.1.1-jre'
         compile 'io.swagger:swagger-annotations:1.6.2'
-        testCompile group: 'junit', name: 'junit', version: '4.13'
+        compile group: 'junit', name: 'junit', version: '4.13'
     }
 }
 
@@ -49,9 +52,9 @@ project(':spring_web') {
 
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+        compile 'com.squareup.okhttp3:okhttp:3.5.0'
     }
 }
-
 
 project(':spring_security') {
 
@@ -63,5 +66,25 @@ project(':spring_security') {
     }
 }
 
+project(':document') {
 
+    dependencies {
+        compile 'org.apache.poi:poi-examples:5.0.0'
+        compile 'org.apache.poi:poi:5.0.0'
+
+    }
+}
+
+project(':algs4') {
+
+    dependencies {
+    }
+
+}
+
+project(':effective_java') {
+    dependencies {
+    }
+
+}
 

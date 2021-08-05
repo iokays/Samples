@@ -1,1 +1,1 @@
-include 'design_pattern', 'spring_aop', 'spring_web', 'spring_security'
+include 'design_pattern', 'spring_aop', 'spring_web', 'spring_security', 'document', 'algs4', 'effective_java'
