@@ -1,5 +1,7 @@
 package apsupp.orgainzationstructures.accountability;
 
+import apsupp.NamedObject;
+
 /**
  * todo
  */

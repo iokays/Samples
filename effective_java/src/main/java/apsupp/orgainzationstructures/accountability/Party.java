@@ -1,5 +1,6 @@
 package apsupp.orgainzationstructures.accountability;
 
+import apsupp.NamedObject;
 import com.google.common.collect.Sets;
 
 import java.util.Set;
