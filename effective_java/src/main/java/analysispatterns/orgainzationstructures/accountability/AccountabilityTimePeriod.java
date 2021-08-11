@@ -1,4 +1,4 @@
-package apsupp.orgainzationstructures.accountability;
+package analysispatterns.orgainzationstructures.accountability;
 
 import java.io.Serializable;
 import java.time.LocalDate;

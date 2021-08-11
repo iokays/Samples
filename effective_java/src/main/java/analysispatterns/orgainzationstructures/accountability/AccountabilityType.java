@@ -1,6 +1,6 @@
-package apsupp.orgainzationstructures.accountability;
+package analysispatterns.orgainzationstructures.accountability;
 
-import apsupp.NamedObject;
+import analysispatterns.NamedObject;
 
 public class AccountabilityType extends NamedObject {
 

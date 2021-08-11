@@ -1,4 +1,4 @@
-package apsupp;
+package analysispatterns;
 
 import java.io.Serializable;
 

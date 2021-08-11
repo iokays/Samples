@@ -1,10 +1,8 @@
-package apsupp.orgainzationstructures.accountability;
+package analysispatterns.orgainzationstructures.accountability;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDate;
 
 public class Tester {
 

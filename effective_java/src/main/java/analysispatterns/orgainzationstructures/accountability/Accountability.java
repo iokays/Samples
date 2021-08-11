@@ -1,4 +1,4 @@
-package apsupp.orgainzationstructures.accountability;
+package analysispatterns.orgainzationstructures.accountability;
 
 import com.google.common.base.Preconditions;
 

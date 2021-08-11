@@ -1,6 +1,6 @@
-package apsupp.orgainzationstructures.accountability;
+package analysispatterns.orgainzationstructures.accountability;
 
-import apsupp.NamedObject;
+import analysispatterns.NamedObject;
 import com.google.common.collect.Sets;
 
 import java.util.Set;

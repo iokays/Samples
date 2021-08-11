@@ -1,4 +1,4 @@
-package apsupp.orgainzationstructures.orgainzationhierarchy;
+package analysispatterns.orgainzationstructures.orgainzationhierarchy;
 
 import java.util.Objects;
 
