@@ -20,6 +20,10 @@ public class Party extends NamedObject {
         this.childrenAccountabilities.add(arg);
     }
 
+    boolean ancestorsInclude(Party sample, AccountabilityType type) {
+        return this.parents(type).stream().filter(v -> v.equals(sample) || v.ancestorsInclude(sample, type)).findFirst().isPresent();
+    }
+
     void friendAddParentAccontabilities(Accountability arg) {
         this.parentAccountabilities.add(arg);
     }

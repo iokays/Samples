@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 public class Tester {
 
-    AccountabilityTimePeriod timePeriod = new AccountabilityTimePeriod(LocalDate.of(2021, 01, 01), LocalDate.of(2021, 12, 31));
-
     AccountabilityType supervision = new AccountabilityType("Supervises");
 
     AccountabilityType appointment = new AccountabilityType("Appointment");
@@ -20,8 +18,8 @@ public class Tester {
 
     @Before
     public void setUp() {
-        new Accountability(stMarys, mark, appointment, timePeriod);
-        new Accountability(stMarys, tom, appointment, timePeriod);
+        new Accountability(stMarys, mark, appointment);
+        new Accountability(stMarys, tom, appointment);
     }
 
     @Test
@@ -32,7 +30,7 @@ public class Tester {
 
     @Test
     public void testParents() {
-        Accountability.create(tom, mark, supervision, timePeriod);
+        Accountability.create(tom, mark, supervision);
         Assert.assertTrue(mark.parents().contains(stMarys));
         Assert.assertTrue(mark.parents(appointment).contains(stMarys));
 
