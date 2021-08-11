@@ -30,17 +30,11 @@ subprojects {
     }
 }
 
-project(':design_pattern') {
-    dependencies {
-    }
-}
-
 project(':spring_aop') {
 
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        compile project(':design_pattern')
         compile 'cglib:cglib:3.3.0'
         compile 'org.springframework.boot:spring-boot-starter:2.4.5'
     }
@@ -73,13 +67,6 @@ project(':document') {
         compile 'org.apache.poi:poi:5.0.0'
 
     }
-}
-
-project(':algs4') {
-
-    dependencies {
-    }
-
 }
 
 project(':effective_java') {

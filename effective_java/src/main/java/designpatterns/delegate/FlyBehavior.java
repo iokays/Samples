@@ -1,4 +1,4 @@
-package com.iokays.design.pattern.delegate;
+package designpatterns.delegate;
 
 /**
  * 飞行行为接口
