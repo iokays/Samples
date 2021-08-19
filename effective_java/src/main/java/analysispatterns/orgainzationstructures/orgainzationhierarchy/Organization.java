@@ -1,38 +1,36 @@
 package analysispatterns.orgainzationstructures.orgainzationhierarchy;
 
+import analysispatterns.NamedObject;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Organization implements Serializable {
+public class Organization extends NamedObject {
 
     private static Map<String, Organization> instances = Maps.newHashMap();
 
-    private String name;
-
     private Organization parent;
 
-    public Organization(String name, Organization parent) {
-        this.name = name;
-        this.parent = parent;
+    public Organization(String aName, Organization aParent) {
+        super(aName);
+        this.parent = aParent;
     }
 
     public void register() {
-        instances.put(name, this);
+        instances.put(name(), this);
     }
 
     static void cleanRegistry() {
         instances = Maps.newHashMap();
     }
 
-    static Organization get(String name) {
-        return instances.get(name);
+    static Organization get(String aName) {
+        return instances.get(aName);
     }
 
     Organization getParent() {
@@ -44,9 +42,9 @@ public class Organization implements Serializable {
         this.parent = arg;
     }
 
-    void assertValidParent(final Organization parent) {
-        if (null != parent) {
-            Preconditions.checkState(!parent.getAncestors().contains(this));
+    void assertValidParent(final Organization aParent) {
+        if (null != aParent) {
+            Preconditions.checkState(!aParent.getAncestors().contains(this));
         }
     }
 
