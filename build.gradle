@@ -14,8 +14,8 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'http://uk.maven.org/maven2' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://uk.maven.org/maven2' }
         // JBoss Repo
         maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss/' }
 
@@ -23,10 +23,10 @@ subprojects {
     }
 
     dependencies {
-        compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
-        compile 'com.google.guava:guava:30.1.1-jre'
-        compile 'io.swagger:swagger-annotations:1.6.2'
-        compile 'org.junit.jupiter:junit-jupiter:5.7.2'
+        implementation 'commons-collections:commons-collections:3.2'
+        implementation 'com.google.guava:guava:30.1.1-jre'
+        implementation 'io.swagger:swagger-annotations:1.6.2'
+        implementation 'org.junit.jupiter:junit-jupiter:5.7.2'
     }
 }
 
@@ -35,8 +35,8 @@ project(':spring_aop') {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        compile 'cglib:cglib:3.3.0'
-        compile 'org.springframework.boot:spring-boot-starter:2.4.5'
+        implementation 'cglib:cglib:3.3.0'
+        implementation 'org.springframework.boot:spring-boot-starter:2.4.5'
     }
 }
 
@@ -45,8 +45,8 @@ project(':spring_web') {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        compile 'org.springframework.boot:spring-boot-starter-web:2.4.5'
-        compile 'com.squareup.okhttp3:okhttp:3.5.0'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+        implementation 'com.squareup.okhttp3:okhttp:3.5.0'
     }
 }
 
@@ -55,16 +55,16 @@ project(':spring_security') {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        compile 'org.springframework.boot:spring-boot-starter-web:2.4.5'
-        compile 'org.springframework.boot:spring-boot-starter-security:2.4.5'
+        implementation 'org.springframework.boot:spring-boot-starter-web:2.4.5'
+        implementation 'org.springframework.boot:spring-boot-starter-security:2.4.5'
     }
 }
 
 project(':document') {
 
     dependencies {
-        compile 'org.apache.poi:poi-examples:5.0.0'
-        compile 'org.apache.poi:poi:5.0.0'
+        implementation 'org.apache.poi:poi-examples:5.0.0'
+        implementation 'org.apache.poi:poi:5.0.0'
 
     }
 }
