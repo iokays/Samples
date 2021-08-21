@@ -1,8 +1,9 @@
 package analysispatterns.accountablilityknowledgelevel;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class Tester {
 
@@ -19,7 +20,7 @@ public class Tester {
     private Party tom;
     private Party stMarys;
 
-    @Before
+    @BeforeAll
     public void setUp() {
         appointment.addConnectionRule(hospital, doctor);
         appointment.addConnectionRule(hospital, consultant);
@@ -37,7 +38,7 @@ public class Tester {
     public void testNoConnectionRule() {
         try {
             Accountability.create(mark, stMarys, appointment);
-            Assert.fail("created accountability without connection rule");
+            Assertions.fail("created accountability without connection rule");
         } catch (Exception ignore) {
             ignore.printStackTrace();
         }

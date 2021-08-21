@@ -1,8 +1,9 @@
 package analysispatterns.accountability;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class Tester {
 
@@ -14,7 +15,7 @@ public class Tester {
     Party tom = new Party("tom");
     Party stMarys= new Party("St Mary's");
 
-    @Before
+    @BeforeAll
     public void setUp() {
         new Accountability(stMarys, mark, appointment);
         new Accountability(stMarys, tom, appointment);
@@ -22,21 +23,21 @@ public class Tester {
 
     @Test
     public void testSimple() {
-        Assert.assertTrue(stMarys.children().contains(mark));
-        Assert.assertTrue(mark.parents().contains(stMarys));
+        Assertions.assertTrue(stMarys.children().contains(mark));
+        Assertions.assertTrue(mark.parents().contains(stMarys));
     }
 
     @Test
     public void testParents() {
         Accountability.create(tom, mark, supervision);
-        Assert.assertTrue(mark.parents().contains(stMarys));
-        Assert.assertTrue(mark.parents(appointment).contains(stMarys));
+        Assertions.assertTrue(mark.parents().contains(stMarys));
+        Assertions.assertTrue(mark.parents(appointment).contains(stMarys));
 
-        Assert.assertEquals(2, mark.parents().size());
-        Assert.assertEquals(1, mark.parents(appointment).size());
-        Assert.assertEquals(1, mark.parents(supervision).size());
+        Assertions.assertEquals(2, mark.parents().size());
+        Assertions.assertEquals(1, mark.parents(appointment).size());
+        Assertions.assertEquals(1, mark.parents(supervision).size());
 
-        Assert.assertTrue(mark.parents(supervision).contains(tom));
+        Assertions.assertTrue(mark.parents(supervision).contains(tom));
     }
 
 }

@@ -19,6 +19,7 @@ public class Organization extends NamedObject {
     public Organization(String aName, Organization aParent) {
         super(aName);
         this.setParent(aParent);
+        this.register();
     }
 
     public void register() {

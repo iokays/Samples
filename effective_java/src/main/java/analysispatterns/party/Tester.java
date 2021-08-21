@@ -1,12 +1,15 @@
 package analysispatterns.party;
 
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 public class Tester {
 
-    public static void main(String[] args) {
+    @Test
+    public void test() {
         final var party = SimplePartyFactory.create("person", "andy", "17620393016", "china", "592721086@qq.com");
-
-        Organization organization = (Organization) party;
-
-        System.out.println(party.name());
+        Assertions.assertTrue(party instanceof Person);
     }
+
 }
