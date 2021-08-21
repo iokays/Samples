@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.accountability;
+package analysispatterns.accountability;
 
 import analysispatterns.NamedObject;
 import com.google.common.collect.Sets;

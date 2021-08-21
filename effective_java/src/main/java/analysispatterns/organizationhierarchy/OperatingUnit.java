@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.orgainzationhierarchy;
+package analysispatterns.organizationhierarchy;
 
 import java.util.Objects;
 

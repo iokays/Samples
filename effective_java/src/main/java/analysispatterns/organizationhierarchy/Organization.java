@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.orgainzationhierarchy;
+package analysispatterns.organizationhierarchy;
 
 import analysispatterns.NamedObject;
 import com.google.common.base.Preconditions;
@@ -18,11 +18,11 @@ public class Organization extends NamedObject {
 
     public Organization(String aName, Organization aParent) {
         super(aName);
-        this.parent = aParent;
+        this.setParent(aParent);
     }
 
     public void register() {
-        instances.put(name(), this);
+        instances.put(this.name(), this);
     }
 
     static void cleanRegistry() {

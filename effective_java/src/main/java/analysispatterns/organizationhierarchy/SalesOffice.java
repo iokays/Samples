@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.orgainzationhierarchy;
+package analysispatterns.organizationhierarchy;
 
 import com.google.common.base.Preconditions;
 

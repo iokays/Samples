@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.accountability;
+package analysispatterns.accountability;
 
 import org.junit.Assert;
 import org.junit.Before;

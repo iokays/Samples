@@ -1,4 +1,4 @@
-package analysispatterns.orgainzationstructures.accountability;
+package analysispatterns.accountablilityknowledgelevel;
 
 import com.google.common.base.Preconditions;
 
@@ -6,13 +6,13 @@ import java.io.Serializable;
 
 public class Accountability implements Serializable {
 
-    private final Party parent;
+    private AccountabilityType type;
 
-    private final Party child;
+    private Party parent;
 
-    private final AccountabilityType type;
+    private Party child;
 
-    public Accountability(Party parent, Party child, AccountabilityType type) {
+    private Accountability(Party parent, Party child, AccountabilityType type) {
         this.parent = parent;
         this.parent.friendAddChildAccontabilities(this);
         this.child = child;
@@ -33,7 +33,8 @@ public class Accountability implements Serializable {
         if (parent.ancestorsInclude(child, type)) {
             return false;
         }
-        return true;
+
+        return type.canCreateAccountability(parent, child);
     }
 
     public Party parent() {
@@ -47,5 +48,7 @@ public class Accountability implements Serializable {
     public AccountabilityType type() {
         return type;
     }
+
+
 
 }
