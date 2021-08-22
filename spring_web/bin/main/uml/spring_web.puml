@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant ApplicationFilterChain
+note left of ApplicationFilterChain: Tomcat
+participant ApplicationFilterConfig
+participant Filter
+participant Servlet
+participant DispatcherServlet
+
+[-> ApplicationFilterChain : doFilter
+activate ApplicationFilterChain
+
+ApplicationFilterChain -> ApplicationFilterChain : internalDoFilter
+activate ApplicationFilterChain
+
+ApplicationFilterChain -> ApplicationFilterConfig : ""for each array item""\n getFilter
+
+ApplicationFilterChain -> Filter : **doFilter**
+
+ApplicationFilterChain -> Servlet : **service**
+
+Servlet -> DispatcherServlet: doService
+note right of DispatcherServlet: Spring
+activate DispatcherServlet #RED
+
+DispatcherServlet -> DispatcherServlet: doDispatch
+activate DispatcherServlet #BLUE
+
+DispatcherServlet -> HandlerExecutionChain: applyPreHandle
+
+DispatcherServlet -> HandlerMethodAdapter: handle
+
+HandlerMethodAdapter -> InvocableHandlerMethod: invokeForRequest
+
+InvocableHandlerMethod -> HandlerMethodArgumentResolver: resolveArgument
+
+@enduml

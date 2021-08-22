@@ -1,0 +1,12 @@
+@startuml
+
+actor -> ApplicationFilterChain : request
+
+ApplicationFilterChain -> ApplicationFilterChain : doFilter
+
+ApplicationFilterChain -> Filter : doFilter
+
+ApplicationFilterChain -> Servlet : service
+
+
+@enduml

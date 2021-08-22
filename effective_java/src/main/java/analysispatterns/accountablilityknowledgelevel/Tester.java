@@ -45,4 +45,8 @@ public class Tester {
         assert(!stMarys.parents().contains(mark)); // am I paranoid?
     }
 
+    public static void main(String[] args) {
+        System.out.println("hello world");
+    }
+
 }

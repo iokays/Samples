@@ -13,4 +13,5 @@ public class NamedObject implements Serializable {
     public String name() {
         return name;
     }
+
 }

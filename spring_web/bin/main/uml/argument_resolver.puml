@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface HandlerMethodArgumentResolver {
+    + boolean : supportsParameter()
+    + Object : resolveArgument()
+}
+
+note right of HandlerMethodArgumentResolver::supportsParameter {
+MethodParameter 是否支持该解析(分解)器
+}
+
+note right of HandlerMethodArgumentResolver::resolveArgument {
+分解获取参数值
+}
+
+class HandlerMethodArgumentResolverComposite {
+    - List<HandlerMethodArgumentResolver> argumentResolvers
+    - HandlerMethodArgumentResolver getArgumentResolver()
+}
+
+HandlerMethodArgumentResolver <|-- HandlerMethodArgumentResolverComposite
+
+abstract class AbstractNamedValueMethodArgumentResolver {
+    + Object resolveArgument()
+    # abstract Object resolveName()
+}
+
+HandlerMethodArgumentResolver <|-- AbstractNamedValueMethodArgumentResolver
+
+
+class RequestParamMethodArgumentResolver
+AbstractNamedValueMethodArgumentResolver <|-- RequestParamMethodArgumentResolver
+
+class RequestResponseBodyMethodProcessor
+AbstractNamedValueMethodArgumentResolver <|-- RequestResponseBodyMethodProcessor
+
+class ServletRequestMethodArgumentResolver
+HandlerMethodArgumentResolver <|---- ServletRequestMethodArgumentResolver
+
+class ServletResponseMethodArgumentResolver
+HandlerMethodArgumentResolver <|---- ServletResponseMethodArgumentResolver
+
+@enduml
