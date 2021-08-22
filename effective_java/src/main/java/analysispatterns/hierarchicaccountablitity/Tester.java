@@ -44,6 +44,7 @@ public class Tester {
     public void testReversedLevels() {
         try {
             Accountability.create(ma, usa, region);
+            Assertions.fail();
         } catch (Exception ignore) {
             ignore.printStackTrace();
         }
