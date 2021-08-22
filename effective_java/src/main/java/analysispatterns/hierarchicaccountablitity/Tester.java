@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 
 public class Tester {
 
-    private static final PartyType nation = new PartyType("nation");
-    private static final PartyType state = new PartyType("state");
-    private static final PartyType county = new PartyType("county");
-    private static final PartyType city = new PartyType("city");
+    private PartyType nation = new PartyType("nation");
+    private PartyType state = new PartyType("state");
+    private PartyType county = new PartyType("county");
+    private PartyType city = new PartyType("city");
 
-    private static Party usa, ma, nh, middlesex, melrose;
+    private Party usa, ma, nh, middlesex, melrose;
 
-    private static final LevelledAccountabilityType region = new LevelledAccountabilityType("region");
+    private final LevelledAccountabilityType region = new LevelledAccountabilityType("region");
 
     @BeforeEach
-    public static void setUp() {
+    public void setUp() {
         final PartyType[] levels = {nation, state, county, city};
 
         usa = new Party("usa", nation);
@@ -38,6 +38,15 @@ public class Tester {
     @Test
     public void testLevels() {
         Assertions.assertTrue(melrose.ancestorsInclude(ma, region));
+    }
+
+    @Test
+    public void testReversedLevels() {
+        try {
+            Accountability.create(ma, usa, region);
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
     }
     
 
