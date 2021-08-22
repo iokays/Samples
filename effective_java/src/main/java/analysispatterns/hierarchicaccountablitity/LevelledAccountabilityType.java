@@ -1,7 +1,5 @@
 package analysispatterns.hierarchicaccountablitity;
 
-import analysispatterns.partytypegeneralizations.PartyType;
-
 public class LevelledAccountabilityType extends AccountabilityType {
 
     private PartyType[] levels;
