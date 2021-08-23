@@ -49,6 +49,27 @@ public class Tester {
             ignore.printStackTrace();
         }
     }
-    
+
+    @Test
+    public void testSameLevels() {
+        try {
+            Accountability.create(ma, nh, region);
+            Assertions.fail();
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSkipLevels() {
+        try {
+            Accountability.create(ma, melrose, region);
+            Assertions.fail();
+        } catch (Exception ignore) {
+            ignore.printStackTrace();
+        }
+
+    }
+
 
 }
