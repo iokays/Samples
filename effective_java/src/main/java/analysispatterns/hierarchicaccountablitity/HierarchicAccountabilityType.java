@@ -1,8 +1,8 @@
 package analysispatterns.hierarchicaccountablitity;
 
-public class DirectionalAccountabilityType extends AccountabilityType {
+public class HierarchicAccountabilityType extends AccountabilityType {
 
-    public DirectionalAccountabilityType(String name) {
+    public HierarchicAccountabilityType(String name) {
         super(name);
     }
 
