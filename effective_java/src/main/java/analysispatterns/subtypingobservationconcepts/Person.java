@@ -1,6 +1,6 @@
 package analysispatterns.subtypingobservationconcepts;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class Person extends NamedObject {
 

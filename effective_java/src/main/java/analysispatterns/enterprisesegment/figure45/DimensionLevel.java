@@ -1,6 +1,6 @@
 package analysispatterns.enterprisesegment.figure45;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class DimensionLevel extends NamedObject {
 

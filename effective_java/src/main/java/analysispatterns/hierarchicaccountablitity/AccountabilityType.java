@@ -1,6 +1,6 @@
 package analysispatterns.hierarchicaccountablitity;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public abstract class AccountabilityType extends NamedObject {
 

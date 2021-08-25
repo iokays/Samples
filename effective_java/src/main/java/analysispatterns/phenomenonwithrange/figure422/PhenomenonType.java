@@ -1,6 +1,6 @@
 package analysispatterns.phenomenonwithrange.figure422;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class PhenomenonType extends NamedObject {
 

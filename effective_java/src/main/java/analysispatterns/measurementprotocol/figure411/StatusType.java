@@ -1,6 +1,6 @@
 package analysispatterns.measurementprotocol.figure411;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class StatusType extends NamedObject {
 

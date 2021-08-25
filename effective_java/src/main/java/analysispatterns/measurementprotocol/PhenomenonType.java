@@ -1,6 +1,6 @@
 package analysispatterns.measurementprotocol;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class PhenomenonType extends NamedObject {
 

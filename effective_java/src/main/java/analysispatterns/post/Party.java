@@ -1,6 +1,6 @@
 package analysispatterns.post;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class Party extends NamedObject {
 

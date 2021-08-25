@@ -1,6 +1,6 @@
 package analysispatterns.measurementprotocol.figure417;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class Dimension extends NamedObject {
 

@@ -1,6 +1,6 @@
 package analysispatterns.accountability;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 /**
  * todo

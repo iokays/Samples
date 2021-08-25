@@ -1,6 +1,6 @@
 package analysispatterns.quantity;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class Unit extends NamedObject {
 

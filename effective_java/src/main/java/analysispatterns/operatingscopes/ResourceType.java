@@ -1,6 +1,6 @@
 package analysispatterns.operatingscopes;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class ResourceType extends NamedObject {
 

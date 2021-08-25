@@ -1,6 +1,6 @@
 package analysispatterns.party;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class EmailAddress extends NamedObject {
 

@@ -1,6 +1,6 @@
 package analysispatterns.organizationhierarchy;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;

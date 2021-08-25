@@ -1,6 +1,6 @@
 package analysispatterns.enterprisesegment;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class ObjectOfCare extends NamedObject {
 

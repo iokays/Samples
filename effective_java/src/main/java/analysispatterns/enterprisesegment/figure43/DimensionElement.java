@@ -1,6 +1,6 @@
 package analysispatterns.enterprisesegment.figure43;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 import com.google.common.base.Preconditions;
 
 public class DimensionElement extends NamedObject {

@@ -1,6 +1,6 @@
 package analysispatterns.range.figure419;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class TimeQuantity extends NamedObject {
 

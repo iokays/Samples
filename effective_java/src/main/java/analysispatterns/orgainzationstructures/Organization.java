@@ -1,9 +1,6 @@
 package analysispatterns.orgainzationstructures;
 
-import analysispatterns.NamedObject;
-import analysispatterns.TimePeriod;
-import analysispatterns.accountability.AccountabilityType;
-import analysispatterns.accountability.Party;
+import analysispatterns.name.NamedObject;
 import com.google.common.collect.Sets;
 
 import java.time.LocalDate;

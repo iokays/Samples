@@ -1,6 +1,6 @@
 package analysispatterns.orgainzationstructures;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class OrganizationStructureType extends NamedObject {
 

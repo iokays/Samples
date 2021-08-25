@@ -1,6 +1,6 @@
 package analysispatterns.conversionratio;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class Unit extends NamedObject {
 

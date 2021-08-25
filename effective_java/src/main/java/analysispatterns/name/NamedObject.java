@@ -1,4 +1,4 @@
-package analysispatterns;
+package analysispatterns.name;
 
 import java.io.Serializable;
 
