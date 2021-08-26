@@ -1,21 +1,40 @@
 package analysispatterns.quantity;
 
+import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.StringJoiner;
 
 public class Quantity implements Serializable {
 
-    private BigDecimal amount;
+    private Number amount;
 
     private Unit units;
 
-    public Quantity(BigDecimal amount, Unit unit) {
+    public Quantity add(Quantity quantity) {
+        Preconditions.checkNotNull(quantity);
+        Preconditions.checkState(this.units.equals(quantity.units()));
+        return new Quantity(this.amount.add(quantity.amount), this.units);
+    }
+
+    public Quantity(Number amount, Unit unit) {
         this.amount = amount;
         this.units = unit;
     }
 
-    public Quantity(Integer amount, String unit) {
-        this(BigDecimal.valueOf(amount), new Unit(unit));
+    protected Unit units() {
+        return units;
     }
 
+    public Number amount() {
+        return amount;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Quantity.class.getSimpleName() + "[", "]")
+                .add("amount=" + amount)
+                .add("units=" + units)
+                .toString();
+    }
 }

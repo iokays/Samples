@@ -1,10 +1,6 @@
 package analysispatterns.range;
 
-import analysispatterns.name.NamedObject;
+import java.io.Serializable;
 
-public class Magnitude extends NamedObject {
-
-    public Magnitude(String name) {
-        super(name);
-    }
+public abstract class Magnitude implements Comparable, Serializable {
 }
