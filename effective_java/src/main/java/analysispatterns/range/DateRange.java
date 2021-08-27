@@ -4,6 +4,7 @@ import analysispatterns.dualtimerecord.MfDate;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 
 public class DateRange implements Serializable {
@@ -35,12 +36,12 @@ public class DateRange implements Serializable {
         return start.after(end);
     }
 
-    public static DateRange upTo(LocalDate end) {
-        return new DateRange(LocalDate.of(2000, 1, 1), end);
+    public static DateRange upTo(MfDate end) {
+        return new DateRange(new MfDate(LocalDate.of(2000, 1, 1)), end);
     }
 
-    public static DateRange startingOn(LocalDate start) {
-        return new DateRange(start, LocalDate.of(2099, 12, 31));
+    public static DateRange startingOn(MfDate start) {
+        return new DateRange(start, new MfDate(LocalDate.of(2099, 12, 31)));
     }
 
 

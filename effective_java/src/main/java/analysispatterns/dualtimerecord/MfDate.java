@@ -1,12 +1,17 @@
 package analysispatterns.dualtimerecord;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 public class MfDate extends TimeRecord {
 
     private static final MfDate test = null;
 
     private LocalDate date;
+
+    public MfDate(int year, int month, int dayOfMonth) {
+        this(LocalDate.of(year, month, dayOfMonth));
+    }
 
     public MfDate(LocalDate date) {
         super();

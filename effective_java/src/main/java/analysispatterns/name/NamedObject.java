@@ -3,10 +3,11 @@ package analysispatterns.name;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
+import java.util.StringJoiner;
 
 public class NamedObject implements Serializable {
 
-    private final String name;
+    private String name = "no name";
 
     public NamedObject(String name) {
         this.name = name;
@@ -27,5 +28,10 @@ public class NamedObject implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
