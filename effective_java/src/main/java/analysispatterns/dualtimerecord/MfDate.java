@@ -1,16 +1,20 @@
 package analysispatterns.dualtimerecord;
 
 import java.time.LocalDate;
-import java.time.Month;
+import java.time.format.DateTimeFormatter;
 
-public class MfDate extends TimeRecord {
+public class MfDate extends TimeRecord implements Comparable {
 
-    private static final MfDate test = null;
+    private static MfDate myToday;
 
     private LocalDate date;
 
     public MfDate(int year, int month, int dayOfMonth) {
         this(LocalDate.of(year, month, dayOfMonth));
+    }
+
+    public MfDate() {
+        this(LocalDate.now());
     }
 
     public MfDate(LocalDate date) {
@@ -22,20 +26,13 @@ public class MfDate extends TimeRecord {
         return this.date;
     }
 
-    public static final MfDate now() {
-        return new MfDate(LocalDate.now());
-    }
-
     public boolean after (MfDate arg) {
         return date().isAfter(arg.date());
     }
     public boolean before (MfDate arg) {
         return date().isBefore(arg.date());
     }
-    public int compareTo(Object arg) {
-        MfDate other = (MfDate) arg;
-        return date().compareTo(other.date());
-    }
+
 
     public boolean equals(Object arg) {
         if (this == arg) return true;
@@ -52,4 +49,28 @@ public class MfDate extends TimeRecord {
         return addDays(-arg);
     }
 
+    public static void setToday(int year, int month, int day) {
+        MfDate.setToday(new MfDate(year, month, day));
+    }
+    public static void setToday(MfDate arg) {
+        myToday = arg;
+    }
+
+    public static MfDate today() {
+        return ((myToday == null) ? new MfDate() : myToday);
+    }
+
+    @Override
+    public int compareTo(Object arg) {
+        MfDate other = (MfDate) arg;
+        return date().compareTo(other.date());
+    }
+
+    @Override
+    public String toString() {
+        if (null == this.date) {
+            return null;
+        }
+        return this.date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
 }

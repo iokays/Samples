@@ -2,7 +2,7 @@ package analysispatterns.quantity;
 
 import analysispatterns.name.NamedObject;
 
-public class Currency extends NamedObject {
+public class Currency extends Unit {
 
     public Currency(String name) {
         super(name);

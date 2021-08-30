@@ -1,9 +1,10 @@
 package analysispatterns.name;
 
 import com.google.common.base.Objects;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
-import java.util.StringJoiner;
 
 public class NamedObject implements Serializable {
 
@@ -32,6 +33,6 @@ public class NamedObject implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }
