@@ -1,6 +1,6 @@
 package analysispatterns.account;
 
-import analysispatterns.dualtimerecord.TimePoint;
+import analysispatterns.dualtimerecord.MfDate;
 import analysispatterns.name.NamedObject;
 import analysispatterns.quantity.Currency;
 import analysispatterns.quantity.Money;
@@ -23,7 +23,7 @@ public class Account extends NamedObject {
         this.entries = Lists.newArrayList();
     }
 
-    public void Entry(final Money money, TimePoint date) {
+    public void Entry(final Money money, MfDate date) {
         Preconditions.checkState(Objects.equals(this.currency, money.currency()));
         entries.add(new Entry(money, date));
     }

@@ -1,4 +1,4 @@
-package analysispatterns.party;
+package analysispatterns.name;
 
 import analysispatterns.name.NamedObject;
 

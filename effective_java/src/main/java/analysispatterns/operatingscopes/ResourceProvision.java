@@ -6,8 +6,5 @@ public class ResourceProvision extends OperatingScope {
 
     private ResourceType resourceType;
 
-    public ResourceProvision(String name) {
-        super(name);
-    }
 
 }

@@ -150,6 +150,12 @@ public class Selection {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+        String[] a = {"A", "B",  "D", "C", "E"};
+        Selection.sort(a);
+        show(a);
+    }
+
+    private static void source() {
         String[] a = StdIn.readAllStrings();
         Selection.sort(a);
         show(a);

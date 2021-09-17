@@ -1,5 +1,9 @@
 package analysispatterns.party;
 
+import analysispatterns.name.Address;
+import analysispatterns.name.EmailAddress;
+import analysispatterns.name.TelephoneNumber;
+
 public class SimplePartyFactory {
 
     public static Party create(final String type, final String aName, final String aTelephoneNumber, final String anAddress, final String anEmailAddress) {

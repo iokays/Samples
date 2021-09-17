@@ -1,6 +1,6 @@
 package analysispatterns.account;
 
-import analysispatterns.dualtimerecord.TimePoint;
+import analysispatterns.dualtimerecord.MfDate;
 import analysispatterns.quantity.Money;
 
 import java.io.Serializable;
@@ -9,13 +9,13 @@ public class Entry implements Serializable {
 
     private Money quantity;
 
-    private TimePoint whenCharged;
+    private MfDate whenCharged;
 
-    private TimePoint whenBooked;
+    private MfDate whenBooked;
 
-    public Entry(Money quantity, TimePoint whenBooked) {
+    public Entry(Money quantity, MfDate whenBooked) {
         this.quantity = quantity;
         this.whenBooked = whenBooked;
-        this.whenCharged = TimePoint.now();
+        this.whenCharged = MfDate.today();
     }
 }

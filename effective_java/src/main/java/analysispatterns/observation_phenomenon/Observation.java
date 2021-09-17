@@ -1,4 +1,4 @@
-package analysispatterns.observation;
+package analysispatterns.observation_phenomenon;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -9,16 +9,9 @@ public abstract class Observation implements Serializable {
 
     private Person person;
 
-    private PhenomenonType phenomenonType;
-
-    public Observation(Person person, PhenomenonType phenomenonType) {
+    public Observation(Person person) {
         this.person = person;
         this.person.addObservation(this);
-        this.phenomenonType = phenomenonType;
-    }
-
-    public PhenomenonType phenomenonType() {
-        return phenomenonType;
     }
 
     @Override

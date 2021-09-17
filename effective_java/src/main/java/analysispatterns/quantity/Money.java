@@ -6,7 +6,7 @@ import com.google.common.base.Preconditions;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class Money implements Comparable {
+public class Money implements Quantity, Comparable {
 
     private BigInteger amount;
     private Currency currency;
@@ -31,7 +31,6 @@ public class Money implements Comparable {
         this.amount = amountInPennies;
         this.currency = currency;
     }
-
     public Money(long amount, Currency currency) {
         this.amount = BigInteger.valueOf(amount * 100);
         this.currency = currency;

@@ -1,6 +1,8 @@
 package analysispatterns.orgainzationstructures;
 
 import analysispatterns.TimePeriod;
+import analysispatterns.range.DateRange;
+import com.google.common.base.Preconditions;
 
 import java.io.Serializable;
 
@@ -10,11 +12,13 @@ public class OrganizationStructure implements Serializable {
 
     private Organization child;
 
-    private TimePeriod timePeriod;
+    private DateRange timePeriod;
 
     private OrganizationStructureType organizationStructureType;
 
-    public OrganizationStructure(Organization parent, Organization child, TimePeriod timePeriod, OrganizationStructureType organizationStructureType) {
+    public OrganizationStructure(Organization parent, Organization child, DateRange timePeriod, OrganizationStructureType organizationStructureType) {
+        this.organizationStructureType.isValid(parent, child);
+
         this.parent = parent;
         this.parent.addChildrenOrganizationStructures(this);
         this.child = child;
@@ -31,7 +35,7 @@ public class OrganizationStructure implements Serializable {
         return child;
     }
 
-    public TimePeriod timePeriod() {
+    public DateRange timePeriod() {
         return timePeriod;
     }
 

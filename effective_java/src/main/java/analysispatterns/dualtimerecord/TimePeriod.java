@@ -2,8 +2,8 @@ package analysispatterns.dualtimerecord;
 
 public class TimePeriod extends TimeRecord {
 
-    private TimePoint start;
+    private MfDate start;
 
-    private TimePoint end;
+    private MfDate end;
 
 }

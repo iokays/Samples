@@ -6,7 +6,4 @@ public class ProtocolScope extends OperatingScope {
 
     private Protocol protocol;
 
-    public ProtocolScope(String name) {
-        super(name);
-    }
 }

@@ -1,6 +1,5 @@
 package analysispatterns.name;
 
-import com.google.common.base.Objects;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,17 +17,15 @@ public class NamedObject implements Serializable {
         return name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NamedObject that = (NamedObject) o;
-        return Objects.equal(name, that.name);
+    protected void assertNonNull(Object arg) {
+        if (arg == null) {
+            throw new NullPointerException();
+        }
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name);
+    protected void assertNonNull(Object arg, String message) {
+        if (arg == null) {
+            throw new NullPointerException(message);
+        }
     }
 
     @Override

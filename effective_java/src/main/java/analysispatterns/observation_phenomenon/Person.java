@@ -1,4 +1,4 @@
-package analysispatterns.observation;
+package analysispatterns.observation_phenomenon;
 
 import analysispatterns.name.NamedObject;
 import analysispatterns.quantity.Quantity;
@@ -35,8 +35,11 @@ public class Person extends NamedObject {
     public Measurement valueOf(final PhenomenonType phenomenonType) {
         if (CollectionUtils.isNotEmpty(this.observations)) {
             for (Observation observation : this.observations) {
-                if (observation.phenomenonType().equals(phenomenonType)) {
-                    return (Measurement) observation;
+                if (observation instanceof Measurement) {
+                    Measurement measurement = (Measurement) observation;
+                    if (measurement.phenomenonType().equals(phenomenonType)) {
+                        return (Measurement) observation;
+                    }
                 }
             }
         }

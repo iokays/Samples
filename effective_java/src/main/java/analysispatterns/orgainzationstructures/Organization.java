@@ -1,5 +1,6 @@
 package analysispatterns.orgainzationstructures;
 
+import analysispatterns.dualtimerecord.MfDate;
 import analysispatterns.name.NamedObject;
 import com.google.common.collect.Sets;
 
@@ -42,9 +43,9 @@ public class Organization extends NamedObject {
                 .map(OrganizationStructure::parent).collect(Collectors.toSet());
     }
 
-    public Set<Organization> parents(final OrganizationStructureType aType, final LocalDate aDate) {
+    public Set<Organization> parents(final OrganizationStructureType aType, final MfDate aDate) {
         return this.parentOrganizationStructures.stream()
-                .filter(v -> v.organizationStructureType().equals(aType) && v.timePeriod().contains(aDate))
+                .filter(v -> v.organizationStructureType().equals(aType) && v.timePeriod().includes(aDate))
                 .map(OrganizationStructure::parent).collect(Collectors.toSet());
     }
 
@@ -58,9 +59,9 @@ public class Organization extends NamedObject {
                 .map(OrganizationStructure::child).collect(Collectors.toSet());
     }
 
-    public Set<Organization> children(final OrganizationStructureType aType, final LocalDate aDate) {
+    public Set<Organization> children(final OrganizationStructureType aType, final MfDate aDate) {
         return this.childrenOrganizationStructures.stream()
-                .filter(v -> v.organizationStructureType().equals(aType) && v.timePeriod().contains(aDate))
+                .filter(v -> v.organizationStructureType().equals(aType) && v.timePeriod().includes(aDate))
                 .map(OrganizationStructure::child).collect(Collectors.toSet());
     }
 

@@ -1,6 +1,9 @@
 package analysispatterns.party;
 
+import analysispatterns.name.Address;
+import analysispatterns.name.EmailAddress;
 import analysispatterns.name.NamedObject;
+import analysispatterns.name.TelephoneNumber;
 
 public class Party extends NamedObject {
 

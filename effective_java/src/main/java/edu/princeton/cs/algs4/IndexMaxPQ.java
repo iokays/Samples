@@ -341,6 +341,11 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+        extracted();
+
+    }
+
+    private static void extracted() {
         // insert a bunch of strings
         String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
 
@@ -387,7 +392,6 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
             pq.delete(perm[i]);
             StdOut.println(perm[i] + " " + key);
         }
-
     }
 }
 

@@ -1,10 +1,12 @@
 package analysispatterns.operatingscopes;
 
-import analysispatterns.name.NamedObject;
+import java.io.Serializable;
 
-public class OperatingScope extends NamedObject {
+public class OperatingScope implements Serializable {
 
-    public OperatingScope(String name) {
-        super(name);
-    }
+    private Accountability accountability;
+
+    private Location location;
+
+
 }
