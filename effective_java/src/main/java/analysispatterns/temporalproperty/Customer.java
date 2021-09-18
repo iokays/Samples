@@ -1,6 +1,6 @@
 package analysispatterns.temporalproperty;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 import analysispatterns.name.NamedObject;
 
 public class Customer extends NamedObject {

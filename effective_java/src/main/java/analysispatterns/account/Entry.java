@@ -1,6 +1,6 @@
 package analysispatterns.account;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 import analysispatterns.quantity.Money;
 
 import java.io.Serializable;

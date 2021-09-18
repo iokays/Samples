@@ -1,6 +1,6 @@
 package analysispatterns.effectivity;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 import analysispatterns.range.DateRange;
 
 import java.io.Serializable;

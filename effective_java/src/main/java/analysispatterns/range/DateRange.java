@@ -1,10 +1,9 @@
 package analysispatterns.range;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.Arrays;
 
 public class DateRange implements Serializable {

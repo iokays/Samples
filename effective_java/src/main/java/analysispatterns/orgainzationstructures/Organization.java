@@ -1,10 +1,9 @@
 package analysispatterns.orgainzationstructures;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 import analysispatterns.name.NamedObject;
 import com.google.common.collect.Sets;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;

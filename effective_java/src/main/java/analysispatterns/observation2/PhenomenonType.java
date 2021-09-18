@@ -1,4 +1,4 @@
-package analysispatterns.protocol;
+package analysispatterns.observation2;
 
 import analysispatterns.name.NamedObject;
 

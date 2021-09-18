@@ -1,6 +1,6 @@
 package analysispatterns.temporalobject;
 
-import analysispatterns.dualtimerecord.MfDate;
+import analysispatterns.timerecord.MfDate;
 import analysispatterns.quantity.Money;
 import analysispatterns.temporalproperty.Address;
 import org.junit.jupiter.api.BeforeEach;

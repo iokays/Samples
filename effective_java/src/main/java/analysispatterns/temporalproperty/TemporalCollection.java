@@ -1,13 +1,6 @@
 package analysispatterns.temporalproperty;
 
-import analysispatterns.dualtimerecord.MfDate;
-import com.google.common.collect.Maps;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import analysispatterns.timerecord.MfDate;
 
 public interface TemporalCollection {
     Object get(MfDate when);

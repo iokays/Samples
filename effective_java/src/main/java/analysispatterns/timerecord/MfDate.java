@@ -1,4 +1,4 @@
-package analysispatterns.dualtimerecord;
+package analysispatterns.timerecord;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

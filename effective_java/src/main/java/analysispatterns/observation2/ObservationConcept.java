@@ -1,11 +1,11 @@
-package analysispatterns.protocol;
+package analysispatterns.observation2;
 
 import analysispatterns.name.NamedObject;
 import edu.princeton.cs.algs4.Bag;
 
 import java.util.Arrays;
 
-public class ObservationConcept extends NamedObject {
+public abstract class ObservationConcept extends NamedObject {
 
     private Bag<ObservationConcept> supertypes;
 
@@ -23,8 +23,6 @@ public class ObservationConcept extends NamedObject {
             Arrays.stream(supertypes).forEach(v -> this.addSupertype(v));
         }
     }
-
-
 
     public void addSupertype(final ObservationConcept observationConcept) {
         if (null == this.supertypes) {
