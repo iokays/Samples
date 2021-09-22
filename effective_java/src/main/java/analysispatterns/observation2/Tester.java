@@ -62,6 +62,21 @@ public class Tester {
 
     }
 
+    @DisplayName("4.1 Samples")
+    @Test
+    public void testEnterpriseSegment() {
+        final var geographic = new Dimension("geographic", "market", "region", "area");
+
+        final var all = DimensionElement.all(geographic);
+        final var usa = new DimensionElement("USA", geographic, all);
+        final var northeast = new DimensionElement("Northeast", geographic, usa);
+        final var newHampshire = new DimensionElement("New Hampshire", geographic, northeast);
+
+        System.out.println(geographic.level(newHampshire.level()));
+
+    }
+
+
     @Test
     public void testObservation() {
 
