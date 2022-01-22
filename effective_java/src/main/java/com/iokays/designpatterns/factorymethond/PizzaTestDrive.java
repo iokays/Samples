@@ -13,8 +13,7 @@ public class PizzaTestDrive {
 
         pizza = chicagoStore.orderPizza("cheese");
         System.out.printf("Joel ordered a %s \n", pizza.getName());
-        
-    }
 
+    }
 
 }
