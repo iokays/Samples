@@ -244,15 +244,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // delete the key-value pair with the minimum key rooted at h
     private Node deleteMin(Node h) {
 
-        //左结点不存在, 当前结点为最小值.
+        //左结点不存在, 含有最小值的3-或4-结点, 并删除最小值.
         if (h.left == null)
             return null;
 
-        //左节点为2结点. 借.
+        //如果: 左节点为2-结点. 借, 使h.left 为3-或4-结点.
         if (!isRed(h.left) && !isRed(h.left.left))
             h = moveRedLeft(h);
 
+        //可能是下一个结点, 也可能是3-或4-结点中 左移查询最小值
         h.left = deleteMin(h.left);
+
         return balance(h);
     }
 
