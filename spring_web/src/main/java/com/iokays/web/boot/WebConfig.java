@@ -23,6 +23,19 @@ public class WebConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
 
     @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    /**
+     * 添加WEB拦截器
+     * @param registry
+     */
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HandlerInterceptor() {
             @Override
@@ -31,7 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
                     HandlerMethod handlerMethod = (HandlerMethod) handler;
                     final ApiOperation apiOperation = handlerMethod.getMethodAnnotation(ApiOperation.class);
 
-                    logger.info("handlerMethod: {}, apiOperation.notes: {}", handler, apiOperation.notes());
+//                    logger.info("handlerMethod: {}, apiOperation.notes: {}", handler, apiOperation.notes());
 
                 }
                 return true;
@@ -39,11 +52,5 @@ public class WebConfig implements WebMvcConfigurer {
         });
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/public", "classpath:/static/")
-                .setCacheControl(CacheControl.maxAge(Duration.ofDays(365)));
-    }
 
 }
