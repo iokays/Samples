@@ -32,7 +32,6 @@ public class Tester {
         Accountability.create(usa, nh, region);
         Accountability.create(ma, middlesex, region);
         Accountability.create(middlesex, melrose, region);
-
     }
 
     @Test
@@ -50,5 +49,14 @@ public class Tester {
         }
     }
     
+    @Test
+    public void testSameLevels() {
+        try {
+            Accountability.create(ma, nh, region);
+            Assertions.fail();
+        } catch (Exception ignore) {
+        }
+    }
+
 
 }
