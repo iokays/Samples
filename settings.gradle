@@ -1,1 +1,8 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
 include 'spring_aop', 'spring_web', 'spring_security', 'document', 'effective_java', 'spring_data_jpa', 'work'

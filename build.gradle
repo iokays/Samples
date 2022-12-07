@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id "org.springframework.boot" version "2.7.0"
+    id 'org.springframework.boot' version '3.0.0-RC1'
+    id 'io.spring.dependency-management' version '1.1.0-RC1'
 }
 
 sourceCompatibility = 17
@@ -15,8 +16,10 @@ subprojects {
     repositories {
         mavenLocal()
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'https://uk.maven.org/maven2' }
-        maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss/' }
+        maven { url 'https://repo.maven.apache.org/maven2' }
+        maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss' }
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
         mavenCentral()
     }
 
@@ -36,7 +39,7 @@ project(':spring_aop') {
 
     dependencies {
         implementation 'cglib:cglib:3.3.0'
-        implementation 'org.springframework.boot:spring-boot-starter:2.7.0'
+        implementation 'org.springframework.boot:spring-boot-starter'
     }
 }
 
@@ -45,7 +48,7 @@ project(':spring_web') {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'io.springfox:springfox-swagger2:2.9.2'
         implementation 'io.springfox:springfox-swagger-ui:2.9.2'
         implementation 'com.squareup.okhttp3:okhttp:3.5.0'
@@ -57,8 +60,8 @@ project(':spring_security') {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web:2.7.0'
-        implementation 'org.springframework.boot:spring-boot-starter-security:2.7.0'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
     }
 }
 
@@ -79,13 +82,14 @@ project(':effective_java') {
 
 project(':spring_data_jpa') {
     dependencies {
-        implementation 'org.springframework.data:spring-data-jpa:2.7.0'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 }
 
 project(':work') {
     apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
     dependencies {
-        implementation 'org.springframework.data:spring-data-jpa:2.7.0'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     }
 }
