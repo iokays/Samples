@@ -1,1 +1,1 @@
-include 'spring_aop', 'spring_web', 'spring_security', 'document', 'effective_java', 'spring_data_jpa'
+include 'spring_aop', 'spring_web', 'spring_security', 'document', 'effective_java', 'spring_data_jpa', 'work'

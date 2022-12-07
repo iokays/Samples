@@ -21,6 +21,3 @@ os.system('pip install markdownify -i https://mirrors.ustc.edu.cn/pypi/web/simpl
 os.system('pip install beautifulsoup4 -i https://mirrors.ustc.edu.cn/pypi/web/simple/')
 os.system('pip install lxml -i https://mirrors.ustc.edu.cn/pypi/web/simple/')
 os.system('pip install openpyxl -i https://mirrors.ustc.edu.cn/pypi/web/simple/')
-
-
-
