@@ -91,5 +91,6 @@ project(':work') {
     apply plugin: 'io.spring.dependency-management'
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     }
 }
