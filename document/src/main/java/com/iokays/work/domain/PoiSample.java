@@ -1,4 +1,4 @@
-package com.iokays.work;
+package com.iokays.work.domain;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
