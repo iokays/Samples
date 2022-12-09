@@ -111,6 +111,7 @@ project(':work') {
         implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
         implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
         implementation 'io.springboot.plugin:jasypt-spring-boot-starter:3.1.0'
+        implementation 'org.apache.commons:commons-csv:1.9.0'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }

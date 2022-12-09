@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 @SpringBootTest(classes = Application.class)
@@ -20,7 +21,7 @@ public class ApplicationServiceTest {
     private ApplicationService applicationService;
 
     @Test
-    public void transfer() {
+    public void transfer() throws IOException {
         applicationService.transfer();
     }
 

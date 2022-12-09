@@ -1,11 +1,13 @@
 package com.iokays.work.domain;
 
+import com.google.common.collect.Lists;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Document(indexName = "localhost_industrial_enterprise_all_text_2")
 public class Enterprise implements Serializable {
@@ -829,5 +831,180 @@ public class Enterprise implements Serializable {
     public void setTag_9(String tag_9) {
         this.tag_9 = tag_9;
     }
+
+    public List<String> list() {
+        final List<String> result = Lists.newArrayList();
+        result.add(this.getEid());
+        result.add(this.getFormat_name());
+        result.add(this.getRegist_capi());
+        result.add(this.getActual_capi());
+        result.add(this.getScope());
+        result.add(this.getTerm_start());
+        result.add(this.getTerm_end());
+        result.add(this.getCheck_date());
+        result.add(this.getBelong_org());
+        result.add(this.getOper_name());
+        result.add(this.getOper_type());
+        result.add(this.getOper_name_id());
+        result.add(this.getStatus());
+        result.add(this.getTitle());
+        result.add(this.getLongitude());
+        result.add(this.getLatitude());
+        result.add(this.getGd_longitude());
+        result.add(this.getGd_latitude());
+        result.add(this.getCollegues_num());
+        result.add(this.getCreated_time());
+        result.add(this.getLogo_url());
+        result.add(this.getEcon_type());
+        result.add(this.getDepartment());
+        result.add(this.getUrl());
+        result.add(this.getTitle_code());
+        result.add(this.getRegist_capi_new());
+        result.add(this.getCurrency_unit());
+        result.add(this.getRevoke_reason());
+        result.add(this.getRevoke_date());
+        result.add(this.getLogout_reason());
+        result.add(this.getLogout_date());
+        result.add(this.getRevoked_certificates());
+        result.add(this.getNew_status_code());
+        result.add(this.getType_new());
+        result.add(this.getCategory_new());
+        result.add(this.getReg_no());
+        result.add(this.getCredit_no());
+        result.add(this.getOrg_no());
+        result.add(this.getName());
+        result.add(this.getStart_date());
+        result.add(this.getProvince_code());
+        result.add(this.getDistrict_code());
+        result.add(this.getCity_code());
+        result.add(this.getArea_code());
+        result.add(this.getProvince_name());
+        result.add(this.getCity_name());
+        result.add(this.getArea_name());
+        result.add(this.getTelephone());
+        result.add(this.getWeb_url());
+        result.add(this.getEmail());
+        result.add(this.getAddress());
+        result.add(this.getHad_branches());
+        result.add(this.getHad_change());
+        result.add(this.getClear_ccount());
+        result.add(this.getEmployees_count());
+        result.add(this.getPartners_count());
+        result.add(this.getIs_cancellation());
+        result.add(this.getSocial_security_count());
+        result.add(this.getIndustry_code());
+        result.add(this.getIndustry_name());
+        result.add(this.getEcon_kind_code());
+        result.add(this.getEcon_name());
+        result.add(this.getHad_serious_illegal());
+        result.add(this.getHad_judicial_freezes());
+        result.add(this.getHad_enterprise_investment());
+        result.add(this.getHad_knowledge_properties());
+        result.add(this.getHad_mortgages());
+        result.add(this.getHad_equityquality());
+        result.add(this.getHad_abnormal());
+        result.add(this.getHad_administrative_punishment());
+        result.add(this.getHad_license());
+        result.add(this.getHad_checkups());
+        result.add(this.getHad_double_checkups());
+        result.add(this.getTag_1());
+        result.add(this.getTag_2());
+        result.add(this.getTag_3());
+        result.add(this.getTag_4());
+        result.add(this.getTag_5());
+        result.add(this.getTag_6());
+        result.add(this.getTag_7());
+        result.add(this.getTag_8());
+        result.add(this.getTag_9());
+        return result;
+    }
+
+    public static Enterprise build(final List<String> list) {
+//        eid;
+//        format_name;
+//        regist_capi;
+//        actual_capi;
+//        scope;
+//        term_start;
+//        term_end;
+//        check_date;
+//        belong_org;
+//        oper_name;
+//        oper_type;
+//        oper_name_id;
+//        status;
+//        title;
+//        longitude;
+//        latitude;
+//        gd_longitude;
+//        gd_latitude;
+//        collegues_num;
+//        created_time;
+//        logo_url;
+//        econ_type;
+//        department;
+//        url;
+//        title_code;
+//        regist_capi_new;
+//        currency_unit;
+//        revoke_reason;
+//        revoke_date;
+//        logout_reason;
+//        logout_date;
+//        revoked_certificates;
+//        new_status_code;
+//        type_new;
+//        category_new;
+//        reg_no;
+//        credit_no;
+//        org_no;
+//        name;
+//        start_date;
+//        province_code;
+//        district_code;
+//        city_code;
+//        area_code;
+//        province_name;
+//        city_name;
+//        area_name;
+//        telephone;
+//        web_url;
+//        email;
+//        address;
+//        had_branches;
+//        had_change;
+//        clear_ccount;
+//        employees_count;
+//        partners_count;
+//        is_cancellation;
+//        social_security_count;
+//        industry_code;
+//        industry_name;
+//        econ_kind_code;
+//        econ_name;
+//        had_serious_illegal;
+//        had_judicial_freezes;
+//        had_enterprise_investment;
+//        had_knowledge_properties;
+//        had_mortgages;
+//        had_equityquality;
+//        had_abnormal;
+//        had_administrative_punishment;
+//        had_license;
+//        had_checkups;
+//        had_double_checkups;
+//        tag_1;
+//        tag_2;
+//        tag_3;
+//        tag_4;
+//        tag_5;
+//        tag_6;
+//        tag_7;
+//        tag_8;
+//        tag_9;
+
+        return null;
+    }
+
 }
 

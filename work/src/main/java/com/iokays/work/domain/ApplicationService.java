@@ -43,7 +43,7 @@ public class ApplicationService {
         }
         indexOps.refresh();
 
-        var minEid = "17b3dcf1-52c1-4149-a446-a2bbb656c119";
+        var minEid = "0";
         final AtomicInteger count = new AtomicInteger();
         while (StringUtils.isNotBlank(minEid)) {
 
