@@ -232,6 +232,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         if (isEmpty()) throw new NoSuchElementException("BST underflow");
 
         // if both children of root are black, set root to red
+        //为什么要有这一步, 只是为了翻转(flipColors)吗?
         if (!isRed(root.left) && !isRed(root.right))
             root.color = RED;
 
@@ -241,14 +242,19 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     // delete the key-value pair with the minimum key rooted at h
-    private Node deleteMin(Node h) { 
+    private Node deleteMin(Node h) {
+
+        //左结点不存在, 含有最小值的3-或4-结点, 并删除最小值.
         if (h.left == null)
             return null;
 
+        //如果: 左节点为2-结点. 借, 使h.left 为3-或4-结点.
         if (!isRed(h.left) && !isRed(h.left.left))
             h = moveRedLeft(h);
 
+        //可能是下一个结点, 也可能是3-或4-结点中 左移查询最小值
         h.left = deleteMin(h.left);
+
         return balance(h);
     }
 
@@ -317,10 +323,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         else {
             if (isRed(h.left))
                 h = rotateRight(h);
+
+            //通过上的右旋, 下面的借左边结点, 保证了h.right为空时,h.left也是空结点. 并且h还是一个红结点.
             if (key.compareTo(h.key) == 0 && (h.right == null))
                 return null;
+
             if (!isRed(h.right) && !isRed(h.right.left))
                 h = moveRedRight(h);
+
             if (key.compareTo(h.key) == 0) {
                 Node x = min(h.right);
                 h.key = x.key;
@@ -381,11 +391,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         // assert (h != null);
         // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
 
+        //翻转, 为临时4结点
         flipColors(h);
+        //从右结点,借一个结点.
         if (isRed(h.right.left)) { 
             h.right = rotateRight(h.right);
             h = rotateLeft(h);
+            //借完还原翻转.
             flipColors(h);
+        } else {
+            //nothing. 标准的4结点.
         }
         return h;
     }

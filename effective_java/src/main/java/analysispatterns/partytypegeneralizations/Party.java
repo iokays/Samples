@@ -1,6 +1,6 @@
 package analysispatterns.partytypegeneralizations;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 import com.google.common.collect.Sets;
 
 import java.util.Set;

@@ -10,5 +10,4 @@ public class SpringSecuritySample {
         SpringApplication.run(SpringSecuritySample.class, args);
     }
 
-
 }

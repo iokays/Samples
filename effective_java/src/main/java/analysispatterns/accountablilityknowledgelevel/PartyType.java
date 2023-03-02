@@ -1,6 +1,6 @@
 package analysispatterns.accountablilityknowledgelevel;
 
-import analysispatterns.NamedObject;
+import analysispatterns.name.NamedObject;
 
 public class PartyType extends NamedObject {
 
