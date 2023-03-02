@@ -9,3 +9,8 @@ gradlew.bat
 gradle/
 workspace
 *.class
+*.settings
+out
+bin
+settings.json
+application-encrypted.yml

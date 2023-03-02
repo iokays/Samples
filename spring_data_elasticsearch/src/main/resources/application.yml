@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: work
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: localhost:9200
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
