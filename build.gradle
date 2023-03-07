@@ -35,7 +35,9 @@ subprojects {
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'org.jasypt:jasypt:1.9.3'
         implementation 'org.projectlombok:lombok:1.18.24'
-        implementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+
+        implementation 'com.github.javafaker:javafaker:1.0.2'
+        implementation 'org.jeasy:easy-random-core:5.0.0'
     }
 }
 
@@ -50,7 +52,20 @@ project(':spring_aop') {
     }
 }
 
+
 project(':spring_web') {
+
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    }
+}
+
+project(':spring_web_swagger2') {
 
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -63,7 +78,7 @@ project(':spring_web') {
     }
 }
 
-project(':spring_security') {
+project(':spring_web_security') {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     dependencies {

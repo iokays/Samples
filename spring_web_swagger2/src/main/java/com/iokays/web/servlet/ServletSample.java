@@ -1,6 +1,7 @@
 package com.iokays.web.servlet;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
+
 import java.io.IOException;
 
 public class ServletSample implements Servlet {

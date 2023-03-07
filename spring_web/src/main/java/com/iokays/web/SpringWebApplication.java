@@ -1,13 +1,11 @@
-package com.iokays.security;
+package com.iokays.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecuritySample {
-
+public class SpringWebApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringSecuritySample.class, args);
+        SpringApplication.run(SpringWebApplication.class, args);
     }
-
 }
