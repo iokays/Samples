@@ -18,6 +18,16 @@ public class User implements Serializable {
     private String userName;
     private UserTypeEnum userType;
 
+    public User() {
+    }
+
+    public User(String userId, String userName, UserTypeEnum userType) {
+        this();
+        this.userId = userId;
+        this.userName = userName;
+        this.userType = userType;
+    }
+
     public String getUserId() {
         return userId;
     }
