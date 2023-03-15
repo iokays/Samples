@@ -6,7 +6,6 @@ interface BeforeAdvice
 Advice <|-- BeforeAdvice
 
 interface MethodBeforeAdvice {
-  void before(Method method, Object[] args, @Nullable Object target) throws Throwable
 }
 BeforeAdvice <|--- MethodBeforeAdvice
 
@@ -18,7 +17,6 @@ interface ThrowsAdvice
 AfterAdvice <|-- ThrowsAdvice
 
 interface AfterReturningAdvice {
-  void afterReturning(@Nullable Object returnValue, Method method, Object[] args, @Nullable Object target)
 }
 
 AfterAdvice <|-- AfterReturningAdvice
