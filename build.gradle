@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.0-RC1'
-    id 'io.spring.dependency-management' version '1.1.0-RC1'
+    id 'org.springframework.boot' version '3.0.5'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
 sourceCompatibility = 17
@@ -38,6 +38,11 @@ subprojects {
 
         implementation 'com.github.javafaker:javafaker:1.0.2'
         implementation 'org.jeasy:easy-random-core:5.0.0'
+    }
+}
+
+project(':onjava') {
+    dependencies {
     }
 }
 
@@ -87,7 +92,7 @@ project(':spring_web_security') {
     }
 }
 
-project(':document') {
+project(':z.document') {
     dependencies {
         implementation 'org.apache.poi:poi-examples:5.0.0'
         implementation 'org.apache.poi:poi:5.0.0'
@@ -95,7 +100,7 @@ project(':document') {
     }
 }
 
-project(':effective_java') {
+project(':z.effective_java') {
     dependencies {
     }
 }
@@ -117,7 +122,7 @@ project(':spring_data_elasticsearch') {
     }
 }
 
-project(':work') {
+project(':z.work') {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     dependencies {

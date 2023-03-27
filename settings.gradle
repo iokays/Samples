@@ -5,4 +5,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include 'spring_aop', 'spring_web', 'spring_web_security', 'spring_web_swagger2', 'document', 'effective_java', 'spring_data_jpa', 'work', 'spring_data_elasticsearch'
+include 'onjava', 'spring_aop', 'spring_web', 'spring_web_security', 'spring_web_swagger2', 'z.document', 'z.effective_java', 'spring_data_jpa', 'z.work', 'spring_data_elasticsearch'
