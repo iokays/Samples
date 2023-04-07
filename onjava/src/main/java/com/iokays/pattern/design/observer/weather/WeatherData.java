@@ -1,4 +1,4 @@
-package com.iokays.pattern.design.observer.Weather;
+package com.iokays.pattern.design.observer.weather;
 
 import java.util.ArrayList;
 import java.util.List;

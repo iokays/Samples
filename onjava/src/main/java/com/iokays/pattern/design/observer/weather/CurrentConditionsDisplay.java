@@ -1,4 +1,4 @@
-package com.iokays.pattern.design.observer.Weather;
+package com.iokays.pattern.design.observer.weather;
 
 public class CurrentConditionsDisplay implements Observer, DisplayElement {
 	private float temperature;
