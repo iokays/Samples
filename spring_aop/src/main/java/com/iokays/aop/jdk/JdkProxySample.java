@@ -7,9 +7,7 @@ import io.swagger.annotations.ApiModel;
 public class JdkProxySample {
 
     public static void main(String[] args) {
-
-
-
+        
     }
 
 }

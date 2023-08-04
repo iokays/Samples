@@ -1,4 +1,6 @@
-package com.iokays.pattern.analysis.transaction;
+package com.iokays.pattern.analysis.summaryaccount;
+
+import Account;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +19,6 @@ public class Transaction {
         Entry toEntry = new Entry(amount, whenCharged, whenBooked);
         to.addEntry(toEntry);
         this.entries.add(toEntry);
-
     }
 
 }
