@@ -6,7 +6,7 @@ import java.util.concurrent.SubmissionPublisher;
 
 public class WeatherStation {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		/**
 		 * 定义一个发布者,需要设定要发送消息的泛型数据类型
 		 */
@@ -28,5 +28,9 @@ public class WeatherStation {
 		 * 关闭消息发布
 		 */
 		publisher.close(); //关闭后，如果当前线程未退出，待订阅者所有消息都处理完毕才会运行订阅者的onComplete方法
+
+
+		Thread.sleep(1000l);
+
 	}
 }

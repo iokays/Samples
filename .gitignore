@@ -14,3 +14,4 @@ out
 bin
 settings.json
 application-encrypted.yml
+.DS_Store
