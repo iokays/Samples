@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class Transaction {
+
     private Collection<Entry> entries = new HashSet<>();
 
     public Transaction(BigDecimal amount, Account from, Account to, LocalDateTime whenCharged, LocalDateTime whenBooked) {
