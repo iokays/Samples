@@ -1,6 +1,5 @@
 package com.iokays.pattern.analysis.summaryaccount;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
@@ -10,11 +9,12 @@ public class DetailAccount extends Account {
 
     private final List<Entry> entries;
 
-    public DetailAccount(final Account parent) {
-        super(parent);
+    public DetailAccount() {
         this.entries = Lists.newArrayList();
     }
 
+
+    @Override
     public void addEntry(final Entry entry) {
         this.entries.add(entry);
     }
@@ -22,12 +22,5 @@ public class DetailAccount extends Account {
     @Override
     public BigDecimal balance() {
         return this.entries.stream().map(Entry::amount).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-
-    @Override
-    void assertValidParent(Account aParent) {
-        Preconditions.checkState(aParent instanceof SummaryAccount, "父级必须为汇总账户");
-        super.assertValidParent(aParent);
     }
 }
