@@ -43,7 +43,7 @@ public class JDBCLockService implements LockService {
             lock = lockRegistry.obtain(MY_LOCK_KEY);
         } catch (Exception e) {
             // in a production environment this should be a log statement
-            System.out.println(String.format("Unable to obtain lock: %s", MY_LOCK_KEY));
+            System.out.printf("Unable to obtain lock: %s%n", MY_LOCK_KEY);
         }
         String returnVal = null;
         try {
