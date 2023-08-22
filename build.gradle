@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.5'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.3'
 }
 
 sourceCompatibility = 17
@@ -38,6 +38,7 @@ subprojects {
 
         implementation 'com.github.javafaker:javafaker:1.0.2'
         implementation 'org.jeasy:easy-random-core:5.0.0'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     }
 }
 
@@ -48,6 +49,20 @@ project(':A1.analysis_pattern') {
 
 project(':A2.design_pattern') {
     dependencies {
+    }
+}
+
+project(':B1.spring_boot') {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        implementation 'org.springframework.boot:spring-boot-starter-integration'
+        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+        implementation 'org.springframework.integration:spring-integration-jdbc'
+        implementation 'com.h2database:h2:2.2.220'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 }
 
@@ -71,7 +86,6 @@ project(':spring_web') {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
     }
 }
 
