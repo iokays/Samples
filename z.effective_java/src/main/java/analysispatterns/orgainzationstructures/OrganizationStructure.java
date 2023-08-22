@@ -1,8 +1,6 @@
 package analysispatterns.orgainzationstructures;
 
-import analysispatterns.TimePeriod;
 import analysispatterns.range.DateRange;
-import com.google.common.base.Preconditions;
 
 import java.io.Serializable;
 

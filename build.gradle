@@ -41,7 +41,12 @@ subprojects {
     }
 }
 
-project(':onjava') {
+project(':A1.analysis_pattern') {
+    dependencies {
+    }
+}
+
+project(':A2.design_pattern') {
     dependencies {
     }
 }
