@@ -1,4 +1,4 @@
-package com.iokays.boot.distributedlock;
+package com.iokays.boot.integration.distributedlock;
 
 public interface LockService {
     String lock();

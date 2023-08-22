@@ -1,4 +1,4 @@
-package com.iokays.boot.configuration;
+package com.iokays.boot.integration.distributedlock;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.iokays.boot.distributedlock;
+package com.iokays.boot.integration.distributedlock;
 
 import org.springframework.integration.jdbc.lock.JdbcLockRegistry;
 import org.springframework.integration.support.locks.LockRegistry;

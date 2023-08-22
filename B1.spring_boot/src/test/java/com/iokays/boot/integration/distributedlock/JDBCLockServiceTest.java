@@ -1,4 +1,4 @@
-package com.iokays.boot.distributedlock;
+package com.iokays.boot.integration.distributedlock;
 
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Assertions;

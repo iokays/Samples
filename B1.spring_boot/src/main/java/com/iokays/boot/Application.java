@@ -1,4 +1,4 @@
-package com.iokays.boot;
+package com.iokays.boot.integration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
