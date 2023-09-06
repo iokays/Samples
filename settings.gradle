@@ -5,4 +5,9 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-include 'A1.analysis_pattern', 'A2.design_pattern', 'B1.spring_boot', 'spring_aop', 'spring_web', 'spring_web_security', 'spring_web_swagger2', 'z.document', 'z.effective_java', 'spring_data_jpa', 'spring_data_elasticsearch'
+include 'A1.analysis_pattern'
+include 'A2.design_pattern'
+include 'B1.spring_boot', 'spring_aop', 'spring_web', 'spring_web_security', 'spring_web_swagger2', 'z.effective_java', 'spring_data_jpa', 'spring_data_elasticsearch'
+include 'B1.spring_boot:mysql'
+findProject(':B1.spring_boot:mysql')?.name = 'mysql'
+

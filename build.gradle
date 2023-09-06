@@ -53,18 +53,24 @@ project(':A2.design_pattern') {
 }
 
 project(':B1.spring_boot') {
-    apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
 
-    dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter'
-        implementation 'org.springframework.boot:spring-boot-starter-integration'
-        implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-        implementation 'org.springframework.integration:spring-integration-jdbc'
-        implementation 'com.h2database:h2:2.2.220'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    project(':B1.spring_boot:mysql') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.springframework.boot:spring-boot-starter-integration'
+            implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+            implementation 'org.springframework.integration:spring-integration-jdbc'
+            implementation 'mysql:mysql-connector-java:8.0.28'
+
+            testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        }
     }
+
 }
+
 
 project(':spring_aop') {
 
@@ -108,14 +114,6 @@ project(':spring_web_security') {
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-security'
-    }
-}
-
-project(':z.document') {
-    dependencies {
-        implementation 'org.apache.poi:poi-examples:5.0.0'
-        implementation 'org.apache.poi:poi:5.0.0'
-
     }
 }
 
