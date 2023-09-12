@@ -77,6 +77,33 @@ project(':B1.spring_boot') {
         }
     }
 
+    project(':B1.spring_boot:redis') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.springframework.boot:spring-boot-starter-integration'
+            implementation 'org.springframework.integration:spring-integration-redis'
+            implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+            implementation 'io.lettuce:lettuce-core:6.2.6.RELEASE'
+            implementation 'org.springframework.boot:spring-boot-starter-test'
+        }
+    }
+
+    project(':B1.spring_boot:core') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.springframework.boot:spring-boot-starter-test'
+
+            implementation 'io.opentelemetry:opentelemetry-extension-annotations:1.18.0'
+            implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure:1.30.1'
+        }
+    }
+
 }
 
 

@@ -1,10 +1,10 @@
 package com.iokays.onjava.blockchain;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Tester implements Serializable {
@@ -13,7 +13,7 @@ public class Tester implements Serializable {
     public void testBlock() {
 
         final Block firstBlock = new Block("0", "first block");
-        final var difficulty = 6;
+        final var difficulty = 5;
 
         firstBlock.mineBlock(difficulty);
         System.out.println("first block hash : " + firstBlock.getHash());
@@ -26,8 +26,9 @@ public class Tester implements Serializable {
         thirdBlock.mineBlock(difficulty);
         System.out.println("third block hash : " + thirdBlock.getHash());
 
-        final var list = Stream.of(firstBlock, secondBlock, thirdBlock).toList();
-        Block.isChainValid(list);
+        final var list = List.of(firstBlock, secondBlock, thirdBlock);
+
+        Assertions.assertTrue(Block.isChainValid(list));
 
         list.forEach(System.out::println);
     }
