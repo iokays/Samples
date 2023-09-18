@@ -16,3 +16,4 @@ settings.json
 application-encrypted.yml
 .DS_Store
 worker
+/B1.spring_boot/redis/src/main/java/com/iokays/boot/redis/worker/reentrantlock/*

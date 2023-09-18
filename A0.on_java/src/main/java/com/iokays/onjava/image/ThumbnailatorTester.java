@@ -1,6 +1,7 @@
 package com.iokays.onjava.image;
 
 
+import com.iokays.onjava.core.MemoryUtility;
 import com.sun.management.OperatingSystemMXBean;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.StringUtils;
@@ -14,8 +15,8 @@ import java.nio.file.Path;
 
 public class ThumbnailatorTester {
 
-    public static void main(String[] args) throws IOException {
-        getFreeMemoryPercentage();
+    public static void main(String[] args) throws IOException, InterruptedException {
+        MemoryUtility.getFreeMemoryPercentage();
         final var bytes = Files.readAllBytes(Path.of("/蒙娜丽莎.jpg"));
         System.out.println(bytes.length);
         getFreeMemoryPercentage();
