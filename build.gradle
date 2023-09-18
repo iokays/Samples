@@ -46,7 +46,7 @@ subprojects {
 
 project(':A0.on_java') {
     dependencies {
-
+        implementation 'net.coobird:thumbnailator:0.4.20'
     }
 }
 
