@@ -4,8 +4,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.3'
 }
 
-sourceCompatibility = 17
-targetCompatibility = 17
+sourceCompatibility = 21
+targetCompatibility = 21
 
 allprojects {
     apply plugin: 'java'
@@ -32,7 +32,6 @@ subprojects {
         implementation 'com.google.guava:guava:30.1.1-jre'
         implementation 'io.swagger:swagger-annotations:1.6.6'
         implementation 'io.swagger:swagger-models:1.6.6'
-        implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'commons-codec:commons-codec:1.16.0'
         implementation 'org.jasypt:jasypt:1.9.3'
@@ -105,6 +104,18 @@ project(':B1.spring_boot') {
 
             implementation 'io.opentelemetry:opentelemetry-extension-annotations:1.18.0'
             implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure:1.30.1'
+        }
+    }
+
+    project(':B1.spring_boot:integration') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.springframework.boot:spring-boot-starter-integration'
+            implementation 'mysql:mysql-connector-java:8.0.28'
+            implementation 'org.springframework.boot:spring-boot-starter-test'
         }
     }
 

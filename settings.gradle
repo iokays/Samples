@@ -12,7 +12,9 @@ include 'B1.spring_boot', 'spring_aop', 'spring_web', 'spring_web_security', 'sp
 include 'B1.spring_boot:core'
 include 'B1.spring_boot:mysql'
 include 'B1.spring_boot:redis'
+include 'B1.spring_boot:integration'
 
 findProject(':B1.spring_boot:mysql')?.name = 'mysql'
 findProject(':B1.spring_boot:redis')?.name = 'redis'
 findProject(':B1.spring_boot:core')?.name = 'core'
+findProject(':B1.spring_boot:integration')?.name = 'integration'
