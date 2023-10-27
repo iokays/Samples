@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class NamedObject implements Serializable {
 
@@ -27,6 +28,20 @@ public class NamedObject implements Serializable {
         if (arg == null) {
             throw new NullPointerException(message);
         }
+    }
+
+    @Override
+    public boolean equals(Object arg) {
+        if (!(arg instanceof NamedObject)) {
+            return false;
+        }
+        NamedObject other = (NamedObject) arg;
+        return Objects.equals(name(), other.name());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name());
     }
 
     @Override

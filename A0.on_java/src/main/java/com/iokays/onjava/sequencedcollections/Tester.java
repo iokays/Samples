@@ -13,7 +13,6 @@ public class Tester {
         sc.addLast("b");
         sc.addLast("c");
         sc.addFirst("a");
-
         System.out.println(sc);
     }
 

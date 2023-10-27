@@ -1,4 +1,4 @@
-package com.iokays.analysispattern.accountability;
+package com.iokays.analysispattern.accountabilityknowledgelevel;
 
 import com.google.common.collect.Sets;
 import com.iokays.analysispattern.base.NamedObject;
@@ -8,11 +8,18 @@ import java.util.stream.Collectors;
 
 public class Party extends NamedObject {
 
-    private final Set<Accountability> parentAccountabilities = Sets.newHashSet();
-    private final Set<Accountability> childAccountabilities =  Sets.newHashSet();
+    PartyType type;
 
-    public Party(String name) {
+    final Set<Accountability> parentAccountabilities = Sets.newHashSet();
+    final Set<Accountability> childAccountabilities =  Sets.newHashSet();
+
+    public Party(String name, PartyType type) {
         super(name);
+        this.type = type;
+    }
+
+    public PartyType type() {
+        return this.type;
     }
 
     public Set<Party> parents() {

@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.2'
+    id 'org.springframework.boot' version '3.1.5'
     id 'io.spring.dependency-management' version '1.1.3'
 }
 
@@ -50,6 +50,7 @@ project(':A0.on_java') {
         implementation 'ch.qos.logback:logback-classic:1.4.11'
         implementation 'net.coobird:thumbnailator:0.4.20'
         implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+        implementation 'org.jeasy:easy-rules:4.1.0'
     }
 }
 
@@ -116,6 +117,19 @@ project(':B1.spring_boot') {
             implementation 'org.springframework.boot:spring-boot-starter-integration'
             implementation 'mysql:mysql-connector-java:8.0.28'
             implementation 'org.springframework.boot:spring-boot-starter-test'
+        }
+    }
+
+    project(':B1.spring_boot:axon') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.axonframework:axon-spring-boot-starter:4.9.0'
+
+            implementation 'org.springframework.boot:spring-boot-starter-test'
+            implementation 'org.axonframework:axon-test:4.9.0'
         }
     }
 

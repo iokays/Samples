@@ -1,11 +1,11 @@
-package com.iokays.analysispattern.accountability;
+package com.iokays.analysispattern.accountabilityknowledgelevel;
 
 public class Accountability {
 
-    private final Party parent;
-    private final Party child;
+    final Party parent;
+    final Party child;
 
-    private final AccountabilityType type;
+    final AccountabilityType type;
 
     private Accountability(Party parent, Party child, AccountabilityType type) {
         this.parent = parent;
@@ -15,7 +15,7 @@ public class Accountability {
         this.type = type;
     }
 
-    public static Accountability create(Party parent, Party child, AccountabilityType type) {
+    static Accountability create(Party parent, Party child, AccountabilityType type) {
         if (!canCreate(parent, child, type)) {
             throw new IllegalArgumentException("Invalid Accountability");
         }
@@ -23,9 +23,10 @@ public class Accountability {
     }
 
     static boolean canCreate(Party parent, Party child, AccountabilityType type) {
-        return !parent.equals(child) && !parent.ancestorsInclude(child, type);
+        return !parent.equals(child)
+                && !parent.ancestorsInclude(child, type)
+                && type.canCreateAccountability(parent, child);
     }
-
 
     public Party parent() {
         return this.parent;
