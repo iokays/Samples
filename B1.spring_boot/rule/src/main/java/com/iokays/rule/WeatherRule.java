@@ -1,4 +1,9 @@
-package com.iokays.onjava.easy_rules;
+package com.iokays.rule;
+
+import org.jeasy.rules.annotation.Action;
+import org.jeasy.rules.annotation.Condition;
+import org.jeasy.rules.annotation.Fact;
+import org.jeasy.rules.annotation.Rule;
 
 @Rule(name = "weather rule", description = "if it rains then take an umbrella")
 public class WeatherRule {
@@ -12,4 +17,6 @@ public class WeatherRule {
     public void takeAnUmbrella() {
         System.out.println("It rains, take an umbrella!");
     }
+
+
 }

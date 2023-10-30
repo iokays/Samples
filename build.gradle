@@ -19,11 +19,11 @@ subprojects {
 
     repositories {
         mavenLocal()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://repo.maven.apache.org/maven2' }
         maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
         mavenCentral()
     }
 
@@ -50,7 +50,6 @@ project(':A0.on_java') {
         implementation 'ch.qos.logback:logback-classic:1.4.11'
         implementation 'net.coobird:thumbnailator:0.4.20'
         implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
-        implementation 'org.jeasy:easy-rules:4.1.0'
     }
 }
 
@@ -78,6 +77,20 @@ project(':B1.spring_boot') {
             implementation 'mysql:mysql-connector-java:8.0.28'
 
             testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        }
+    }
+
+    project(':B1.spring_boot:rule') {
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencies {
+            implementation 'org.springframework.boot:spring-boot-starter'
+            implementation 'org.springframework.boot:spring-boot-starter-integration'
+            implementation 'org.jeasy:easy-rules-core:4.1.0'
+            implementation 'org.jeasy:easy-rules-spel:4.1.0'
+            implementation 'org.jeasy:easy-rules-support:4.1.0'
+            implementation 'org.springframework.boot:spring-boot-starter-test'
         }
     }
 
