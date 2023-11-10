@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Pizza {
+    +prepare(): void
+    +bake(): void
+    +cut(): void
+    +box(): void
+}
+
+class NYStyleCheesePizza
+class NYStyleClamPizza
+class NYStylePepperoniPizza
+class NYStyleVeggiePizza
+
+class ChicagoStyleCheesePizza
+class ChicagoStyleClamPizza
+class ChicagoStylePepperoniPizza
+class ChicagoStyleVeggiePizza
+
+abstract class PizzaStore {
+    +orderPizza(type: String): Pizza
+    -createPizza(type: String): Pizza
+}
+
+class NYPizzaStore
+class ChicagoPizzaStore
+
+NYStyleCheesePizza --|> Pizza
+NYStyleClamPizza --|> Pizza
+NYStylePepperoniPizza --|> Pizza
+NYStyleVeggiePizza --|> Pizza
+
+ChicagoStyleCheesePizza --|> Pizza
+ChicagoStyleClamPizza --|> Pizza
+ChicagoStylePepperoniPizza --|> Pizza
+ChicagoStyleVeggiePizza --|> Pizza
+
+NYPizzaStore --|> PizzaStore
+ChicagoPizzaStore --|> PizzaStore
+
+NYPizzaStore --> NYStyleCheesePizza
+NYPizzaStore --> NYStyleClamPizza
+NYPizzaStore --> NYStylePepperoniPizza
+NYPizzaStore --> NYStyleVeggiePizza
+
+ChicagoPizzaStore --> ChicagoStyleCheesePizza
+ChicagoPizzaStore --> ChicagoStyleClamPizza
+ChicagoPizzaStore --> ChicagoStylePepperoniPizza
+ChicagoPizzaStore --> ChicagoStyleVeggiePizza
+
+PizzaStore --> Pizza
+
+
+
+
+
+
+
+
+@enduml

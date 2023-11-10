@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Observer {
+    +update()
+}
+
+interface Subject {
+    +registerObserver()
+    +removeObserver()
+    +notifyObservers()
+}
+
+class WeatherData {
+    -observers: Observer[]
+    -temperature: float
+    -humidity: float
+    -pressure: float
+    +registerObserver()
+    +removeObserver()
+    +notifyObservers()
+    +setMeasurements()
+}
+
+class CurrentConditionsDisplay {
+    -temperature: float
+    -humidity: float
+    +update()
+    +display()
+}
+
+class StatisticsDisplay {
+    -temperature: float
+    -humidity: float
+    +update()
+    +display()
+}
+
+class ForecastDisplay {
+    -temperature: float
+    -humidity: float
+    +update()
+    +display()
+}
+
+class HeatIndexDisplay {
+    -temperature: float
+    -humidity: float
+    +update()
+    +display()
+}
+
+interface DisplayElement {
+    +display()
+}
+
+CurrentConditionsDisplay .up.|> Observer
+StatisticsDisplay .up.|> Observer
+ForecastDisplay .up.|> Observer
+HeatIndexDisplay .up.|> Observer
+
+CurrentConditionsDisplay .up.|> DisplayElement
+StatisticsDisplay .up.|> DisplayElement
+ForecastDisplay .up.|> DisplayElement
+HeatIndexDisplay .up.|> DisplayElement
+
+WeatherData .right.|> Subject
+
+Subject --> Observer
+
+
+
+@enduml
