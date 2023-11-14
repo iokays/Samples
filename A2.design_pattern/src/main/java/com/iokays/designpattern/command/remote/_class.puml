@@ -1,0 +1,130 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Command {
+    +execute()
+    +undo()
+}
+
+class NoCommand {
+    +execute()
+    +undo()
+}
+
+class Light {
+    +on()
+    +off()
+}
+
+class LightOnCommand {
+    -light: Light
+    +execute()
+    +undo()
+}
+
+class LightOffCommand {
+    -light: Light
+    +execute()
+    +undo()
+}
+
+LightOnCommand -up-> Light
+LightOffCommand -up-> Light
+
+class CeilingFan {
+    +high()
+    +medium()
+    +low()
+    +off()
+    +getSpeed(): int
+}
+
+class CeilingFanHighCommand {
+    -ceilingFan: CeilingFan
+    -prevSpeed: int
+    +execute()
+    +undo()
+}
+
+class CeilingFanMediumCommand {
+    -ceilingFan: CeilingFan
+    -prevSpeed: int
+    +execute()
+    +undo()
+}
+
+CeilingFanHighCommand -up-> CeilingFan
+CeilingFanMediumCommand -up-> CeilingFan
+
+class GarageDoor {
+    +up()
+    +down()
+    +stop()
+    +lightOn()
+    +lightOff()
+}
+
+class GarageDoorUpCommand {
+    -garageDoor: GarageDoor
+    +execute()
+    +undo()
+}
+
+class GarageDoorDownCommand {
+    -garageDoor: GarageDoor
+    +execute()
+    +undo()
+}
+
+GarageDoorUpCommand -up-> GarageDoor
+GarageDoorDownCommand -up-> GarageDoor
+
+class Stereo {
+    +on()
+    +off()
+    +setCD()
+    +setDVD()
+    +setRadio()
+    +setVolume()
+}
+
+class StereoOnWithCDCommand {
+    -stereo: Stereo
+    +execute()
+    +undo()
+}
+
+class StereoOffCommand {
+    -stereo: Stereo
+    +execute()
+    +undo()
+}
+
+StereoOffCommand -up-> Stereo
+StereoOnWithCDCommand -up-> Stereo
+
+NoCommand .left.|> Command
+LightOnCommand ..|> Command
+LightOffCommand ..|> Command
+CeilingFanHighCommand ..|> Command
+CeilingFanMediumCommand ..|> Command
+GarageDoorUpCommand ..|> Command
+GarageDoorDownCommand ..|> Command
+StereoOnWithCDCommand ..|> Command
+StereoOffCommand ..|> Command
+
+class RemoteControl {
+    -onCommands: Command[]
+    -offCommands: Command[]
+    -undoCommand: Command
+    +RemoteControl()
+    +setCommand(slot: int, onCommand: Command, offCommand: Command)
+    +onButtonWasPushed(slot: int)
+    +offButtonWasPushed(slot: int)
+    +undoButtonWasPushed()
+    +toString(): String
+}
+
+RemoteControl -up-> Command
+
+@enduml
