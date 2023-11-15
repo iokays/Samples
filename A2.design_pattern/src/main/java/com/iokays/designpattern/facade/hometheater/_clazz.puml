@@ -1,0 +1,72 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class HomeTheaterFacade {
+    -amp: Amplifier
+    -tuner: Tuner
+    -dvd: DvdPlayer
+    -cd: CdPlayer
+    -projector: Projector
+    -lights: TheaterLights
+    -screen: Screen
+    -popper: PopcornPopper
+}
+
+class Amplifier {
+    -description: String
+    -tuner: Tuner
+    -dvd: DvdPlayer
+    -cd: CdPlayer
+}
+
+class Tuner {
+    -description: String
+    -amplifier: Amplifier
+    -frequency: double
+}
+
+class DvdPlayer {
+    -description: String
+    -currentTrack: int
+    -amplifier: Amplifier
+    -movie: String
+}
+
+class CdPlayer {
+    -description: String
+    -currentTrack: int
+    -amplifier: Amplifier
+    -title: String
+}
+
+class Projector {
+    -description: String
+    -dvdPlayer: DvdPlayer
+}
+
+class TheaterLights {
+    -description: String
+}
+
+class Screen {
+    -description: String
+}
+
+class PopcornPopper {
+    -description: String
+}
+
+HomeTheaterFacade --> Amplifier
+HomeTheaterFacade --> Tuner
+HomeTheaterFacade --> DvdPlayer
+HomeTheaterFacade --> CdPlayer
+HomeTheaterFacade --> Projector
+HomeTheaterFacade --> TheaterLights
+HomeTheaterFacade --> Screen
+HomeTheaterFacade --> PopcornPopper
+
+Amplifier ..> CdPlayer
+Amplifier ..> DvdPlayer
+
+
+@enduml
