@@ -16,7 +16,7 @@
 * [命令模式 (headfirst, 遥控器用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/command/remote)
 * [适配器模式 (headfirst, 鸭子用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/adapter/duck)
 * [外观模式 (headfirst, 家庭影院用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/facade/hometheater)
-* [模板方法模式 (headfirst, 咖啡饮料用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/template/coffee)
+* [模板方法模式 (headfirst, 咖啡饮料用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/templatemethod/coffee)
 * [迭代器模式 (headfirst, 菜单用例)](https://github.com/iokays/Samples/tree/main/A2.design_pattern/src/main/java/com/iokays/designpattern/iterator/menu)
 
 ### B1.SpringBoot
