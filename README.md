@@ -4,6 +4,8 @@
 
 ### A0.Java基础
 
+* [控制台显示二维码](https://github.com/iokays/Samples/blob/main/A0.on_java/src/main/java/com/iokays/onjava/qrcode/QRCodeUtils.java)
+
 ### A1.分析模式
 
 ### A2.设计模式
