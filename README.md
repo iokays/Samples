@@ -1,4 +1,4 @@
-# Java Samples
+# Java Samples (旧分支, 请切换到 `main` 分支)
 
 ## 目录
 
