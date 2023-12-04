@@ -1,53 +1,78 @@
 package com.iokays.designpattern.abstractfactory.pizza;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
-@ApiModel("披萨")
+/**
+ * 披萨
+ */
 public abstract class Pizza {
 
-    @ApiModelProperty("名称")
+    /**
+     * 名称
+     */
     String name;
-    @ApiModelProperty("面团")
+    /**
+     * 面团
+     */
     Dough dough;
-    @ApiModelProperty("酱料")
+    /**
+     * 酱料
+     */
     Sauce sauce;
-    @ApiModelProperty("蔬菜")
+    /**
+     * 蔬菜
+     */
     Veggies veggies[];
-    @ApiModelProperty("奶酪")
+    /**
+     * 奶酪
+     */
     Cheese cheese;
-    @ApiModelProperty("腊肠")
+    /**
+     * 腊肠
+     */
     Pepperoni pepperoni;
-    @ApiModelProperty("蛤蜊")
+    /**
+     * 蛤蜊
+     */
     Clams clam;
 
-    @ApiOperation("准备")
+    /**
+     * 准备
+     */
     abstract void prepare();
 
-    @ApiOperation("烘烤")
+    /**
+     * 烘烤
+     */
     void bake() {
         System.out.println("Bake for 25 minutes at 350");
     }
 
-    @ApiOperation("切片")
+    /**
+     * 切片
+     */
     void cut() {
         System.out.println("Cutting the pizza into diagonal slices");
     }
 
-    @ApiOperation("装盒")
+    /**
+     * 装盒
+     */
     void box() {
         System.out.println("Place pizza in official PizzaStore box");
     }
 
-    @ApiModelProperty("设置名称")
-    void setName(String name) {
-        this.name = name;
-    }
-
-    @ApiModelProperty("获取名称")
+    /**
+     * 获取名称
+     */
     String getName() {
         return name;
+    }
+
+    /**
+     * 设置名称
+     */
+    void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -82,7 +107,6 @@ public abstract class Pizza {
         }
         return result.toString();
     }
-
 
 
 }

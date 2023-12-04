@@ -23,6 +23,7 @@ public class Organization {
 
     /**
      * 父节点
+     *
      * @return
      */
     public Organization getParent() {
@@ -41,6 +42,7 @@ public class Organization {
 
     /**
      * 子节点
+     *
      * @return
      */
     public Set<Organization> getChildren() {
@@ -51,6 +53,7 @@ public class Organization {
 
     /**
      * 祖先节点
+     *
      * @return
      */
     public Set<Organization> getAncestors() {
@@ -64,6 +67,7 @@ public class Organization {
 
     /**
      * 后代节点
+     *
      * @return
      */
     public Set<Organization> getDescendants() {
@@ -77,6 +81,7 @@ public class Organization {
 
     /**
      * 兄弟节点
+     *
      * @return
      */
     public Set<Organization> getSiblings() {

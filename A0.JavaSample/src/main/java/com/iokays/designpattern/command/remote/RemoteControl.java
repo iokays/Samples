@@ -1,16 +1,20 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
-@ApiModel(value = "遥控器", description = "遥控器")
+/**
+ * 遥控器
+ * 遥控器
+ */
 public class RemoteControl {
 
-    @ApiModelProperty("开启命令")
+    /**
+     * 开启命令
+     */
     Command[] onCommands;
 
-    @ApiModelProperty("关闭命令")
+    /**
+     * 关闭命令
+     */
     Command[] offCommands;
 
     Command undoCommand;
@@ -27,25 +31,33 @@ public class RemoteControl {
         undoCommand = noCommand;
     }
 
-    @ApiOperation(value = "设置命令", notes = "设置命令")
+    /**
+     * 设置命令", notes = "设置命令
+     */
     public void setCommand(int slot, Command onCommand, Command offCommand) {
         onCommands[slot] = onCommand;
         offCommands[slot] = offCommand;
     }
 
-    @ApiOperation(value = "按下开启按钮", notes = "按下开启按钮")
+    /**
+     * 按下开启按钮", notes = "按下开启按钮
+     */
     public void onButtonWasPushed(int slot) {
         onCommands[slot].execute();
         undoCommand = onCommands[slot];
     }
 
-    @ApiOperation(value = "按下关闭按钮", notes = "按下关闭按钮")
+    /**
+     * 按下关闭按钮", notes = "按下关闭按钮
+     */
     public void offButtonWasPushed(int slot) {
         offCommands[slot].execute();
         undoCommand = offCommands[slot];
     }
 
-    @ApiOperation(value = "按下撤销按钮", notes = "按下撤销按钮")
+    /**
+     * 按下撤销按钮", notes = "按下撤销按钮
+     */
     public void undoButtonWasPushed() {
         undoCommand.undo();
     }

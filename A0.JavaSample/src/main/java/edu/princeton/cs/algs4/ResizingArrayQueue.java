@@ -3,7 +3,7 @@
  *  Execution:    java ResizingArrayQueue < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/13stacks/tobe.txt  
- *  
+ *
  *  Queue implementation with a resizing array.
  *
  *  % java ResizingArrayQueue < tobe.txt 
@@ -17,24 +17,24 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The {@code ResizingArrayQueue} class represents a first-in-first-out (FIFO)
- *  queue of generic items.
- *  It supports the usual <em>enqueue</em> and <em>dequeue</em>
- *  operations, along with methods for peeking at the first item,
- *  testing if the queue is empty, and iterating through
- *  the items in FIFO order.
- *  <p>
- *  This implementation uses a resizing array, which double the underlying array
- *  when it is full and halves the underlying array when it is one-quarter full.
- *  The <em>enqueue</em> and <em>dequeue</em> operations take constant amortized time.
- *  The <em>size</em>, <em>peek</em>, and <em>is-empty</em> operations takes
- *  constant time in the worst case. 
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code ResizingArrayQueue} class represents a first-in-first-out (FIFO)
+ * queue of generic items.
+ * It supports the usual <em>enqueue</em> and <em>dequeue</em>
+ * operations, along with methods for peeking at the first item,
+ * testing if the queue is empty, and iterating through
+ * the items in FIFO order.
+ * <p>
+ * This implementation uses a resizing array, which double the underlying array
+ * when it is full and halves the underlying array when it is one-quarter full.
+ * The <em>enqueue</em> and <em>dequeue</em> operations take constant amortized time.
+ * The <em>size</em>, <em>peek</em>, and <em>is-empty</em> operations takes
+ * constant time in the worst case.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class ResizingArrayQueue<Item> implements Iterable<Item> {
     private Item[] q;       // queue elements
@@ -55,6 +55,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
 
     /**
      * Is this queue empty?
+     *
      * @return true if this queue is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -63,6 +64,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in this queue.
+     *
      * @return the number of items in this queue
      */
     public int size() {
@@ -78,16 +80,17 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
         }
         q = copy;
         first = 0;
-        last  = n;
+        last = n;
     }
 
     /**
      * Adds the item to this queue.
+     *
      * @param item the item to add
      */
     public void enqueue(Item item) {
         // double size of array if necessary and recopy to front of array
-        if (n == q.length) resize(2*q.length);   // double size of array if necessary
+        if (n == q.length) resize(2 * q.length);   // double size of array if necessary
         q[last++] = item;                        // add item
         if (last == q.length) last = 0;          // wrap-around
         n++;
@@ -95,6 +98,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
 
     /**
      * Removes and returns the item on this queue that was least recently added.
+     *
      * @return the item on this queue that was least recently added
      * @throws java.util.NoSuchElementException if this queue is empty
      */
@@ -106,12 +110,13 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
         first++;
         if (first == q.length) first = 0;           // wrap-around
         // shrink size of array if necessary
-        if (n > 0 && n == q.length/4) resize(q.length/2); 
+        if (n > 0 && n == q.length / 4) resize(q.length / 2);
         return item;
     }
 
     /**
      * Returns the item least recently added to this queue.
+     *
      * @return the item least recently added to this queue
      * @throws java.util.NoSuchElementException if this queue is empty
      */
@@ -123,6 +128,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
 
     /**
      * Returns an iterator that iterates over the items in this queue in FIFO order.
+     *
      * @return an iterator that iterates over the items in this queue in FIFO order
      */
     public Iterator<Item> iterator() {
@@ -132,8 +138,14 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
     // an iterator, doesn't implement remove() since it's optional
     private class ArrayIterator implements Iterator<Item> {
         private int i = 0;
-        public boolean hasNext()  { return i < n;                               }
-        public void remove()      { throw new UnsupportedOperationException();  }
+
+        public boolean hasNext() {
+            return i < n;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
@@ -143,7 +155,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
         }
     }
 
-   /**
+    /**
      * Unit tests the {@code ResizingArrayQueue} data type.
      *
      * @param args the command-line arguments

@@ -65,33 +65,33 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code KosarajuSharirSCC} class represents a data type for 
- *  determining the strong components in a digraph.
- *  The <em>id</em> operation determines in which strong component
- *  a given vertex lies; the <em>areStronglyConnected</em> operation
- *  determines whether two vertices are in the same strong component;
- *  and the <em>count</em> operation determines the number of strong
- *  components.
- *  <p>
- *  The <em>component identifier</em> of a component is one of the
- *  vertices in the strong component: two vertices have the same component
- *  identifier if and only if they are in the same strong component.
- *  <p>
- *  This implementation uses the Kosaraju-Sharir algorithm.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
- *  where <em>V</em> is the number of vertices and <em>E</em>
- *  is the number of edges.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
- *  For alternative implementations of the same API, see
- *  {@link TarjanSCC} and {@link GabowSCC}.
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code KosarajuSharirSCC} class represents a data type for
+ * determining the strong components in a digraph.
+ * The <em>id</em> operation determines in which strong component
+ * a given vertex lies; the <em>areStronglyConnected</em> operation
+ * determines whether two vertices are in the same strong component;
+ * and the <em>count</em> operation determines the number of strong
+ * components.
+ * <p>
+ * The <em>component identifier</em> of a component is one of the
+ * vertices in the strong component: two vertices have the same component
+ * identifier if and only if they are in the same strong component.
+ * <p>
+ * This implementation uses the Kosaraju-Sharir algorithm.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
+ * where <em>V</em> is the number of vertices and <em>E</em>
+ * is the number of edges.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the digraph).
+ * For alternative implementations of the same API, see
+ * {@link TarjanSCC} and {@link GabowSCC}.
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class KosarajuSharirSCC {
     private boolean[] marked;     // marked[v] = has vertex v been visited?
@@ -100,6 +100,7 @@ public class KosarajuSharirSCC {
 
     /**
      * Computes the strong components of the digraph {@code G}.
+     *
      * @param G the digraph
      */
     public KosarajuSharirSCC(Digraph G) {
@@ -122,7 +123,7 @@ public class KosarajuSharirSCC {
     }
 
     // DFS on graph G
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         id[v] = count;
         for (int w : G.adj(v)) {
@@ -132,6 +133,7 @@ public class KosarajuSharirSCC {
 
     /**
      * Returns the number of strong components.
+     *
      * @return the number of strong components
      */
     public int count() {
@@ -140,10 +142,11 @@ public class KosarajuSharirSCC {
 
     /**
      * Are vertices {@code v} and {@code w} in the same strong component?
-     * @param  v one vertex
-     * @param  w the other vertex
+     *
+     * @param v one vertex
+     * @param w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
-     *         strong component, and {@code false} otherwise
+     * strong component, and {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      * @throws IllegalArgumentException unless {@code 0 <= w < V}
      */
@@ -155,7 +158,8 @@ public class KosarajuSharirSCC {
 
     /**
      * Returns the component id of the strong component containing vertex {@code v}.
-     * @param  v the vertex
+     *
+     * @param v the vertex
      * @return the component id of the strong component containing vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
@@ -180,7 +184,7 @@ public class KosarajuSharirSCC {
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**

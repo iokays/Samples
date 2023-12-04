@@ -1,8 +1,9 @@
 package com.iokays.designpattern.factorymethod.pizza;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel("芝加哥风味芝士披萨")
+/**
+ * 芝加哥风味芝士披萨
+ */
 public class ChicagoStyleCheesePizza extends Pizza {
 
     @Override

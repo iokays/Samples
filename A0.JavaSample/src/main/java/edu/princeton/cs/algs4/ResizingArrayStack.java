@@ -3,7 +3,7 @@
  *  Execution:    java ResizingArrayStack < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/13stacks/tobe.txt
- *  
+ *
  *  Stack implementation with a resizing array.
  *
  *  % more tobe.txt 
@@ -20,24 +20,24 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The {@code ResizingArrayStack} class represents a last-in-first-out (LIFO) stack
- *  of generic items.
- *  It supports the usual <em>push</em> and <em>pop</em> operations, along with methods
- *  for peeking at the top item, testing if the stack is empty, and iterating through
- *  the items in LIFO order.
- *  <p>
- *  This implementation uses a resizing array, which double the underlying array
- *  when it is full and halves the underlying array when it is one-quarter full.
- *  The <em>push</em> and <em>pop</em> operations take constant amortized time.
- *  The <em>size</em>, <em>peek</em>, and <em>is-empty</em> operations takes
- *  constant time in the worst case. 
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code ResizingArrayStack} class represents a last-in-first-out (LIFO) stack
+ * of generic items.
+ * It supports the usual <em>push</em> and <em>pop</em> operations, along with methods
+ * for peeking at the top item, testing if the stack is empty, and iterating through
+ * the items in LIFO order.
+ * <p>
+ * This implementation uses a resizing array, which double the underlying array
+ * when it is full and halves the underlying array when it is one-quarter full.
+ * The <em>push</em> and <em>pop</em> operations take constant amortized time.
+ * The <em>size</em>, <em>peek</em>, and <em>is-empty</em> operations takes
+ * constant time in the worst case.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class ResizingArrayStack<Item> implements Iterable<Item> {
     private Item[] a;         // array of items
@@ -54,6 +54,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
 
     /**
      * Is this stack empty?
+     *
      * @return true if this stack is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -62,6 +63,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in the stack.
+     *
      * @return the number of items in the stack
      */
     public int size() {
@@ -80,49 +82,52 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
         }
         a = copy;
 
-       // alternative implementation
-       // a = java.util.Arrays.copyOf(a, capacity);
+        // alternative implementation
+        // a = java.util.Arrays.copyOf(a, capacity);
     }
-
 
 
     /**
      * Adds the item to this stack.
+     *
      * @param item the item to add
      */
     public void push(Item item) {
-        if (n == a.length) resize(2*a.length);    // double size of array if necessary
+        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
         a[n++] = item;                            // add item
     }
 
     /**
      * Removes and returns the item most recently added to this stack.
+     *
      * @return the item most recently added
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item pop() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-        Item item = a[n-1];
-        a[n-1] = null;                              // to avoid loitering
+        Item item = a[n - 1];
+        a[n - 1] = null;                              // to avoid loitering
         n--;
         // shrink size of array if necessary
-        if (n > 0 && n == a.length/4) resize(a.length/2);
+        if (n > 0 && n == a.length / 4) resize(a.length / 2);
         return item;
     }
 
 
     /**
      * Returns (but does not remove) the item most recently added to this stack.
+     *
      * @return the item most recently added to this stack
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item peek() {
         if (isEmpty()) throw new NoSuchElementException("Stack underflow");
-        return a[n-1];
+        return a[n - 1];
     }
 
     /**
      * Returns an iterator to this stack that iterates through the items in LIFO order.
+     *
      * @return an iterator to this stack that iterates through the items in LIFO order.
      */
     public Iterator<Item> iterator() {
@@ -134,7 +139,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
         private int i;
 
         public ReverseArrayIterator() {
-            i = n-1;
+            i = n - 1;
         }
 
         public boolean hasNext() {

@@ -11,7 +11,7 @@ public class Party extends NamedObject {
     PartyType type;
 
     final Set<Accountability> parentAccountabilities = Sets.newHashSet();
-    final Set<Accountability> childAccountabilities =  Sets.newHashSet();
+    final Set<Accountability> childAccountabilities = Sets.newHashSet();
 
     public Party(String name, PartyType type) {
         super(name);
@@ -37,6 +37,7 @@ public class Party extends NamedObject {
     public void friendAddChildAccountability(Accountability arg) {
         childAccountabilities.add(arg);
     }
+
     public void friendAddParentAccountability(Accountability arg) {
         parentAccountabilities.add(arg);
     }

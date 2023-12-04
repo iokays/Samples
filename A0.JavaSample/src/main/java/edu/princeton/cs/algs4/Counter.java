@@ -21,14 +21,14 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Counter} class is a mutable data type to encapsulate a counter.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Counter} class is a mutable data type to encapsulate a counter.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Counter implements Comparable<Counter> {
 
@@ -42,14 +42,14 @@ public class Counter implements Comparable<Counter> {
      */
     public Counter(String id) {
         name = id;
-    } 
+    }
 
     /**
      * Increments the counter by 1.
      */
     public void increment() {
         count++;
-    } 
+    }
 
     /**
      * Returns the current value of this counter.
@@ -58,7 +58,7 @@ public class Counter implements Comparable<Counter> {
      */
     public int tally() {
         return count;
-    } 
+    }
 
     /**
      * Returns a string representation of this counter.
@@ -67,24 +67,24 @@ public class Counter implements Comparable<Counter> {
      */
     public String toString() {
         return count + " " + name;
-    } 
+    }
 
     /**
      * Compares this counter to the specified counter.
      *
-     * @param  that the other counter
+     * @param that the other counter
      * @return {@code 0} if the value of this counter equals
-     *         the value of that counter; a negative integer if
-     *         the value of this counter is less than the value of
-     *         that counter; and a positive integer if the value
-     *         of this counter is greater than the value of that
-     *         counter
+     * the value of that counter; a negative integer if
+     * the value of this counter is less than the value of
+     * that counter; and a positive integer if the value
+     * of this counter is greater than the value of that
+     * counter
      */
     @Override
     public int compareTo(Counter that) {
-        if      (this.count < that.count) return -1;
+        if (this.count < that.count) return -1;
         else if (this.count > that.count) return +1;
-        else                              return  0;
+        else return 0;
     }
 
 
@@ -94,7 +94,7 @@ public class Counter implements Comparable<Counter> {
      *
      * @param args the command-line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         int n = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
 
@@ -113,8 +113,8 @@ public class Counter implements Comparable<Counter> {
         for (int i = 0; i < n; i++) {
             StdOut.println(hits[i]);
         }
-    } 
-} 
+    }
+}
 
 /******************************************************************************
  *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.

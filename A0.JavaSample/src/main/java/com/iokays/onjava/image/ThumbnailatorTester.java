@@ -27,7 +27,7 @@ public class ThumbnailatorTester {
     private static byte[] compressPic(byte[] data) {
         int i = 0;
         Integer fileSize = 4;
-        if (fileSize != null){
+        if (fileSize != null) {
             //循环压缩图片到1M 以下
             //大于4M
             if (data.length > Integer.valueOf(fileSize) * 1024 * 1024) {
@@ -36,38 +36,38 @@ public class ThumbnailatorTester {
                     System.out.println(i++);
                 } while (data.length > Integer.valueOf(fileSize) * 1024 * 1024);
             }
-        }else {
+        } else {
             //压缩图片
             //大于1M
             if (data.length > 1 * 1024 * 1024) {
                 do {
-                    data = compressPicForScale(data,"0.8");
+                    data = compressPicForScale(data, "0.8");
                     System.out.println(i++);
-                }while (data.length > 1 * 1024 * 1024);
+                } while (data.length > 1 * 1024 * 1024);
             }
         }
         return data;
     }
 
-    private static byte[] compressPicForScale(byte[] data, String byGroupAndName){
+    private static byte[] compressPicForScale(byte[] data, String byGroupAndName) {
         ByteArrayInputStream inputStream = null;
         ByteArrayOutputStream outputStream = null;
         try {
             inputStream = new ByteArrayInputStream(data);
             outputStream = new ByteArrayOutputStream(data.length);
             Thumbnails.of(inputStream).scale(byGroupAndName == null ? 0.5 : StringUtils.isBlank(byGroupAndName) ? 0.5 : Double.valueOf(byGroupAndName)).toOutputStream(outputStream);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }finally {
+        } finally {
             try {
-                if (null != inputStream){
+                if (null != inputStream) {
                     inputStream.close();
                 }
-                if (null != outputStream){
+                if (null != outputStream) {
                     outputStream.close();
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
             }
         }
         return outputStream.toByteArray();

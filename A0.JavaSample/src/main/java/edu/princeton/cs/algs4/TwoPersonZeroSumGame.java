@@ -19,36 +19,36 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code TwoPersonZeroSumGame} class represents a data type for
- *  computing optimal row and column strategies to two-person zero-sum games.
- *  <p>
- *  This implementation solves an <em>m</em>-by-<em>n</em> two-person
- *  zero-sum game by reducing it to a linear programming problem.
- *  Assuming the payoff matrix <em>A</em> is strictly positive, the
- *  optimal row and column player strategies x* and y* are obtained
- *  by solving the following primal and dual pair of linear programs,
- *  scaling the results to be probability distributions.
- *  <blockquote><pre>
+ * The {@code TwoPersonZeroSumGame} class represents a data type for
+ * computing optimal row and column strategies to two-person zero-sum games.
+ * <p>
+ * This implementation solves an <em>m</em>-by-<em>n</em> two-person
+ * zero-sum game by reducing it to a linear programming problem.
+ * Assuming the payoff matrix <em>A</em> is strictly positive, the
+ * optimal row and column player strategies x* and y* are obtained
+ * by solving the following primal and dual pair of linear programs,
+ * scaling the results to be probability distributions.
+ * <blockquote><pre>
  *  (P)  max  y^T 1           (D)  min   1^T x
  *       s.t  A^T y &le; 1         s.t   A x &ge; 1
  *                y &le; 0                 x &ge; 0
  *  </pre></blockquote>
- *  <p>
- *  If the payoff matrix <em>A</em> has any negative entries, we add
- *  the same constant to every entry so that every entry is positive.
- *  This increases the value of the game by that constant, but does not
- *  change solutions to the two-person zero-sum game.
- *  <p>
- *  This implementation is not suitable for large inputs, as it calls
- *  a bare-bones linear programming solver that is neither fast nor
- *  robust with respect to floating-point roundoff error.
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * <p>
+ * If the payoff matrix <em>A</em> has any negative entries, we add
+ * the same constant to every entry so that every entry is positive.
+ * This increases the value of the game by that constant, but does not
+ * change solutions to the two-person zero-sum game.
+ * <p>
+ * This implementation is not suitable for large inputs, as it calls
+ * a bare-bones linear programming solver that is neither fast nor
+ * robust with respect to floating-point roundoff error.
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class TwoPersonZeroSumGame {
     private static final double EPSILON = 1E-8;
@@ -57,14 +57,14 @@ public class TwoPersonZeroSumGame {
     private final int n;            // number of columns
     private LinearProgramming lp;   // linear program solver
     private double constant;        // constant added to each entry in payoff matrix
-                                    // (0 if all entries are strictly positive)
- 
+    // (0 if all entries are strictly positive)
+
     /**
      * Determines an optimal solution to the two-sum zero-sum game
      * with the specified payoff matrix.
      *
-     * @param  payoff the <em>m</em>-by-<em>n</em> payoff matrix
-     */ 
+     * @param payoff the <em>m</em>-by-<em>n</em> payoff matrix
+     */
     public TwoPersonZeroSumGame(double[][] payoff) {
         m = payoff.length;
         n = payoff[0].length;
@@ -86,7 +86,7 @@ public class TwoPersonZeroSumGame {
 
         // add constant  to every entry to make strictly positive
         if (constant <= 0) constant = -constant + 1;
-        else               constant = 0;
+        else constant = 0;
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 A[i][j] = payoff[i][j] + constant;
@@ -101,7 +101,6 @@ public class TwoPersonZeroSumGame {
      * Returns the optimal value of this two-person zero-sum game.
      *
      * @return the optimal value of this two-person zero-sum game
-     *
      */
     public double value() {
         return 1.0 / scale() - constant;
@@ -149,8 +148,7 @@ public class TwoPersonZeroSumGame {
      *  The code below is solely for testing correctness of the data type.
      *
      **************************************************************************/
-
-    // is the row vector x primal feasible?
+// is the row vector x primal feasible?
     private boolean isPrimalFeasible() {
         double[] x = row();
         double sum = 0.0;
@@ -246,24 +244,24 @@ public class TwoPersonZeroSumGame {
         double[] y = zerosum.column();
 
         StdOut.print("x[] = [");
-        for (int j = 0; j < n-1; j++)
+        for (int j = 0; j < n - 1; j++)
             StdOut.printf("%8.4f, ", x[j]);
-        StdOut.printf("%8.4f]\n", x[n-1]);
+        StdOut.printf("%8.4f]\n", x[n - 1]);
 
         StdOut.print("y[] = [");
-        for (int i = 0; i < m-1; i++)
+        for (int i = 0; i < m - 1; i++)
             StdOut.printf("%8.4f, ", y[i]);
-        StdOut.printf("%8.4f]\n", y[m-1]);
+        StdOut.printf("%8.4f]\n", y[m - 1]);
         StdOut.println("value =  " + zerosum.value());
-        
+
     }
 
     // row = { 4/7, 3/7 }, column = { 0, 4/7, 3/7 }, value = 20/7
     // http://en.wikipedia.org/wiki/Zero-sum
     private static void test1() {
         double[][] payoff = {
-            { 30, -10,  20 },
-            { 10,  20, -20 }
+                {30, -10, 20},
+                {10, 20, -20}
         };
         test("wikipedia", payoff);
     }
@@ -272,10 +270,10 @@ public class TwoPersonZeroSumGame {
     // Linear Programming by Chvatal, p. 230
     private static void test2() {
         double[][] payoff = {
-            {  0,  2, -3,  0 },
-            { -2,  0,  0,  3 },
-            {  3,  0,  0, -4 },
-            {  0, -3,  4,  0 }
+                {0, 2, -3, 0},
+                {-2, 0, 0, 3},
+                {3, 0, 0, -4},
+                {0, -3, 4, 0}
         };
         test("Chvatal, p. 230", payoff);
     }
@@ -286,14 +284,14 @@ public class TwoPersonZeroSumGame {
     // value  = 4/99
     private static void test3() {
         double[][] payoff = {
-            {  0,  2, -3,  0 },
-            { -2,  0,  0,  3 },
-            {  3,  0,  0, -4 },
-            {  0, -3,  4,  0 },
-            {  0,  0, -3,  3 },
-            { -2,  2,  0,  0 },
-            {  3, -3,  0,  0 },
-            {  0,  0,  4, -4 }
+                {0, 2, -3, 0},
+                {-2, 0, 0, 3},
+                {3, 0, 0, -4},
+                {0, -3, 4, 0},
+                {0, 0, -3, 3},
+                {-2, 2, 0, 0},
+                {3, -3, 0, 0},
+                {0, 0, 4, -4}
         };
         test("Chvatal, p. 234", payoff);
     }
@@ -304,14 +302,14 @@ public class TwoPersonZeroSumGame {
     // value  = -1/3
     private static void test4() {
         double[][] payoff = {
-            {  0,  2, -1, -1 },
-            {  0,  1, -2, -1 },
-            { -1, -1,  1,  1 },
-            { -1,  0,  0,  1 },
-            {  1, -2,  0, -3 },
-            {  1, -1, -1, -3 },
-            {  0, -3,  2, -1 },
-            {  0, -2,  1, -1 },
+                {0, 2, -1, -1},
+                {0, 1, -2, -1},
+                {-1, -1, 1, 1},
+                {-1, 0, 0, 1},
+                {1, -2, 0, -3},
+                {1, -1, -1, -3},
+                {0, -3, 2, -1},
+                {0, -2, 1, -1},
         };
         test("Chvatal p. 236", payoff);
     }
@@ -321,9 +319,9 @@ public class TwoPersonZeroSumGame {
     // column = { 1/3, 1/3, 1/3 }
     private static void test5() {
         double[][] payoff = {
-            {  0, -1,  1 },
-            {  1,  0, -1 },
-            { -1,  1,  0 }
+                {0, -1, 1},
+                {1, 0, -1},
+                {-1, 1, 0}
         };
         test("rock, paper, scisssors", payoff);
     }

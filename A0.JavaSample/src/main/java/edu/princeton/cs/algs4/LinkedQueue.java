@@ -17,23 +17,23 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The {@code LinkedQueue} class represents a first-in-first-out (FIFO)
- *  queue of generic items.
- *  It supports the usual <em>enqueue</em> and <em>dequeue</em>
- *  operations, along with methods for peeking at the first item,
- *  testing if the queue is empty, and iterating through
- *  the items in FIFO order.
- *  <p>
- *  This implementation uses a singly linked list with a non-static nested class 
- *  for linked-list nodes.  See {@link Queue} for a version that uses a static nested class.
- *  The <em>enqueue</em>, <em>dequeue</em>, <em>peek</em>, <em>size</em>, and <em>is-empty</em>
- *  operations all take constant time in the worst case.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code LinkedQueue} class represents a first-in-first-out (FIFO)
+ * queue of generic items.
+ * It supports the usual <em>enqueue</em> and <em>dequeue</em>
+ * operations, along with methods for peeking at the first item,
+ * testing if the queue is empty, and iterating through
+ * the items in FIFO order.
+ * <p>
+ * This implementation uses a singly linked list with a non-static nested class
+ * for linked-list nodes.  See {@link Queue} for a version that uses a static nested class.
+ * The <em>enqueue</em>, <em>dequeue</em>, <em>peek</em>, <em>size</em>, and <em>is-empty</em>
+ * operations all take constant time in the worst case.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class LinkedQueue<Item> implements Iterable<Item> {
     private int n;         // number of elements on queue
@@ -51,13 +51,14 @@ public class LinkedQueue<Item> implements Iterable<Item> {
      */
     public LinkedQueue() {
         first = null;
-        last  = null;
+        last = null;
         n = 0;
         assert check();
     }
 
     /**
      * Is this queue empty?
+     *
      * @return true if this queue is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -66,14 +67,16 @@ public class LinkedQueue<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in this queue.
+     *
      * @return the number of items in this queue
      */
     public int size() {
-        return n;     
+        return n;
     }
 
     /**
      * Returns the item least recently added to this queue.
+     *
      * @return the item least recently added to this queue
      * @throws java.util.NoSuchElementException if this queue is empty
      */
@@ -84,6 +87,7 @@ public class LinkedQueue<Item> implements Iterable<Item> {
 
     /**
      * Adds the item to this queue.
+     *
      * @param item the item to add
      */
     public void enqueue(Item item) {
@@ -92,13 +96,14 @@ public class LinkedQueue<Item> implements Iterable<Item> {
         last.item = item;
         last.next = null;
         if (isEmpty()) first = last;
-        else           oldlast.next = last;
+        else oldlast.next = last;
         n++;
         assert check();
     }
 
     /**
      * Removes and returns the item on this queue that was least recently added.
+     *
      * @return the item on this queue that was least recently added
      * @throws java.util.NoSuchElementException if this queue is empty
      */
@@ -114,6 +119,7 @@ public class LinkedQueue<Item> implements Iterable<Item> {
 
     /**
      * Returns a string representation of this queue.
+     *
      * @return the sequence of items in FIFO order, separated by spaces
      */
     public String toString() {
@@ -121,27 +127,24 @@ public class LinkedQueue<Item> implements Iterable<Item> {
         for (Item item : this)
             s.append(item + " ");
         return s.toString();
-    } 
+    }
 
     // check internal invariants
     private boolean check() {
         if (n < 0) {
             return false;
-        }
-        else if (n == 0) {
+        } else if (n == 0) {
             if (first != null) return false;
-            if (last  != null) return false;
-        }
-        else if (n == 1) {
+            if (last != null) return false;
+        } else if (n == 1) {
             if (first == null || last == null) return false;
-            if (first != last)                 return false;
-            if (first.next != null)            return false;
-        }
-        else {
+            if (first != last) return false;
+            if (first.next != null) return false;
+        } else {
             if (first == null || last == null) return false;
-            if (first == last)      return false;
+            if (first == last) return false;
             if (first.next == null) return false;
-            if (last.next  != null) return false;
+            if (last.next != null) return false;
 
             // check internal consistency of instance variable n
             int numberOfNodes = 0;
@@ -159,28 +162,34 @@ public class LinkedQueue<Item> implements Iterable<Item> {
         }
 
         return true;
-    } 
- 
+    }
+
 
     /**
      * Returns an iterator that iterates over the items in this queue in FIFO order.
+     *
      * @return an iterator that iterates over the items in this queue in FIFO order
      */
-    public Iterator<Item> iterator()  {
-        return new LinkedIterator();  
+    public Iterator<Item> iterator() {
+        return new LinkedIterator();
     }
 
     // an iterator, doesn't implement remove() since it's optional
     private class LinkedIterator implements Iterator<Item> {
         private Node current = first;
 
-        public boolean hasNext()  { return current != null;                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
             Item item = current.item;
-            current = current.next; 
+            current = current.next;
             return item;
         }
     }

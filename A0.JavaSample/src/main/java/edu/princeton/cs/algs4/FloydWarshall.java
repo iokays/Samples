@@ -18,26 +18,26 @@ package edu.princeton.cs.algs4;
 
 
 /**
- *  The {@code FloydWarshall} class represents a data type for solving the
- *  all-pairs shortest paths problem in edge-weighted digraphs with
- *  no negative cycles.
- *  The edge weights can be positive, negative, or zero.
- *  This class finds either a shortest path between every pair of vertices
- *  or a negative cycle.
- *  <p>
- *  This implementation uses the Floyd-Warshall algorithm.
- *  The constructor takes &Theta;(<em>V</em><sup>3</sup>) time,
- *  where <em>V</em> is the number of vertices.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em><sup>2</sup>) extra space
- *  (not including the edge-weighted digraph).
- *  <p>
- *  For additional documentation,    
- *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code FloydWarshall} class represents a data type for solving the
+ * all-pairs shortest paths problem in edge-weighted digraphs with
+ * no negative cycles.
+ * The edge weights can be positive, negative, or zero.
+ * This class finds either a shortest path between every pair of vertices
+ * or a negative cycle.
+ * <p>
+ * This implementation uses the Floyd-Warshall algorithm.
+ * The constructor takes &Theta;(<em>V</em><sup>3</sup>) time,
+ * where <em>V</em> is the number of vertices.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em><sup>2</sup>) extra space
+ * (not including the edge-weighted digraph).
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class FloydWarshall {
     private boolean hasNegativeCycle;  // is there a negative cycle?
@@ -48,6 +48,7 @@ public class FloydWarshall {
      * Computes a shortest paths tree from each vertex to to every other vertex in
      * the edge-weighted digraph {@code G}. If no such shortest path exists for
      * some pair of vertices, it computes a negative cycle.
+     *
      * @param G the edge-weighted digraph
      */
     public FloydWarshall(AdjMatrixEdgeWeightedDigraph G) {
@@ -98,6 +99,7 @@ public class FloydWarshall {
 
     /**
      * Is there a negative cycle?
+     *
      * @return {@code true} if there is a negative cycle, and {@code false} otherwise
      */
     public boolean hasNegativeCycle() {
@@ -106,6 +108,7 @@ public class FloydWarshall {
 
     /**
      * Returns a negative cycle, or {@code null} if there is no such cycle.
+     *
      * @return a negative cycle as an iterable of edges,
      * or {@code null} if there is no such cycle
      */
@@ -128,10 +131,11 @@ public class FloydWarshall {
 
     /**
      * Is there a path from the vertex {@code s} to vertex {@code t}?
-     * @param  s the source vertex
-     * @param  t the destination vertex
+     *
+     * @param s the source vertex
+     * @param t the destination vertex
      * @return {@code true} if there is a path from vertex {@code s}
-     *         to vertex {@code t}, and {@code false} otherwise
+     * to vertex {@code t}, and {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      * @throws IllegalArgumentException unless {@code 0 <= t < V}
      */
@@ -143,12 +147,13 @@ public class FloydWarshall {
 
     /**
      * Returns the length of a shortest path from vertex {@code s} to vertex {@code t}.
-     * @param  s the source vertex
-     * @param  t the destination vertex
+     *
+     * @param s the source vertex
+     * @param t the destination vertex
      * @return the length of a shortest path from vertex {@code s} to vertex {@code t};
-     *         {@code Double.POSITIVE_INFINITY} if no such path
+     * {@code Double.POSITIVE_INFINITY} if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException      unless {@code 0 <= v < V}
      */
     public double dist(int s, int t) {
         validateVertex(s);
@@ -160,12 +165,13 @@ public class FloydWarshall {
 
     /**
      * Returns a shortest path from vertex {@code s} to vertex {@code t}.
-     * @param  s the source vertex
-     * @param  t the destination vertex
+     *
+     * @param s the source vertex
+     * @param t the destination vertex
      * @return a shortest path from vertex {@code s} to vertex {@code t}
-     *         as an iterable of edges, and {@code null} if no such path
+     * as an iterable of edges, and {@code null} if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle
-     * @throws IllegalArgumentException unless {@code 0 <= v < V}
+     * @throws IllegalArgumentException      unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> path(int s, int t) {
         validateVertex(s);
@@ -204,7 +210,7 @@ public class FloydWarshall {
     private void validateVertex(int v) {
         int V = distTo.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**
@@ -263,8 +269,7 @@ public class FloydWarshall {
                         for (DirectedEdge e : spt.path(v, w))
                             StdOut.print(e + "  ");
                         StdOut.println();
-                    }
-                    else {
+                    } else {
                         StdOut.printf("%d to %d no path\n", v, w);
                     }
                 }

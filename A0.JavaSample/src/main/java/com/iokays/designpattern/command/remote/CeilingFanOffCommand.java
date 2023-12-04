@@ -1,12 +1,15 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModelProperty;
 
 public class CeilingFanOffCommand implements Command {
 
-    @ApiModelProperty(value = "吊扇")
+    /**
+     * 吊扇
+     */
     private CeilingFan ceilingFan;
-    @ApiModelProperty(value = "上一个速度")
+    /**
+     * 上一个速度
+     */
     private int prevSpeed;
 
     public CeilingFanOffCommand(CeilingFan ceilingFan) {

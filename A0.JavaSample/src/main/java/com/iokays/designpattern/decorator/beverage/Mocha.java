@@ -1,8 +1,10 @@
 package com.iokays.designpattern.decorator.beverage;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "摩卡", description = "摩卡调料")
+/**
+ * 摩卡
+ * 摩卡调料
+ */
 public class Mocha extends CondimentDecorator {
 
     Beverage beverage;

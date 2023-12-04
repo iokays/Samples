@@ -1,21 +1,26 @@
 package com.iokays.designpattern.iterator.menu;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
 import java.util.Iterator;
 
-@ApiModel(value = "餐厅菜单")
+/**
+ * 餐厅菜单
+ */
 public class DinerMenu {
 
-    @ApiModelProperty(value = "菜单项最大数量")
+    /**
+     * 菜单项最大数量
+     */
     private static final int MAX_ITEMS = 6;
 
-    @ApiModelProperty(value = "菜单项数量")
+    /**
+     * 菜单项数量
+     */
     private int numberOfItems = 0;
 
-    @ApiModelProperty(value = "菜单项")
+    /**
+     * 菜单项
+     */
     private MenuItem[] menuItems;
 
     public DinerMenu() {
@@ -27,7 +32,9 @@ public class DinerMenu {
         addItem("Hotdog", "A hot dog, with saurkraut, relish, onions, topped with cheese", false, 3.05);
     }
 
-    @ApiOperation(value = "添加菜单项", notes = "添加菜单项")
+    /**
+     * 添加菜单项", notes = "添加菜单项
+     */
     public void addItem(String name, String description, boolean vegetarian, double price) {
         MenuItem menuItem = new MenuItem(name, description, vegetarian, price);
 
@@ -39,12 +46,16 @@ public class DinerMenu {
         }
     }
 
-    @ApiOperation(value = "获取菜单项", notes = "获取菜单项")
+    /**
+     * 获取菜单项", notes = "获取菜单项
+     */
     public MenuItem[] getMenuItems() {
         return menuItems;
     }
 
-    @ApiOperation(value = "创建迭代器", notes = "创建迭代器")
+    /**
+     * 创建迭代器", notes = "创建迭代器
+     */
     public Iterator createIterator() {
         return new DinerMenuIterator(menuItems);
     }

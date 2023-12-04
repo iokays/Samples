@@ -1,8 +1,9 @@
 package com.iokays.designpattern.abstractfactory.pizza;
 
-import io.swagger.annotations.ApiOperation;
 
-@ApiOperation("纽约披萨原料工厂")
+/**
+ * 纽约披萨原料工厂
+ */
 public class NYPizzaIngredientFactory implements PizzaIngredientFactory {
 
     @Override

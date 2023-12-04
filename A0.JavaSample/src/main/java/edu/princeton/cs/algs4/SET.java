@@ -2,7 +2,7 @@
  *  Compilation:  javac SET.java
  *  Execution:    java SET
  *  Dependencies: StdOut.java
- *  
+ *
  *  Set implementation using Java's TreeSet library.
  *  Does not allow duplicates.
  *
@@ -20,35 +20,33 @@ import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
 /**
- *  The {@code SET} class represents an ordered set of comparable keys.
- *  It supports the usual <em>add</em>, <em>contains</em>, and <em>delete</em>
- *  methods. It also provides ordered methods for finding the <em>minimum</em>,
- *  <em>maximum</em>, <em>floor</em>, and <em>ceiling</em> and set methods
- *  for <em>union</em>, <em>intersection</em>, and <em>equality</em>.
- *  <p>
- *  Even though this implementation include the method {@code equals()}, it
- *  does not support the method {@code hashCode()} because sets are mutable.
- *  <p>
- *  This implementation uses a balanced binary search tree. It requires that
- *  the key type implements the {@code Comparable} interface and calls the
- *  {@code compareTo()} and method to compare two keys. It does not call either
- *  {@code equals()} or {@code hashCode()}.
- *  The <em>add</em>, <em>contains</em>, <em>delete</em>, <em>minimum</em>,
- *  <em>maximum</em>, <em>ceiling</em>, and <em>floor</em> methods take
- *  logarithmic time in the worst case.
- *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes constant time.
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
- *  <i>Algorithms in Java, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code SET} class represents an ordered set of comparable keys.
+ * It supports the usual <em>add</em>, <em>contains</em>, and <em>delete</em>
+ * methods. It also provides ordered methods for finding the <em>minimum</em>,
+ * <em>maximum</em>, <em>floor</em>, and <em>ceiling</em> and set methods
+ * for <em>union</em>, <em>intersection</em>, and <em>equality</em>.
+ * <p>
+ * Even though this implementation include the method {@code equals()}, it
+ * does not support the method {@code hashCode()} because sets are mutable.
+ * <p>
+ * This implementation uses a balanced binary search tree. It requires that
+ * the key type implements the {@code Comparable} interface and calls the
+ * {@code compareTo()} and method to compare two keys. It does not call either
+ * {@code equals()} or {@code hashCode()}.
+ * The <em>add</em>, <em>contains</em>, <em>delete</em>, <em>minimum</em>,
+ * <em>maximum</em>, <em>ceiling</em>, and <em>floor</em> methods take
+ * logarithmic time in the worst case.
+ * The <em>size</em>, and <em>is-empty</em> operations take constant time.
+ * Construction takes constant time.
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ * <i>Algorithms in Java, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- *
- *  @param <Key> the generic type of a key in this set
+ * @param <Key> the generic type of a key in this set
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-
 public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     private TreeSet<Key> set;
 
@@ -71,7 +69,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Adds the key to this set (if it is not already present).
      *
-     * @param  key the key to add
+     * @param key the key to add
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void add(Key key) {
@@ -83,9 +81,9 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns true if this set contains the given key.
      *
-     * @param  key the key
+     * @param key the key
      * @return {@code true} if this set contains {@code key};
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
@@ -97,7 +95,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Removes the specified key from this set (if the set contains the specified key).
      * This is equivalent to {@code remove()}, but we plan to deprecate {@code delete()}.
      *
-     * @param  key the key
+     * @param key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
@@ -109,7 +107,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Removes the specified key from this set (if the set contains the specified key).
      * This is equivalent to {@code delete()}, but we plan to deprecate {@code delete()}.
      *
-     * @param  key the key
+     * @param key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void remove(Key key) {
@@ -130,12 +128,12 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Returns true if this set is empty.
      *
      * @return {@code true} if this set is empty;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean isEmpty() {
         return size() == 0;
     }
- 
+
     /**
      * Returns all of the keys in this set, as an iterator.
      * To iterate over all of the keys in a set named {@code set}, use the
@@ -173,10 +171,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns the smallest key in this set greater than or equal to {@code key}.
      *
-     * @param  key the key
+     * @param key the key
      * @return the smallest key in this set greater than or equal to {@code key}
      * @throws IllegalArgumentException if {@code key} is {@code null}
-     * @throws NoSuchElementException if there is no such key
+     * @throws NoSuchElementException   if there is no such key
      */
     public Key ceiling(Key key) {
         if (key == null) throw new IllegalArgumentException("called ceiling() with a null key");
@@ -188,10 +186,10 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns the largest key in this set less than or equal to {@code key}.
      *
-     * @param  key the key
+     * @param key the key
      * @return the largest key in this set table less than or equal to {@code key}
      * @throws IllegalArgumentException if {@code key} is {@code null}
-     * @throws NoSuchElementException if there is no such key
+     * @throws NoSuchElementException   if there is no such key
      */
     public Key floor(Key key) {
         if (key == null) throw new IllegalArgumentException("called floor() with a null key");
@@ -203,7 +201,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns the union of this set and that set.
      *
-     * @param  that the other set
+     * @param that the other set
      * @return the union of this set and that set
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
@@ -222,7 +220,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
     /**
      * Returns the intersection of this set and that set.
      *
-     * @param  that the other set
+     * @param that the other set
      * @return the intersection of this set and that set
      * @throws IllegalArgumentException if {@code that} is {@code null}
      */
@@ -233,8 +231,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
             for (Key x : this) {
                 if (that.contains(x)) c.add(x);
             }
-        }
-        else {
+        } else {
             for (Key x : that) {
                 if (this.contains(x)) c.add(x);
             }
@@ -242,17 +239,17 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
         return c;
     }
 
-    /**       
+    /**
      * Compares this set to the specified set.
      * <p>
      * Note that this method declares two empty sets to be equal
      * even if they are parameterized by different generic types.
-     * This is consistent with the behavior of {@code equals()} 
+     * This is consistent with the behavior of {@code equals()}
      * within Java's Collections framework.
-     *       
-     * @param  other the other set
+     *
+     * @param other the other set
      * @return {@code true} if this set equals {@code other};
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     @Override
     public boolean equals(Object other) {
@@ -278,7 +275,7 @@ public class SET<Key extends Comparable<Key>> implements Iterable<Key> {
      * Returns a string representation of this set.
      *
      * @return a string representation of this set, enclosed in curly braces,
-     *         with adjacent keys separated by a comma and a space
+     * with adjacent keys separated by a comma and a space
      */
     @Override
     public String toString() {

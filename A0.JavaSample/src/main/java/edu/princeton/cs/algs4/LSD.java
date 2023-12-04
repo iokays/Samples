@@ -30,23 +30,24 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code LSD} class provides static methods for sorting an
- *  array of <em>w</em>-character strings or 32-bit integers using LSD radix sort.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code LSD} class provides static methods for sorting an
+ * array of <em>w</em>-character strings or 32-bit integers using LSD radix sort.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class LSD {
     private static final int BITS_PER_BYTE = 8;
 
     // do not instantiate
-    private LSD() { }
+    private LSD() {
+    }
 
-   /**  
+    /**
      * Rearranges the array of w-character strings in ascending order.
      *
      * @param a the array to be sorted
@@ -57,17 +58,17 @@ public class LSD {
         int R = 256;   // extend ASCII alphabet size
         String[] aux = new String[n];
 
-        for (int d = w-1; d >= 0; d--) {
+        for (int d = w - 1; d >= 0; d--) {
             // sort by key-indexed counting on dth character
 
             // compute frequency counts
-            int[] count = new int[R+1];
+            int[] count = new int[R + 1];
             for (int i = 0; i < n; i++)
                 count[a[i].charAt(d) + 1]++;
 
             // compute cumulates
             for (int r = 0; r < R; r++)
-                count[r+1] += count[r];
+                count[r + 1] += count[r];
 
             // move data
             for (int i = 0; i < n; i++)
@@ -79,7 +80,7 @@ public class LSD {
         }
     }
 
-   /**
+    /**
      * Rearranges the array of 32-bit integers in ascending order.
      * This is about 2-3x faster than Arrays.sort().
      *
@@ -94,32 +95,32 @@ public class LSD {
         int n = a.length;
         int[] aux = new int[n];
 
-        for (int d = 0; d < w; d++) {         
+        for (int d = 0; d < w; d++) {
 
             // compute frequency counts
-            int[] count = new int[R+1];
-            for (int i = 0; i < n; i++) {           
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
+            int[] count = new int[R + 1];
+            for (int i = 0; i < n; i++) {
+                int c = (a[i] >> BITS_PER_BYTE * d) & MASK;
                 count[c + 1]++;
             }
 
             // compute cumulates
             for (int r = 0; r < R; r++)
-                count[r+1] += count[r];
+                count[r + 1] += count[r];
 
             // for most significant byte, 0x80-0xFF comes before 0x00-0x7F
-            if (d == w-1) {
-                int shift1 = count[R] - count[R/2];
-                int shift2 = count[R/2];
-                for (int r = 0; r < R/2; r++)
+            if (d == w - 1) {
+                int shift1 = count[R] - count[R / 2];
+                int shift2 = count[R / 2];
+                for (int r = 0; r < R / 2; r++)
                     count[r] += shift1;
-                for (int r = R/2; r < R; r++)
+                for (int r = R / 2; r < R; r++)
                     count[r] -= shift2;
             }
 
             // move data
             for (int i = 0; i < n; i++) {
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
+                int c = (a[i] >> BITS_PER_BYTE * d) & MASK;
                 aux[count[c]++] = a[i];
             }
 

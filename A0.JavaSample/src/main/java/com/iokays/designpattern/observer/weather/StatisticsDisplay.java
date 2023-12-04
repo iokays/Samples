@@ -1,8 +1,9 @@
 package com.iokays.designpattern.observer.weather;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "统计布告板")
+/**
+ * 统计布告板
+ */
 public class StatisticsDisplay implements Observer, DisplayElement {
 
     private final Subject weatherData;

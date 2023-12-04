@@ -16,30 +16,30 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code EulerianCycle} class represents a data type
- *  for finding an Eulerian cycle or path in a graph.
- *  An <em>Eulerian cycle</em> is a cycle (not necessarily simple) that
- *  uses every edge in the graph exactly once.
- *  <p>
- *  This implementation uses a nonrecursive depth-first search.
- *  The constructor takes &Theta;(<em>E</em> + <em>V</em>) time in the worst
- *  case, where <em>E</em> is the number of edges and <em>V</em> is the
- *  number of vertices
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>E</em> + <em>V</em>) extra space in the worst case
- *  (not including the graph).
- *  <p>
- *  To compute Eulerian paths in graphs, see {@link EulerianPath}.
- *  To compute Eulerian cycles and paths in digraphs, see
- *  {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- * 
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- *  @author Nate Liu
+ * The {@code EulerianCycle} class represents a data type
+ * for finding an Eulerian cycle or path in a graph.
+ * An <em>Eulerian cycle</em> is a cycle (not necessarily simple) that
+ * uses every edge in the graph exactly once.
+ * <p>
+ * This implementation uses a nonrecursive depth-first search.
+ * The constructor takes &Theta;(<em>E</em> + <em>V</em>) time in the worst
+ * case, where <em>E</em> is the number of edges and <em>V</em> is the
+ * number of vertices
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>E</em> + <em>V</em>) extra space in the worst case
+ * (not including the graph).
+ * <p>
+ * To compute Eulerian paths in graphs, see {@link EulerianPath}.
+ * To compute Eulerian cycles and paths in digraphs, see
+ * {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
+ * @author Nate Liu
  */
 public class EulerianCycle {
     private Stack<Integer> cycle = new Stack<Integer>();  // Eulerian cycle; null if no such cycle
@@ -58,7 +58,7 @@ public class EulerianCycle {
 
         // returns the other vertex of the edge
         public int other(int vertex) {
-            if      (vertex == v) return w;
+            if (vertex == v) return w;
             else if (vertex == w) return v;
             else throw new IllegalArgumentException("Illegal endpoint");
         }
@@ -66,7 +66,7 @@ public class EulerianCycle {
 
     /**
      * Computes an Eulerian cycle in the specified graph, if one exists.
-     * 
+     *
      * @param G the graph
      */
     public EulerianCycle(Graph G) {
@@ -76,7 +76,7 @@ public class EulerianCycle {
 
         // necessary condition: all vertices have even degree
         // (this test is needed or it might find an Eulerian path instead of cycle)
-        for (int v = 0; v < G.V(); v++) 
+        for (int v = 0; v < G.V(); v++)
             if (G.degree(v) % 2 != 0)
                 return;
 
@@ -97,8 +97,7 @@ public class EulerianCycle {
                         adj[w].enqueue(e);
                     }
                     selfLoops++;
-                }
-                else if (v < w) {
+                } else if (v < w) {
                     Edge e = new Edge(v, w);
                     adj[v].enqueue(e);
                     adj[w].enqueue(e);
@@ -135,9 +134,9 @@ public class EulerianCycle {
 
     /**
      * Returns the sequence of vertices on an Eulerian cycle.
-     * 
+     *
      * @return the sequence of vertices on an Eulerian cycle;
-     *         {@code null} if no such cycle
+     * {@code null} if no such cycle
      */
     public Iterable<Integer> cycle() {
         return cycle;
@@ -145,9 +144,9 @@ public class EulerianCycle {
 
     /**
      * Returns true if the graph has an Eulerian cycle.
-     * 
+     *
      * @return {@code true} if the graph has an Eulerian cycle;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean hasEulerianCycle() {
         return cycle != null;
@@ -166,8 +165,7 @@ public class EulerianCycle {
      *  The code below is solely for testing correctness of the data type.
      *
      **************************************************************************/
-
-    // Determines whether a graph has an Eulerian cycle using necessary
+// Determines whether a graph has an Eulerian cycle using necessary
     // and sufficient conditions (without computing the cycle itself):
     //    - at least one edge
     //    - degree(v) is even for every vertex v
@@ -234,8 +232,7 @@ public class EulerianCycle {
                 StdOut.print(v + " ");
             }
             StdOut.println();
-        }
-        else {
+        } else {
             StdOut.println("none");
         }
         StdOut.println();
@@ -270,8 +267,8 @@ public class EulerianCycle {
         unitTest(G4, "single self loop");
 
         // union of two disjoint cycles
-        Graph H1 = GraphGenerator.eulerianCycle(V/2, E/2);
-        Graph H2 = GraphGenerator.eulerianCycle(V - V/2, E - E/2);
+        Graph H1 = GraphGenerator.eulerianCycle(V / 2, E / 2);
+        Graph H2 = GraphGenerator.eulerianCycle(V - V / 2, E - E / 2);
         int[] perm = new int[V];
         for (int i = 0; i < V; i++)
             perm[i] = i;
@@ -282,7 +279,7 @@ public class EulerianCycle {
                 G5.addEdge(perm[v], perm[w]);
         for (int v = 0; v < H2.V(); v++)
             for (int w : H2.adj(v))
-                G5.addEdge(perm[V/2 + v], perm[V/2 + w]);
+                G5.addEdge(perm[V / 2 + v], perm[V / 2 + w]);
         unitTest(G5, "Union of two disjoint cycles");
 
         // random digraph

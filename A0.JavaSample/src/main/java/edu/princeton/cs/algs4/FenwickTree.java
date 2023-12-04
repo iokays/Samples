@@ -34,7 +34,7 @@ package edu.princeton.cs.algs4;
  * <p>
  * Memory usage:  O(n)
  *
- * @author Ricardo Pacheco 
+ * @author Ricardo Pacheco
  */
 public class FenwickTree {
 
@@ -50,7 +50,7 @@ public class FenwickTree {
      * <p>
      * Time-Complexity:    O(log(n))
      *
-     * @param  ind index
+     * @param ind index
      * @return sum
      */
     public int rsq(int ind) {
@@ -72,8 +72,8 @@ public class FenwickTree {
      * <p>
      * Time-Complexity:    O(log(n))
      *
-     * @param  a left index
-     * @param  b right index
+     * @param a left index
+     * @param b right index
      * @return sum
      */
     public int rsq(int a, int b) {
@@ -88,8 +88,8 @@ public class FenwickTree {
      * <p>
      * Time-Complexity:    O(log(n))
      *
-     * @param  ind   index
-     * @param  value value
+     * @param ind   index
+     * @param value value
      */
     public void update(int ind, int value) {
         assert ind > 0;
@@ -156,25 +156,20 @@ public class FenwickTree {
                     StdOut.print(ft.rsq(i, i) + " ");
                 }
                 StdOut.println();
-            }
-            else if (line[0].equals("set")) {
+            } else if (line[0].equals("set")) {
                 ft = new FenwickTree(line.length - 1);
                 for (int i = 1; i <= line.length - 1; i++) {
                     ft.update(i, Integer.parseInt(line[i]));
                 }
-            }
-
-            else if (line[0].equals("up")) {
+            } else if (line[0].equals("up")) {
                 ft.update(arg1, arg2);
                 for (int i = 1; i <= ft.size(); i++) {
                     StdOut.print(ft.rsq(i, i) + " ");
                 }
                 StdOut.println();
-            }
-            else if (line[0].equals("rsq")) {
+            } else if (line[0].equals("rsq")) {
                 StdOut.printf("Sum from %d to %d = %d%n", arg1, arg2, ft.rsq(arg1, arg2));
-            }
-            else {
+            } else {
                 StdOut.println("Invalid command");
             }
 

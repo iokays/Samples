@@ -4,7 +4,7 @@
  *  Dependencies: Point2D.java
  *  Data files:   https://algs4.cs.princeton.edu/99hull/rs1423.txt
  *                https://algs4.cs.princeton.edu/99hull/kw1260.txt
- * 
+ *
  *  Create points from standard input and compute the convex hull using
  *  Graham scan algorithm.
  *
@@ -30,18 +30,18 @@ import java.util.Arrays;
 
 
 /**
- *  The {@code GrahamScan} data type provides methods for computing the 
- *  convex hull of a set of <em>n</em> points in the plane.
- *  <p>
- *  The implementation uses the Graham-Scan convex hull algorithm.
- *  It runs in O(<em>n</em> log <em>n</em>) time in the worst case
- *  and uses O(<em>n</em>) extra memory.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/99scientific">Section 9.9</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code GrahamScan} data type provides methods for computing the
+ * convex hull of a set of <em>n</em> points in the plane.
+ * <p>
+ * The implementation uses the Graham-Scan convex hull algorithm.
+ * It runs in O(<em>n</em> log <em>n</em>) time in the worst case
+ * and uses O(<em>n</em>) extra memory.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/99scientific">Section 9.9</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class GrahamScan {
     private Stack<Point2D> hull = new Stack<Point2D>();
@@ -49,7 +49,7 @@ public class GrahamScan {
     /**
      * Computes the convex hull of the specified array of points.
      *
-     * @param  points the array of points
+     * @param points the array of points
      * @throws IllegalArgumentException if {@code points} is {@code null}
      * @throws IllegalArgumentException if any entry in {@code points[]} is {@code null}
      * @throws IllegalArgumentException if {@code points.length} is {@code 0}
@@ -86,9 +86,9 @@ public class GrahamScan {
 
         // find index k2 of first point not collinear with a[0] and a[k1]
         int k2;
-        for (k2 = k1+1; k2 < n; k2++)
+        for (k2 = k1 + 1; k2 < n; k2++)
             if (Point2D.ccw(a[0], a[k1], a[k2]) != 0) break;
-        hull.push(a[k2-1]);    // a[k2-1] is second extreme point
+        hull.push(a[k2 - 1]);    // a[k2-1] is second extreme point
 
         // Graham scan; note that a[n-1] is extreme point different from a[0]
         for (int i = k2; i < n; i++) {
@@ -126,14 +126,14 @@ public class GrahamScan {
         }
 
         for (int i = 0; i < n; i++) {
-            if (Point2D.ccw(points[i], points[(i+1) % n], points[(i+2) % n]) <= 0) {
+            if (Point2D.ccw(points[i], points[(i + 1) % n], points[(i + 2) % n]) <= 0) {
                 return false;
             }
         }
         return true;
     }
 
-   /**
+    /**
      * Unit tests the {@code GrahamScan} data type.
      * Reads in an integer {@code n} and {@code n} points (specified by
      * their <em>x</em>- and <em>y</em>-coordinates) from standard input;

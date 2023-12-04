@@ -11,10 +11,10 @@
  *
  *  % java Cycle tinyG.txt
  *  3 4 5 3 
- * 
+ *
  *  % java Cycle mediumG.txt 
  *  15 0 225 15 
- * 
+ *
  *  % java Cycle largeG.txt 
  *  996673 762 840164 4619 785187 194717 996673 
  *
@@ -23,28 +23,28 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Cycle} class represents a data type for 
- *  determining whether an undirected graph has a simple cycle.
- *  The <em>hasCycle</em> operation determines whether the graph has
- *  a cycle and, if so, the <em>cycle</em> operation returns one.
- *  <p>
- *  This implementation uses depth-first search.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
- *  worst case, where <em>V</em> is the number of vertices and
- *  <em>E</em> is the number of edges.
- *  (The depth-first search part takes only <em>O</em>(<em>V</em>) time;
- *  however, checking for self-loops and parallel edges takes
- *  &Theta;(<em>V</em> + <em>E</em>) time in the worst case.)
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the graph).
- *  
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
- *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Cycle} class represents a data type for
+ * determining whether an undirected graph has a simple cycle.
+ * The <em>hasCycle</em> operation determines whether the graph has
+ * a cycle and, if so, the <em>cycle</em> operation returns one.
+ * <p>
+ * This implementation uses depth-first search.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ * worst case, where <em>V</em> is the number of vertices and
+ * <em>E</em> is the number of edges.
+ * (The depth-first search part takes only <em>O</em>(<em>V</em>) time;
+ * however, checking for self-loops and parallel edges takes
+ * &Theta;(<em>V</em> + <em>E</em>) time in the worst case.)
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the graph).
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>
+ * of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Cycle {
     private boolean[] marked;
@@ -120,10 +120,11 @@ public class Cycle {
         return cycle != null;
     }
 
-     /**
+    /**
      * Returns a cycle in the graph {@code G}.
+     *
      * @return a cycle if the graph {@code G} has a cycle,
-     *         and {@code null} otherwise
+     * and {@code null} otherwise
      */
     public Iterable<Integer> cycle() {
         return cycle;
@@ -167,8 +168,7 @@ public class Cycle {
                 StdOut.print(v + " ");
             }
             StdOut.println();
-        }
-        else {
+        } else {
             StdOut.println("Graph is acyclic");
         }
     }

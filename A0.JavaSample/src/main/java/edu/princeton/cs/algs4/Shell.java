@@ -4,7 +4,7 @@
  *  Dependencies: StdOut.java StdIn.java
  *  Data files:   https://algs4.cs.princeton.edu/21elementary/tiny.txt
  *                https://algs4.cs.princeton.edu/21elementary/words3.txt
- *   
+ *
  *  Sorts a sequence of strings from standard input using shellsort.
  *
  *  % more tiny.txt
@@ -12,10 +12,10 @@
  *
  *  % java Shell < tiny.txt
  *  A E E L M O P R S T X                 [ one string per line ]
- *    
+ *
  *  % more words3.txt
  *  bed bug dad yes zoo ... all bad yet
- *  
+ *
  *  % java Shell < words3.txt
  *  all bad bed bug dad ... yes yet zoo    [ one string per line ]
  *
@@ -25,30 +25,32 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Shell} class provides static methods for sorting an
- *  array using <em>Shellsort</em> with
- *  <a href = "https://oeis.org/A003462"> Knuth's increment sequence</a>
- *  (1, 4, 13, 40, ...). In the worst case, this implementation makes
- *  &Theta;(<em>n</em><sup>3/2</sup>) compares and exchanges to sort
- *  an array of length <em>n</em>.
- *  <p>
- *  This sorting algorithm is not stable.
- *  It uses &Theta;(1) extra memory (not including the input array).
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * The {@code Shell} class provides static methods for sorting an
+ * array using <em>Shellsort</em> with
+ * <a href = "https://oeis.org/A003462"> Knuth's increment sequence</a>
+ * (1, 4, 13, 40, ...). In the worst case, this implementation makes
+ * &Theta;(<em>n</em><sup>3/2</sup>) compares and exchanges to sort
+ * an array of length <em>n</em>.
+ * <p>
+ * This sorting algorithm is not stable.
+ * It uses &Theta;(1) extra memory (not including the input array).
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Shell {
 
     // This class should not be instantiated.
-    private Shell() { }
+    private Shell() {
+    }
 
     /**
      * Rearranges the array in ascending order, using the natural order.
+     *
      * @param a the array to be sorted
      */
     public static void sort(Comparable[] a) {
@@ -56,32 +58,30 @@ public class Shell {
 
         // 3x+1 increment sequence:  1, 4, 13, 40, 121, 364, 1093, ... 
         int h = 1;
-        while (h < n/3) h = 3*h + 1; 
+        while (h < n / 3) h = 3 * h + 1;
 
         while (h >= 1) {
             // h-sort the array
             for (int i = h; i < n; i++) {
-                for (int j = i; j >= h && less(a[j], a[j-h]); j -= h) {
-                    exch(a, j, j-h);
+                for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
+                    exch(a, j, j - h);
                 }
             }
-            assert isHsorted(a, h); 
+            assert isHsorted(a, h);
             h /= 3;
         }
         assert isSorted(a);
     }
 
 
-
-   /***************************************************************************
-    *  Helper sorting functions.
-    ***************************************************************************/
-    
-    // is v < w ?
+    /***************************************************************************
+     *  Helper sorting functions.
+     ***************************************************************************/
+// is v < w ?
     private static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
-        
+
     // exchange a[i] and a[j]
     private static void exch(Object[] a, int i, int j) {
         Object swap = a[i];
@@ -90,19 +90,19 @@ public class Shell {
     }
 
 
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Check if array is sorted - useful for debugging.
+     ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
         for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i-1])) return false;
+            if (less(a[i], a[i - 1])) return false;
         return true;
     }
 
     // is the array h-sorted?
     private static boolean isHsorted(Comparable[] a, int h) {
         for (int i = h; i < a.length; i++)
-            if (less(a[i], a[i-h])) return false;
+            if (less(a[i], a[i - h])) return false;
         return true;
     }
 
@@ -114,8 +114,8 @@ public class Shell {
     }
 
     /**
-     * Reads in a sequence of strings from standard input; Shellsorts them; 
-     * and prints them to standard output in ascending order. 
+     * Reads in a sequence of strings from standard input; Shellsorts them;
+     * and prints them to standard output in ascending order.
      *
      * @param args the command-line arguments
      */

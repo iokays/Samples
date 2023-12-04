@@ -21,24 +21,24 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code AcyclicSP} class represents a data type for solving the
- *  single-source shortest paths problem in edge-weighted directed acyclic
- *  graphs (DAGs). The edge weights can be positive, negative, or zero.
- *  <p>
- *  This implementation uses a topological-sort based algorithm.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
- *  worst case, where <em>V</em> is the number of vertices and
- *  <em>E</em> is the number of edges.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the
- *  edge-weighted digraph).
- *  <p>
- *  For additional documentation,    
- *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code AcyclicSP} class represents a data type for solving the
+ * single-source shortest paths problem in edge-weighted directed acyclic
+ * graphs (DAGs). The edge weights can be positive, negative, or zero.
+ * <p>
+ * This implementation uses a topological-sort based algorithm.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ * worst case, where <em>V</em> is the number of vertices and
+ * <em>E</em> is the number of edges.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the
+ * edge-weighted digraph).
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class AcyclicSP {
     private double[] distTo;         // distTo[v] = distance  of shortest s->v path
@@ -48,6 +48,7 @@ public class AcyclicSP {
     /**
      * Computes a shortest paths tree from {@code s} to every other vertex in
      * the directed acyclic graph {@code G}.
+     *
      * @param G the acyclic digraph
      * @param s the source vertex
      * @throws IllegalArgumentException if the digraph is not acyclic
@@ -79,14 +80,15 @@ public class AcyclicSP {
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
             edgeTo[w] = e;
-        }       
+        }
     }
 
     /**
      * Returns the length of a shortest path from the source vertex {@code s} to vertex {@code v}.
-     * @param  v the destination vertex
+     *
+     * @param v the destination vertex
      * @return the length of a shortest path from the source vertex {@code s} to vertex {@code v};
-     *         {@code Double.POSITIVE_INFINITY} if no such path
+     * {@code Double.POSITIVE_INFINITY} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public double distTo(int v) {
@@ -96,9 +98,10 @@ public class AcyclicSP {
 
     /**
      * Is there a path from the source vertex {@code s} to vertex {@code v}?
-     * @param  v the destination vertex
+     *
+     * @param v the destination vertex
      * @return {@code true} if there is a path from the source vertex
-     *         {@code s} to vertex {@code v}, and {@code false} otherwise
+     * {@code s} to vertex {@code v}, and {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public boolean hasPathTo(int v) {
@@ -108,9 +111,10 @@ public class AcyclicSP {
 
     /**
      * Returns a shortest path from the source vertex {@code s} to vertex {@code v}.
-     * @param  v the destination vertex
+     *
+     * @param v the destination vertex
      * @return a shortest path from the source vertex {@code s} to vertex {@code v}
-     *         as an iterable of edges, and {@code null} if no such path
+     * as an iterable of edges, and {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<DirectedEdge> pathTo(int v) {
@@ -127,7 +131,7 @@ public class AcyclicSP {
     private void validateVertex(int v) {
         int V = distTo.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**
@@ -149,8 +153,7 @@ public class AcyclicSP {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();
-            }
-            else {
+            } else {
                 StdOut.printf("%d to %d         no path\n", s, v);
             }
         }

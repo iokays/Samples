@@ -2,7 +2,7 @@
  *  Compilation:  javac Average.java
  *  Execution:    java Average < data.txt
  *  Dependencies: StdIn.java StdOut.java
- *  
+ *
  *  Reads in a sequence of real numbers, and computes their average.
  *
  *  % java Average
@@ -19,19 +19,20 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Average} class provides a client for reading in a sequence
- *  of real numbers and printing out their average.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Average} class provides a client for reading in a sequence
+ * of real numbers and printing out their average.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class Average { 
+public class Average {
 
     // this class should not be instantiated
-    private Average() { }
+    private Average() {
+    }
 
     /**
      * Reads in a sequence of real numbers from standard input and prints
@@ -39,7 +40,7 @@ public class Average {
      *
      * @param args the command-line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         int count = 0;       // number input values
         double sum = 0.0;    // sum of input values
 

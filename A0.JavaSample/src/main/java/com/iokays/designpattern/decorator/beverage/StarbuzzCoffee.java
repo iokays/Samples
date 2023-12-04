@@ -1,8 +1,9 @@
 package com.iokays.designpattern.decorator.beverage;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "星巴兹咖啡")
+/**
+ * 星巴兹咖啡
+ */
 public class StarbuzzCoffee {
 
     public static void main(String[] args) {

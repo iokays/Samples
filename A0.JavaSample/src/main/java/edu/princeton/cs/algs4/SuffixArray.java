@@ -32,39 +32,40 @@ package edu.princeton.cs.algs4;
 import java.util.Arrays;
 
 /**
- *  The {@code SuffixArray} class represents a suffix array of a string of
- *  length <em>n</em>.
- *  It supports the <em>selecting</em> the <em>i</em>th smallest suffix,
- *  getting the <em>index</em> of the <em>i</em>th smallest suffix,
- *  computing the length of the <em>longest common prefix</em> between the
- *  <em>i</em>th smallest suffix and the <em>i</em>-1st smallest suffix,
- *  and determining the <em>rank</em> of a query string (which is the number
- *  of suffixes strictly less than the query string).
- *  <p>
- *  This implementation uses a nested class {@code Suffix} to represent
- *  a suffix of a string (using constant time and space) and
- *  {@code Arrays.sort()} to sort the array of suffixes.
- *  The <em>index</em> and <em>length</em> operations takes constant time 
- *  in the worst case. The <em>lcp</em> operation takes time proportional to the
- *  length of the longest common prefix.
- *  The <em>select</em> operation takes time proportional
- *  to the length of the suffix and should be used primarily for debugging.
- *  <p>
- *  For alternate implementations of the same API, see
- *  {@link SuffixArrayX}, which is faster in practice (uses 3-way radix quicksort)
- *  and uses less memory (does not create {@code Suffix} objects)
- *  and <a href = "https://algs4.cs.princeton.edu/63suffix/SuffixArrayJava6.java.html">SuffixArrayJava6.java</a>,
- *  which relies on the constant-time substring extraction method that existed
- *  in Java 6.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/63suffix">Section 6.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code SuffixArray} class represents a suffix array of a string of
+ * length <em>n</em>.
+ * It supports the <em>selecting</em> the <em>i</em>th smallest suffix,
+ * getting the <em>index</em> of the <em>i</em>th smallest suffix,
+ * computing the length of the <em>longest common prefix</em> between the
+ * <em>i</em>th smallest suffix and the <em>i</em>-1st smallest suffix,
+ * and determining the <em>rank</em> of a query string (which is the number
+ * of suffixes strictly less than the query string).
+ * <p>
+ * This implementation uses a nested class {@code Suffix} to represent
+ * a suffix of a string (using constant time and space) and
+ * {@code Arrays.sort()} to sort the array of suffixes.
+ * The <em>index</em> and <em>length</em> operations takes constant time
+ * in the worst case. The <em>lcp</em> operation takes time proportional to the
+ * length of the longest common prefix.
+ * The <em>select</em> operation takes time proportional
+ * to the length of the suffix and should be used primarily for debugging.
+ * <p>
+ * For alternate implementations of the same API, see
+ * {@link SuffixArrayX}, which is faster in practice (uses 3-way radix quicksort)
+ * and uses less memory (does not create {@code Suffix} objects)
+ * and <a href = "https://algs4.cs.princeton.edu/63suffix/SuffixArrayJava6.java.html">SuffixArrayJava6.java</a>,
+ * which relies on the constant-time substring extraction method that existed
+ * in Java 6.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/63suffix">Section 6.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class SuffixArray {
     private Suffix[] suffixes;
 
     /**
      * Initializes a suffix array for the given {@code text} string.
+     *
      * @param text the input string
      */
     public SuffixArray(String text) {
@@ -83,9 +84,11 @@ public class SuffixArray {
             this.text = text;
             this.index = index;
         }
+
         private int length() {
             return text.length() - index;
         }
+
         private char charAt(int i) {
             return text.charAt(index + i);
         }
@@ -107,6 +110,7 @@ public class SuffixArray {
 
     /**
      * Returns the length of the input string.
+     *
      * @return the length of the input string
      */
     public int length() {
@@ -117,6 +121,7 @@ public class SuffixArray {
     /**
      * Returns the index into the original string of the <em>i</em>th smallest suffix.
      * That is, {@code text.substring(sa.index(i))} is the <em>i</em>th smallest suffix.
+     *
      * @param i an integer between 0 and <em>n</em>-1
      * @return the index into the original string of the <em>i</em>th smallest suffix
      * @throws java.lang.IllegalArgumentException unless {@code 0 <= i < n}
@@ -130,6 +135,7 @@ public class SuffixArray {
     /**
      * Returns the length of the longest common prefix of the <em>i</em>th
      * smallest suffix and the <em>i</em>-1st smallest suffix.
+     *
      * @param i an integer between 1 and <em>n</em>-1
      * @return the length of the longest common prefix of the <em>i</em>th
      * smallest suffix and the <em>i</em>-1st smallest suffix.
@@ -137,7 +143,7 @@ public class SuffixArray {
      */
     public int lcp(int i) {
         if (i < 1 || i >= suffixes.length) throw new IllegalArgumentException();
-        return lcpSuffix(suffixes[i], suffixes[i-1]);
+        return lcpSuffix(suffixes[i], suffixes[i - 1]);
     }
 
     // longest common prefix of s and t
@@ -151,6 +157,7 @@ public class SuffixArray {
 
     /**
      * Returns the <em>i</em>th smallest suffix as a string.
+     *
      * @param i the index
      * @return the <em>i</em> smallest suffix as a string
      * @throws java.lang.IllegalArgumentException unless {@code 0 <= i < n}
@@ -164,6 +171,7 @@ public class SuffixArray {
      * Returns the number of suffixes strictly less than the {@code query} string.
      * We note that {@code rank(select(i))} equals {@code i} for each {@code i}
      * between 0 and <em>n</em>-1.
+     *
      * @param query the query string
      * @return the number of suffixes strictly less than {@code query}
      */
@@ -210,8 +218,7 @@ public class SuffixArray {
             int rank = suffix.rank(s.substring(index));
             if (i == 0) {
                 StdOut.printf("%3d %3d %3s %3d %s\n", i, index, "-", rank, ith);
-            }
-            else {
+            } else {
                 int lcp = suffix.lcp(i);
                 StdOut.printf("%3d %3d %3d %3d %s\n", i, index, lcp, rank, ith);
             }

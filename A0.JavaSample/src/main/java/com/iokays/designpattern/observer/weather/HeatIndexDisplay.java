@@ -1,14 +1,18 @@
 package com.iokays.designpattern.observer.weather;
 
-import io.swagger.annotations.*;
-
-@ApiModel(value = "热指数布告板")
+/**
+ * 热指数布告板
+ */
 public class HeatIndexDisplay implements Observer, DisplayElement {
 
-    @ApiModelProperty(value = "热指数")
+    /**
+     * 热指数
+     */
     private float heatIndex = 0.0f;
 
-    @ApiModelProperty(value = "气象数据")
+    /**
+     * 气象数据
+     */
     private final Subject weatherData;
 
     public HeatIndexDisplay(Subject weatherData) {
@@ -27,11 +31,14 @@ public class HeatIndexDisplay implements Observer, DisplayElement {
         this.display();
     }
 
-    @ApiOperation(value = "计算热指数", notes = "计算方式：https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "t", value = "温度", dataType = "float"),
-            @ApiImplicitParam(name = "rh", value = "湿度", dataType = "float")
-    })
+    /**
+     * 计算热指数
+     * 计算方式：https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml
+     *
+     * @param t  温度
+     * @param rh 湿度
+     * @return
+     */
     private float computeHeatIndex(float t, float rh) {
         return (float) ((16.923 + (0.185212 * t) + (5.37941 * rh) - (0.100254 * t * rh)
                 + (0.00941695 * (t * t)) + (0.00728898 * (rh * rh))

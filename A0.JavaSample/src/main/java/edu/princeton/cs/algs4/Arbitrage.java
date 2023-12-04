@@ -25,31 +25,32 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Arbitrage} class provides a client that finds an arbitrage
- *  opportunity in a currency exchange table by constructing a
- *  complete-digraph representation of the exchange table and then finding
- *  a negative cycle in the digraph.
- *  <p>
- *  This implementation uses the Bellman-Ford algorithm to find a
- *  negative cycle in the complete digraph.
- *  The running time is proportional to <em>V</em><sup>3</sup> in the
- *  worst case, where <em>V</em> is the number of currencies.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Arbitrage} class provides a client that finds an arbitrage
+ * opportunity in a currency exchange table by constructing a
+ * complete-digraph representation of the exchange table and then finding
+ * a negative cycle in the digraph.
+ * <p>
+ * This implementation uses the Bellman-Ford algorithm to find a
+ * negative cycle in the complete digraph.
+ * The running time is proportional to <em>V</em><sup>3</sup> in the
+ * worst case, where <em>V</em> is the number of currencies.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Arbitrage {
 
     // this class cannot be instantiated
-    private Arbitrage() { }
+    private Arbitrage() {
+    }
 
     /**
-     *  Reads the currency exchange table from standard input and
-     *  prints an arbitrage opportunity to standard output (if one exists).
+     * Reads the currency exchange table from standard input and
+     * prints an arbitrage opportunity to standard output (if one exists).
      *
      * @param args the command-line arguments
      */
@@ -79,8 +80,7 @@ public class Arbitrage {
                 stake *= Math.exp(-e.weight());
                 StdOut.printf("= %10.5f %s\n", stake, name[e.to()]);
             }
-        }
-        else {
+        } else {
             StdOut.println("No arbitrage opportunity");
         }
     }

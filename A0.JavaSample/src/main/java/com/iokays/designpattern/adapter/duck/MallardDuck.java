@@ -1,8 +1,9 @@
 package com.iokays.designpattern.adapter.duck;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "绿头鸭")
+/**
+ * 绿头鸭
+ */
 public class MallardDuck implements Duck {
 
     @Override

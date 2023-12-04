@@ -18,27 +18,28 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Genome} class provides static methods for compressing
- *  and expanding a genomic sequence using a 2-bit code.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Genome} class provides static methods for compressing
+ * and expanding a genomic sequence using a 2-bit code.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Genome {
 
     // Do not instantiate.
-    private Genome() { }
+    private Genome() {
+    }
 
     /**
      * Reads a sequence of 8-bit extended ASCII characters over the alphabet
      * { A, C, T, G } from standard input; compresses them using two bits per
      * character; and writes the results to standard output.
      */
-    public static void compress() { 
+    public static void compress() {
         Alphabet DNA = Alphabet.DNA;
         String s = BinaryStdIn.readString();
         int n = s.length();
@@ -50,7 +51,7 @@ public class Genome {
             BinaryStdOut.write(d, 2);
         }
         BinaryStdOut.close();
-    } 
+    }
 
     /**
      * Reads a binary sequence from standard input; converts each two bits
@@ -76,7 +77,7 @@ public class Genome {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if      (args[0].equals("-")) compress();
+        if (args[0].equals("-")) compress();
         else if (args[0].equals("+")) expand();
         else throw new IllegalArgumentException("Illegal command line argument");
     }

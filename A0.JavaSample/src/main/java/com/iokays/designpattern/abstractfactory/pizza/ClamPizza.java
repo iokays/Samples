@@ -1,8 +1,9 @@
 package com.iokays.designpattern.abstractfactory.pizza;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel("蛤蜊披萨")
+/**
+ * 蛤蜊披萨
+ */
 public class ClamPizza extends Pizza {
 
     PizzaIngredientFactory ingredientFactory;

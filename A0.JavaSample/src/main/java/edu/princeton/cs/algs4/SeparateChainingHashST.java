@@ -5,40 +5,40 @@
  *  Data files:   https://algs4.cs.princeton.edu/34hash/tinyST.txt
  *
  *  A symbol table implemented with a separate-chaining hash table.
- * 
+ *
  ******************************************************************************/
 
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code SeparateChainingHashST} class represents a symbol table of generic
- *  key-value pairs.
- *  It supports the usual <em>put</em>, <em>get</em>, <em>contains</em>,
- *  <em>delete</em>, <em>size</em>, and <em>is-empty</em> methods.
- *  It also provides a <em>keys</em> method for iterating over all of the keys.
- *  A symbol table implements the <em>associative array</em> abstraction:
- *  when associating a value with a key that is already in the symbol table,
- *  the convention is to replace the old value with the new value.
- *  Unlike {@link java.util.Map}, this class uses the convention that
- *  values cannot be {@code null}—setting the
- *  value associated with a key to {@code null} is equivalent to deleting the key
- *  from the symbol table.
- *  <p>
- *  This implementation uses a separate chaining hash table. It requires that
- *  the key type overrides the {@code equals()} and {@code hashCode()} methods.
- *  The expected time per <em>put</em>, <em>contains</em>, or <em>remove</em>
- *  operation is constant, subject to the uniform hashing assumption.
- *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes constant time.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/34hash">Section 3.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For other implementations, see {@link ST}, {@link BinarySearchST},
- *  {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST}, and
- *  {@link LinearProbingHashST},
+ * The {@code SeparateChainingHashST} class represents a symbol table of generic
+ * key-value pairs.
+ * It supports the usual <em>put</em>, <em>get</em>, <em>contains</em>,
+ * <em>delete</em>, <em>size</em>, and <em>is-empty</em> methods.
+ * It also provides a <em>keys</em> method for iterating over all of the keys.
+ * A symbol table implements the <em>associative array</em> abstraction:
+ * when associating a value with a key that is already in the symbol table,
+ * the convention is to replace the old value with the new value.
+ * Unlike {@link java.util.Map}, this class uses the convention that
+ * values cannot be {@code null}—setting the
+ * value associated with a key to {@code null} is equivalent to deleting the key
+ * from the symbol table.
+ * <p>
+ * This implementation uses a separate chaining hash table. It requires that
+ * the key type overrides the {@code equals()} and {@code hashCode()} methods.
+ * The expected time per <em>put</em>, <em>contains</em>, or <em>remove</em>
+ * operation is constant, subject to the uniform hashing assumption.
+ * The <em>size</em>, and <em>is-empty</em> operations take constant time.
+ * Construction takes constant time.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/34hash">Section 3.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * For other implementations, see {@link ST}, {@link BinarySearchST},
+ * {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST}, and
+ * {@link LinearProbingHashST},
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class SeparateChainingHashST<Key, Value> {
     private static final int INIT_CAPACITY = 4;
@@ -53,10 +53,11 @@ public class SeparateChainingHashST<Key, Value> {
      */
     public SeparateChainingHashST() {
         this(INIT_CAPACITY);
-    } 
+    }
 
     /**
      * Initializes an empty symbol table with {@code m} chains.
+     *
      * @param m the initial number of chains
      */
     public SeparateChainingHashST(int m) {
@@ -64,7 +65,7 @@ public class SeparateChainingHashST<Key, Value> {
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
         for (int i = 0; i < m; i++)
             st[i] = new SequentialSearchST<Key, Value>();
-    } 
+    }
 
     // resize the hash table to have the given number of chains,
     // rehashing all of the keys
@@ -75,15 +76,15 @@ public class SeparateChainingHashST<Key, Value> {
                 temp.put(key, st[i].get(key));
             }
         }
-        this.m  = temp.m;
-        this.n  = temp.n;
+        this.m = temp.m;
+        this.n = temp.n;
         this.st = temp.st;
     }
 
     // hash value between 0 and m-1
     private int hash(Key key) {
         return (key.hashCode() & 0x7fffffff) % m;
-    } 
+    }
 
     /**
      * Returns the number of key-value pairs in this symbol table.
@@ -92,13 +93,13 @@ public class SeparateChainingHashST<Key, Value> {
      */
     public int size() {
         return n;
-    } 
+    }
 
     /**
      * Returns true if this symbol table is empty.
      *
      * @return {@code true} if this symbol table is empty;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean isEmpty() {
         return size() == 0;
@@ -107,38 +108,38 @@ public class SeparateChainingHashST<Key, Value> {
     /**
      * Returns true if this symbol table contains the specified key.
      *
-     * @param  key the key
+     * @param key the key
      * @return {@code true} if this symbol table contains {@code key};
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to contains() is null");
         return get(key) != null;
-    } 
+    }
 
     /**
      * Returns the value associated with the specified key in this symbol table.
      *
-     * @param  key the key
+     * @param key the key
      * @return the value associated with {@code key} in the symbol table;
-     *         {@code null} if no such value
+     * {@code null} if no such value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         int i = hash(key);
         return st[i].get(key);
-    } 
+    }
 
     /**
-     * Inserts the specified key-value pair into the symbol table, overwriting the old 
+     * Inserts the specified key-value pair into the symbol table, overwriting the old
      * value with the new value if the symbol table already contains the specified key.
      * Deletes the specified key (and its associated value) from this symbol table
      * if the specified value is {@code null}.
      *
-     * @param  key the key
-     * @param  val the value
+     * @param key the key
+     * @param val the value
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
@@ -149,18 +150,18 @@ public class SeparateChainingHashST<Key, Value> {
         }
 
         // double table size if average length of list >= 10
-        if (n >= 10*m) resize(2*m);
+        if (n >= 10 * m) resize(2 * m);
 
         int i = hash(key);
         if (!st[i].contains(key)) n++;
         st[i].put(key, val);
-    } 
+    }
 
     /**
-     * Removes the specified key and its associated value from this symbol table     
-     * (if the key is in this symbol table).    
+     * Removes the specified key and its associated value from this symbol table
+     * (if the key is in this symbol table).
      *
-     * @param  key the key
+     * @param key the key
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
@@ -171,8 +172,8 @@ public class SeparateChainingHashST<Key, Value> {
         st[i].delete(key);
 
         // halve table size if average length of list <= 2
-        if (m > INIT_CAPACITY && n <= 2*m) resize(m/2);
-    } 
+        if (m > INIT_CAPACITY && n <= 2 * m) resize(m / 2);
+    }
 
     // return keys in symbol table as an Iterable
     public Iterable<Key> keys() {
@@ -182,7 +183,7 @@ public class SeparateChainingHashST<Key, Value> {
                 queue.enqueue(key);
         }
         return queue;
-    } 
+    }
 
 
     /**
@@ -190,7 +191,7 @@ public class SeparateChainingHashST<Key, Value> {
      *
      * @param args the command-line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
@@ -198,8 +199,8 @@ public class SeparateChainingHashST<Key, Value> {
         }
 
         // print keys
-        for (String s : st.keys()) 
-            StdOut.println(s + " " + st.get(s)); 
+        for (String s : st.keys())
+            StdOut.println(s + " " + st.get(s));
 
     }
 

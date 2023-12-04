@@ -35,21 +35,22 @@ package edu.princeton.cs.algs4;
 
 
 /**
- *  The {@code Count} class provides an {@link Alphabet} client for reading
- *  in a piece of text and computing the frequency of occurrence of each
- *  character over a given alphabet.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/55compress">Section 5.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Count} class provides an {@link Alphabet} client for reading
+ * in a piece of text and computing the frequency of occurrence of each
+ * character over a given alphabet.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/55compress">Section 5.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Count {
 
     // Do not instantiate.
-    private Count() { }
+    private Count() {
+    }
 
     /**
      * Reads in text from standard input; calculates the frequency of

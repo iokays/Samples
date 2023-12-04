@@ -1,12 +1,10 @@
 package com.iokays.analysispattern.accountabilityknowledgelevel;
 
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Objects;
 
 /**
  * 关联规则
- *
  */
 public class ConnectionRule {
 

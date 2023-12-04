@@ -10,27 +10,27 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code EulerianPath} class represents a data type
- *  for finding an Eulerian path in a graph.
- *  An <em>Eulerian path</em> is a path (not necessarily simple) that
- *  uses every edge in the graph exactly once.
- *  <p>
- *  This implementation uses a nonrecursive depth-first search.
- *  The constructor takes &Theta;(<em>E</em> + <em>V</em>) time in the worst
- *  case, where <em>E</em> is the number of edges and <em>V</em> is
- *  the number of vertices.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>E</em> + <em>V</em>) extra space in the worst case
- *  (not including the digraph).
- *  <p>
- *  To compute Eulerian cycles in graphs, see {@link EulerianCycle}.
- *  To compute Eulerian cycles and paths in digraphs, see
- *  {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- * 
+ * The {@code EulerianPath} class represents a data type
+ * for finding an Eulerian path in a graph.
+ * An <em>Eulerian path</em> is a path (not necessarily simple) that
+ * uses every edge in the graph exactly once.
+ * <p>
+ * This implementation uses a nonrecursive depth-first search.
+ * The constructor takes &Theta;(<em>E</em> + <em>V</em>) time in the worst
+ * case, where <em>E</em> is the number of edges and <em>V</em> is
+ * the number of vertices.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>E</em> + <em>V</em>) extra space in the worst case
+ * (not including the digraph).
+ * <p>
+ * To compute Eulerian cycles in graphs, see {@link EulerianCycle}.
+ * To compute Eulerian cycles and paths in digraphs, see
+ * {@link DirectedEulerianCycle} and {@link DirectedEulerianPath}.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
  * @author Robert Sedgewick
  * @author Kevin Wayne
  * @author Nate Liu
@@ -52,7 +52,7 @@ public class EulerianPath {
 
         // returns the other vertex of the edge
         public int other(int vertex) {
-            if      (vertex == v) return w;
+            if (vertex == v) return w;
             else if (vertex == w) return v;
             else throw new IllegalArgumentException("Illegal endpoint");
         }
@@ -60,7 +60,7 @@ public class EulerianPath {
 
     /**
      * Computes an Eulerian path in the specified graph, if one exists.
-     * 
+     *
      * @param G the graph
      */
     public EulerianPath(Graph G) {
@@ -101,8 +101,7 @@ public class EulerianPath {
                         adj[w].enqueue(e);
                     }
                     selfLoops++;
-                }
-                else if (v < w) {
+                } else if (v < w) {
                     Edge e = new Edge(v, w);
                     adj[v].enqueue(e);
                     adj[w].enqueue(e);
@@ -138,9 +137,9 @@ public class EulerianPath {
 
     /**
      * Returns the sequence of vertices on an Eulerian path.
-     * 
+     *
      * @return the sequence of vertices on an Eulerian path;
-     *         {@code null} if no such path
+     * {@code null} if no such path
      */
     public Iterable<Integer> path() {
         return path;
@@ -148,9 +147,9 @@ public class EulerianPath {
 
     /**
      * Returns true if the graph has an Eulerian path.
-     * 
+     *
      * @return {@code true} if the graph has an Eulerian path;
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean hasEulerianPath() {
         return path != null;
@@ -171,8 +170,7 @@ public class EulerianPath {
      *  The code below is solely for testing correctness of the data type.
      *
      **************************************************************************/
-
-    // Determines whether a graph has an Eulerian path using necessary
+// Determines whether a graph has an Eulerian path using necessary
     // and sufficient conditions (without computing the path itself):
     //    - degree(v) is even for every vertex, except for possibly two
     //    - the graph is connected (ignoring isolated vertices)
@@ -232,8 +230,7 @@ public class EulerianPath {
                 StdOut.print(v + " ");
             }
             StdOut.println();
-        }
-        else {
+        } else {
             StdOut.println("none");
         }
         StdOut.println();

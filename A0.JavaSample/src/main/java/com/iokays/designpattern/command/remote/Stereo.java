@@ -1,8 +1,10 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "音响", description = "音响")
+/**
+ * 音响
+ * 音响
+ */
 public class Stereo {
 
     private String location;

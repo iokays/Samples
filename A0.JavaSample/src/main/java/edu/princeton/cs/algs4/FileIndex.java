@@ -30,20 +30,21 @@ package edu.princeton.cs.algs4;
 import java.io.File;
 
 /**
- *  The {@code FileIndex} class provides a client for indexing a set of files,
- *  specified as command-line arguments. It takes queries from standard input
- *  and prints each file that contains the given query.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * The {@code FileIndex} class provides a client for indexing a set of files,
+ * specified as command-line arguments. It takes queries from standard input
+ * and prints each file that contains the given query.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class FileIndex { 
+public class FileIndex {
 
     // Do not instantiate.
-    private FileIndex() { }
+    private FileIndex() {
+    }
 
     public static void main(String[] args) {
 

@@ -1,8 +1,10 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "关闭电灯命令", description = "关闭电灯命令")
+/**
+ * 关闭电灯命令
+ * 关闭电灯命令
+ */
 public class LightOffCommand implements Command {
 
     private Light light;

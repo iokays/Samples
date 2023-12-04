@@ -17,7 +17,7 @@
  *   10z     = [ 60.0 40.0 70.0 50.0 ]
  *    |x|    = 5.477225575051661
  *   <x, y>  = 25.0
- * 
+ *
  *
  *  Note that Vector is also the name of an unrelated Java library class
  *  in the package java.util.
@@ -27,20 +27,20 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Vector} class represents a <em>d</em>-dimensional Euclidean vector.
- *  Vectors are immutable: their values cannot be changed after they are created.
- *  It includes methods for addition, subtraction,
- *  dot product, scalar product, unit vector, Euclidean norm, and the Euclidean
- *  distance between two vectors.
- *  <p>
- *  For additional documentation, 
- *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code Vector} class represents a <em>d</em>-dimensional Euclidean vector.
+ * Vectors are immutable: their values cannot be changed after they are created.
+ * It includes methods for addition, subtraction,
+ * dot product, scalar product, unit vector, Euclidean norm, and the Euclidean
+ * distance between two vectors.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class Vector { 
+public class Vector {
 
     private int d;               // dimension of the vector
     private double[] data;       // array of vector's components
@@ -61,7 +61,7 @@ public class Vector {
      * The vararg syntax supports a constructor that takes a variable number of
      * arugments such as Vector x = new Vector(1.0, 2.0, 3.0, 4.0).
      *
-     * @param a  the array or vararg list
+     * @param a the array or vararg list
      */
     public Vector(double... a) {
         d = a.length;
@@ -95,7 +95,7 @@ public class Vector {
     /**
      * Returns the dot product of this vector with the specified vector.
      *
-     * @param  that the other vector
+     * @param that the other vector
      * @return the dot product of this vector and that vector
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
@@ -120,7 +120,7 @@ public class Vector {
     /**
      * Returns the Euclidean distance between this vector and the specified vector.
      *
-     * @param  that the other vector 
+     * @param that the other vector
      * @return the Euclidean distance between this vector and that vector
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
@@ -132,7 +132,7 @@ public class Vector {
     /**
      * Returns the sum of this vector and the specified vector.
      *
-     * @param  that the vector to add to this vector
+     * @param that the vector to add to this vector
      * @return the vector whose value is {@code (this + that)}
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
@@ -147,7 +147,7 @@ public class Vector {
     /**
      * Returns the difference between this vector and the specified vector.
      *
-     * @param  that the vector to subtract from this vector
+     * @param that the vector to subtract from this vector
      * @return the vector whose value is {@code (this - that)}
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
@@ -162,7 +162,7 @@ public class Vector {
     /**
      * Returns the ith cartesian coordinate.
      *
-     * @param  i the coordinate index
+     * @param i the coordinate index
      * @return the ith cartesian coordinate
      */
     public double cartesian(int i) {
@@ -172,7 +172,7 @@ public class Vector {
     /**
      * Returns the scalar-vector product of this vector and the specified scalar
      *
-     * @param  alpha the scalar
+     * @param alpha the scalar
      * @return the vector whose value is {@code (alpha * this)}
      * @deprecated Replaced by {@link #scale(double)}.
      */
@@ -187,7 +187,7 @@ public class Vector {
     /**
      * Returns the scalar-vector product of this vector and the specified scalar
      *
-     * @param  alpha the scalar
+     * @param alpha the scalar
      * @return the vector whose value is {@code (alpha * this)}
      */
     public Vector scale(double alpha) {
@@ -212,8 +212,8 @@ public class Vector {
     /**
      * Returns a string representation of this vector.
      *
-     * @return a string representation of this vector, which consists of the 
-     *         the vector entries, separates by single spaces
+     * @return a string representation of this vector, which consists of the
+     * the vector entries, separates by single spaces
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -228,8 +228,8 @@ public class Vector {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        double[] xdata = { 1.0, 2.0, 3.0, 4.0 };
-        double[] ydata = { 5.0, 2.0, 4.0, 1.0 };
+        double[] xdata = {1.0, 2.0, 3.0, 4.0};
+        double[] ydata = {5.0, 2.0, 4.0, 1.0};
         Vector x = new Vector(xdata);
         Vector y = new Vector(ydata);
 

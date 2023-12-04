@@ -10,18 +10,17 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code RectHV} class is an immutable data type to encapsulate a
- *  two-dimensional axis-aligned rectagle with real-value coordinates.
- *  The rectangle is <em>closed</em>—it includes the points on the boundary.
- *  <p>
- *  For additional documentation, 
- *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code RectHV} class is an immutable data type to encapsulate a
+ * two-dimensional axis-aligned rectagle with real-value coordinates.
+ * The rectangle is <em>closed</em>—it includes the points on the boundary.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-
 public final class RectHV {
     private final double xmin, ymin;   // minimum x- and y-coordinates
     private final double xmax, ymax;   // maximum x- and y-coordinates
@@ -30,13 +29,13 @@ public final class RectHV {
      * Initializes a new rectangle [<em>xmin</em>, <em>xmax</em>]
      * x [<em>ymin</em>, <em>ymax</em>].
      *
-     * @param  xmin the <em>x</em>-coordinate of the lower-left endpoint
-     * @param  ymin the <em>y</em>-coordinate of the lower-left endpoint
-     * @param  xmax the <em>x</em>-coordinate of the upper-right endpoint
-     * @param  ymax the <em>y</em>-coordinate of the upper-right endpoint
+     * @param xmin the <em>x</em>-coordinate of the lower-left endpoint
+     * @param ymin the <em>y</em>-coordinate of the lower-left endpoint
+     * @param xmax the <em>x</em>-coordinate of the upper-right endpoint
+     * @param ymax the <em>y</em>-coordinate of the upper-right endpoint
      * @throws IllegalArgumentException if any of {@code xmin},
-     *         {@code ymin}, {@code xmax}, or {@code ymax}
-     *         is {@code Double.NaN}.
+     *                                  {@code ymin}, {@code xmax}, or {@code ymax}
+     *                                  is {@code Double.NaN}.
      * @throws IllegalArgumentException if {@code xmax < xmin} or {@code ymax < ymin}.
      */
     public RectHV(double xmin, double ymin, double xmax, double ymax) {
@@ -118,32 +117,33 @@ public final class RectHV {
      * of each rectangle) and <em>nested intersctions</em>
      * (when one rectangle is contained inside the other)
      *
-     * @param  that the other rectangle
+     * @param that the other rectangle
      * @return {@code true} if this rectangle intersect the argument
-               rectangle at one or more points
+     * rectangle at one or more points
      */
     public boolean intersects(RectHV that) {
         return this.xmax >= that.xmin && this.ymax >= that.ymin
-            && that.xmax >= this.xmin && that.ymax >= this.ymin;
+                && that.xmax >= this.xmin && that.ymax >= this.ymin;
     }
 
     /**
      * Returns true if this rectangle contain the point.
-     * @param  p the point
+     *
+     * @param p the point
      * @return {@code true} if this rectangle contain the point {@code p},
-               possibly at the boundary; {@code false} otherwise
+     * possibly at the boundary; {@code false} otherwise
      */
     public boolean contains(Point2D p) {
         return (p.x() >= xmin) && (p.x() <= xmax)
-            && (p.y() >= ymin) && (p.y() <= ymax);
+                && (p.y() >= ymin) && (p.y() <= ymax);
     }
 
     /**
      * Returns the Euclidean distance between this rectangle and the point {@code p}.
      *
-     * @param  p the point
+     * @param p the point
      * @return the Euclidean distance between the point {@code p} and the closest point
-               on this rectangle; 0 if the point is contained in this rectangle
+     * on this rectangle; 0 if the point is contained in this rectangle
      */
     public double distanceTo(Point2D p) {
         return Math.sqrt(this.distanceSquaredTo(p));
@@ -152,26 +152,26 @@ public final class RectHV {
     /**
      * Returns the square of the Euclidean distance between this rectangle and the point {@code p}.
      *
-     * @param  p the point
+     * @param p the point
      * @return the square of the Euclidean distance between the point {@code p} and
-     *         the closest point on this rectangle; 0 if the point is contained
-     *         in this rectangle
+     * the closest point on this rectangle; 0 if the point is contained
+     * in this rectangle
      */
     public double distanceSquaredTo(Point2D p) {
         double dx = 0.0, dy = 0.0;
-        if      (p.x() < xmin) dx = p.x() - xmin;
+        if (p.x() < xmin) dx = p.x() - xmin;
         else if (p.x() > xmax) dx = p.x() - xmax;
-        if      (p.y() < ymin) dy = p.y() - ymin;
+        if (p.y() < ymin) dy = p.y() - ymin;
         else if (p.y() > ymax) dy = p.y() - ymax;
-        return dx*dx + dy*dy;
+        return dx * dx + dy * dy;
     }
 
     /**
      * Compares this rectangle to the specified rectangle.
      *
-     * @param  other the other rectangle
+     * @param other the other rectangle
      * @return {@code true} if this rectangle equals {@code other};
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     @Override
     public boolean equals(Object other) {
@@ -188,6 +188,7 @@ public final class RectHV {
 
     /**
      * Returns an integer hash code for this rectangle.
+     *
      * @return an integer hash code for this rectangle
      */
     @Override
@@ -196,14 +197,14 @@ public final class RectHV {
         int hash2 = ((Double) ymin).hashCode();
         int hash3 = ((Double) xmax).hashCode();
         int hash4 = ((Double) ymax).hashCode();
-        return 31*(31*(31*hash1 + hash2) + hash3) + hash4;
+        return 31 * (31 * (31 * hash1 + hash2) + hash3) + hash4;
     }
 
     /**
      * Returns a string representation of this rectangle.
      *
      * @return a string representation of this rectangle, using the format
-     *         {@code [xmin, xmax] x [ymin, ymax]}
+     * {@code [xmin, xmax] x [ymin, ymax]}
      */
     @Override
     public String toString() {

@@ -1,8 +1,10 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "打开音响命令", description = "打开音响命令")
+/**
+ * 打开音响命令
+ * 打开音响命令
+ */
 public class StereoOnWithCDCommand implements Command {
 
     private Stereo stereo;

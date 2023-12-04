@@ -1,8 +1,10 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "遥控器测试", description = "遥控器测试")
+/**
+ * 遥控器测试
+ * 遥控器测试
+ */
 public class RemoteControlTest {
 
     public static void main(String[] args) {

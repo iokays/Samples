@@ -38,21 +38,22 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code KWIK} class provides a {@link SuffixArray} client for computing
- *  all occurrences of a keyword in a given string, with surrounding context.
- *  This is known as <em>keyword-in-context search</em>.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/63suffix">Section 6.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code KWIK} class provides a {@link SuffixArray} client for computing
+ * all occurrences of a keyword in a given string, with surrounding context.
+ * This is known as <em>keyword-in-context search</em>.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/63suffix">Section 6.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class KWIK {
 
     // Do not instantiate.
-    private KWIK() { }
+    private KWIK() {
+    }
 
     /**
      * Reads a string from a file specified as the first
@@ -80,16 +81,16 @@ public class KWIK {
             String query = StdIn.readLine();
             for (int i = sa.rank(query); i < n; i++) {
                 int from1 = sa.index(i);
-                int to1   = Math.min(n, from1 + query.length());
+                int to1 = Math.min(n, from1 + query.length());
                 if (!query.equals(text.substring(from1, to1))) break;
                 int from2 = Math.max(0, sa.index(i) - context);
-                int to2   = Math.min(n, sa.index(i) + context + query.length());
+                int to2 = Math.min(n, sa.index(i) + context + query.length());
                 StdOut.println(text.substring(from2, to2));
             }
             StdOut.println();
         }
-    } 
-} 
+    }
+}
 
 /******************************************************************************
  *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.

@@ -22,35 +22,36 @@
  ******************************************************************************/
 
 package edu.princeton.cs.algs4;
+
 /**
- *  The {@code GabowSCC} class represents a data type for 
- *  determining the strong components in a digraph.
- *  The <em>id</em> operation determines in which strong component
- *  a given vertex lies; the <em>areStronglyConnected</em> operation
- *  determines whether two vertices are in the same strong component;
- *  and the <em>count</em> operation determines the number of strong
- *  components.
-
- *  The <em>component identifier</em> of a component is one of the
- *  vertices in the strong component: two vertices have the same component
- *  identifier if and only if they are in the same strong component.
-
- *  <p>
- *  This implementation uses the Gabow's algorithm.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
- *  where <em>V</em> is the number of vertices and <em>E</em> is
- *  the number of edges.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
- *  For alternative implementations of the same API, see
- *  {@link KosarajuSharirSCC} and {@link TarjanSCC}.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code GabowSCC} class represents a data type for
+ * determining the strong components in a digraph.
+ * The <em>id</em> operation determines in which strong component
+ * a given vertex lies; the <em>areStronglyConnected</em> operation
+ * determines whether two vertices are in the same strong component;
+ * and the <em>count</em> operation determines the number of strong
+ * components.
+ * <p>
+ * The <em>component identifier</em> of a component is one of the
+ * vertices in the strong component: two vertices have the same component
+ * identifier if and only if they are in the same strong component.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * <p>
+ * This implementation uses the Gabow's algorithm.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
+ * where <em>V</em> is the number of vertices and <em>E</em> is
+ * the number of edges.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the digraph).
+ * For alternative implementations of the same API, see
+ * {@link KosarajuSharirSCC} and {@link TarjanSCC}.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class GabowSCC {
 
@@ -65,13 +66,14 @@ public class GabowSCC {
 
     /**
      * Computes the strong components of the digraph {@code G}.
+     *
      * @param G the digraph
      */
     public GabowSCC(Digraph G) {
         marked = new boolean[G.V()];
         stack1 = new Stack<Integer>();
         stack2 = new Stack<Integer>();
-        id = new int[G.V()]; 
+        id = new int[G.V()];
         preorder = new int[G.V()];
         for (int v = 0; v < G.V(); v++)
             id[v] = -1;
@@ -84,7 +86,7 @@ public class GabowSCC {
         assert check(G);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         preorder[v] = pre++;
         stack1.push(v);
@@ -111,6 +113,7 @@ public class GabowSCC {
 
     /**
      * Returns the number of strong components.
+     *
      * @return the number of strong components
      */
     public int count() {
@@ -119,10 +122,11 @@ public class GabowSCC {
 
     /**
      * Are vertices {@code v} and {@code w} in the same strong component?
-     * @param  v one vertex
-     * @param  w the other vertex
+     *
+     * @param v one vertex
+     * @param w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
-     *         strong component, and {@code false} otherwise
+     * strong component, and {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      * @throws IllegalArgumentException unless {@code 0 <= w < V}
      */
@@ -134,7 +138,8 @@ public class GabowSCC {
 
     /**
      * Returns the component id of the strong component containing vertex {@code v}.
-     * @param  v the vertex
+     *
+     * @param v the vertex
      * @return the component id of the strong component containing vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
@@ -159,7 +164,7 @@ public class GabowSCC {
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**

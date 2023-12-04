@@ -2,7 +2,7 @@
  *  Compilation:  javac Interval2D.java
  *  Execution:    java Interval2D
  *  Dependencies: StdOut.java Interval1D.java StdDraw.java
- *  
+ *
  *  2-dimensional interval data type.
  *
  ******************************************************************************/
@@ -10,21 +10,21 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Interval2D} class represents a closed two-dimensional interval,
- *  which represents all points (x, y) with both {@code xmin <= x <= xmax} and
- *  {@code ymin <= y <= ymax}.
- *  Two-dimensional intervals are immutable: their values cannot be changed
- *  after they are created.
- *  The class {@code Interval2D} includes methods for checking whether
- *  a two-dimensional interval contains a point and determining whether
- *  two two-dimensional intervals intersect.
- *  <p>
- *  For additional documentation, 
- *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code Interval2D} class represents a closed two-dimensional interval,
+ * which represents all points (x, y) with both {@code xmin <= x <= xmax} and
+ * {@code ymin <= y <= ymax}.
+ * Two-dimensional intervals are immutable: their values cannot be changed
+ * after they are created.
+ * The class {@code Interval2D} includes methods for checking whether
+ * a two-dimensional interval contains a point and determining whether
+ * two two-dimensional intervals intersect.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Interval2D {
     private final Interval1D x;
@@ -32,6 +32,7 @@ public class Interval2D {
 
     /**
      * Initializes a two-dimensional interval.
+     *
      * @param x the one-dimensional interval of x-coordinates
      * @param y the one-dimensional interval of y-coordinates
      */
@@ -42,9 +43,10 @@ public class Interval2D {
 
     /**
      * Does this two-dimensional interval intersect that two-dimensional interval?
+     *
      * @param that the other two-dimensional interval
      * @return true if this two-dimensional interval intersects
-     *    that two-dimensional interval; false otherwise
+     * that two-dimensional interval; false otherwise
      */
     public boolean intersects(Interval2D that) {
         if (!this.x.intersects(that.x)) return false;
@@ -54,25 +56,28 @@ public class Interval2D {
 
     /**
      * Does this two-dimensional interval contain the point p?
+     *
      * @param p the two-dimensional point
      * @return true if this two-dimensional interval contains the point p; false otherwise
      */
     public boolean contains(Point2D p) {
-        return x.contains(p.x())  && y.contains(p.y());
+        return x.contains(p.x()) && y.contains(p.y());
     }
 
     /**
      * Returns the area of this two-dimensional interval.
+     *
      * @return the area of this two-dimensional interval
      */
     public double area() {
         return x.length() * y.length();
     }
-        
+
     /**
      * Returns a string representation of this two-dimensional interval.
+     *
      * @return a string representation of this two-dimensional interval
-     *    in the form [xmin, xmax] x [ymin, ymax]
+     * in the form [xmin, xmax] x [ymin, ymax]
      */
     public String toString() {
         return x + " x " + y;
@@ -80,6 +85,7 @@ public class Interval2D {
 
     /**
      * Does this interval equal the other interval?
+     *
      * @param other the other interval
      * @return true if this interval equals the other interval; false otherwise
      */
@@ -91,15 +97,16 @@ public class Interval2D {
         return this.x.equals(that.x) && this.y.equals(that.y);
     }
 
- 
+
     /**
-     * Returns an integer hash code for this interval.  
-     * @return an integer hash code for this interval 
+     * Returns an integer hash code for this interval.
+     *
+     * @return an integer hash code for this interval
      */
     public int hashCode() {
         int hash1 = x.hashCode();
         int hash2 = y.hashCode();
-        return 31*hash1 + hash2;
+        return 31 * hash1 + hash2;
     }
 
     /**
@@ -135,7 +142,7 @@ public class Interval2D {
             Point2D point = new Point2D(x, y);
 
             if (box.contains(point)) counter.increment();
-            else                     point.draw();
+            else point.draw();
         }
 
         StdOut.println(counter);

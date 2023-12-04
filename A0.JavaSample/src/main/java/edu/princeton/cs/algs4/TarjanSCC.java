@@ -24,33 +24,33 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code TarjanSCC} class represents a data type for 
- *  determining the strong components in a digraph.
- *  The <em>id</em> operation determines in which strong component
- *  a given vertex lies; the <em>areStronglyConnected</em> operation
- *  determines whether two vertices are in the same strong component;
- *  and the <em>count</em> operation determines the number of strong
- *  components.
- *  <p>
- *  The <em>component identifier</em> of a component is one of the
- *  vertices in the strong component: two vertices have the same component
- *  identifier if and only if they are in the same strong component.
- *  <p>
- *  This implementation uses Tarjan's algorithm.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the
- *  number of edges.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
- *  For alternative implementations of the same API, see
- *  {@link KosarajuSharirSCC} and {@link GabowSCC}.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code TarjanSCC} class represents a data type for
+ * determining the strong components in a digraph.
+ * The <em>id</em> operation determines in which strong component
+ * a given vertex lies; the <em>areStronglyConnected</em> operation
+ * determines whether two vertices are in the same strong component;
+ * and the <em>count</em> operation determines the number of strong
+ * components.
+ * <p>
+ * The <em>component identifier</em> of a component is one of the
+ * vertices in the strong component: two vertices have the same component
+ * identifier if and only if they are in the same strong component.
+ * <p>
+ * This implementation uses Tarjan's algorithm.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time,
+ * where <em>V</em> is the number of vertices and <em>E</em> is the
+ * number of edges.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the digraph).
+ * For alternative implementations of the same API, see
+ * {@link KosarajuSharirSCC} and {@link GabowSCC}.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class TarjanSCC {
 
@@ -64,12 +64,13 @@ public class TarjanSCC {
 
     /**
      * Computes the strong components of the digraph {@code G}.
+     *
      * @param G the digraph
      */
     public TarjanSCC(Digraph G) {
         marked = new boolean[G.V()];
         stack = new Stack<Integer>();
-        id = new int[G.V()]; 
+        id = new int[G.V()];
         low = new int[G.V()];
         for (int v = 0; v < G.V(); v++) {
             if (!marked[v]) dfs(G, v);
@@ -79,7 +80,7 @@ public class TarjanSCC {
         assert check(G);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         low[v] = pre++;
         int min = low[v];
@@ -104,6 +105,7 @@ public class TarjanSCC {
 
     /**
      * Returns the number of strong components.
+     *
      * @return the number of strong components
      */
     public int count() {
@@ -113,10 +115,11 @@ public class TarjanSCC {
 
     /**
      * Are vertices {@code v} and {@code w} in the same strong component?
-     * @param  v one vertex
-     * @param  w the other vertex
+     *
+     * @param v one vertex
+     * @param w the other vertex
      * @return {@code true} if vertices {@code v} and {@code w} are in the same
-     *         strong component, and {@code false} otherwise
+     * strong component, and {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      * @throws IllegalArgumentException unless {@code 0 <= w < V}
      */
@@ -128,7 +131,8 @@ public class TarjanSCC {
 
     /**
      * Returns the component id of the strong component containing vertex {@code v}.
-     * @param  v the vertex
+     *
+     * @param v the vertex
      * @return the component id of the strong component containing vertex {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
@@ -153,7 +157,7 @@ public class TarjanSCC {
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**

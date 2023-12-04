@@ -1,12 +1,14 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "车库门下降命令")
+/**
+ * 车库门下降命令
+ */
 public class GarageDoorDownCommand implements Command {
 
-    @ApiModelProperty(value = "车库门")
+    /**
+     * 车库门
+     */
     private GarageDoor garageDoor;
 
     public GarageDoorDownCommand(GarageDoor garageDoor) {

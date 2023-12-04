@@ -1,37 +1,53 @@
 package com.iokays.designpattern.facade.hometheater;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("家庭影院外观")
+/**
+ * 家庭影院外观
+ */
 public class HomeTheaterFacade {
 
-    @ApiModelProperty("放大器")
+    /**
+     * 放大器
+     */
     private Amplifier amp;
 
-    @ApiModelProperty("调谐器")
+    /**
+     * 调谐器
+     */
     private Tuner tuner;
 
-    @ApiModelProperty("DVD播放器")
+    /**
+     * DVD播放器
+     */
     private DvdPlayer dvd;
 
-    @ApiModelProperty("CD播放器")
+    /**
+     * CD播放器
+     */
     private CdPlayer cd;
 
-    @ApiModelProperty("投影仪")
+    /**
+     * 投影仪
+     */
     private Projector projector;
 
-    @ApiModelProperty("灯光")
+    /**
+     * 灯光
+     */
     private TheaterLights lights;
 
-    @ApiModelProperty("屏幕")
+    /**
+     * 屏幕
+     */
     private Screen screen;
 
-    @ApiModelProperty("爆米花机")
+    /**
+     * 爆米花机
+     */
     private PopcornPopper popper;
 
     public HomeTheaterFacade(Amplifier amp, Tuner tuner, DvdPlayer dvd, CdPlayer cd, Projector projector,
-            TheaterLights lights, Screen screen, PopcornPopper popper) {
+                             TheaterLights lights, Screen screen, PopcornPopper popper) {
         this.amp = amp;
         this.tuner = tuner;
         this.dvd = dvd;
@@ -42,7 +58,9 @@ public class HomeTheaterFacade {
         this.popper = popper;
     }
 
-    @ApiModelProperty("观看电影")
+    /**
+     * 观看电影
+     */
     public void watchMovie(String movie) {
         System.out.println("Get ready to watch a movie...");
         popper.on();
@@ -59,7 +77,9 @@ public class HomeTheaterFacade {
         dvd.play(movie);
     }
 
-    @ApiModelProperty("结束观看电影")
+    /**
+     * 结束观看电影
+     */
     public void endMovie() {
         System.out.println("Shutting movie theater down...");
         popper.off();
@@ -72,7 +92,9 @@ public class HomeTheaterFacade {
         dvd.off();
     }
 
-    @ApiModelProperty("听CD")
+    /**
+     * 听CD
+     */
     public void listenToCd(String cdTitle) {
         System.out.println("Get ready for an audiopile experence...");
         lights.on();
@@ -84,7 +106,9 @@ public class HomeTheaterFacade {
         cd.play(cdTitle);
     }
 
-    @ApiModelProperty("结束听CD")
+    /**
+     * 结束听CD
+     */
     public void endCd() {
         System.out.println("Shutting down CD...");
         amp.off();
@@ -93,7 +117,9 @@ public class HomeTheaterFacade {
         cd.off();
     }
 
-    @ApiModelProperty("听收音机")
+    /**
+     * 听收音机
+     */
     public void listenToRadio(double frequency) {
         System.out.println("Tuning in the airwaves...");
         tuner.on();
@@ -103,7 +129,9 @@ public class HomeTheaterFacade {
         amp.setTuner(tuner);
     }
 
-    @ApiModelProperty("结束听收音机")
+    /**
+     * 结束听收音机
+     */
     public void endRadio() {
         System.out.println("Shutting down the tuner...");
         tuner.off();

@@ -30,22 +30,23 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Allowlist} class provides a client for reading in
- *  a set of integers from a file; reading in a sequence of integers
- *  from standard input; and printing to standard output those 
- *  integers not in the allowlist.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code Allowlist} class provides a client for reading in
+ * a set of integers from a file; reading in a sequence of integers
+ * from standard input; and printing to standard output those
+ * integers not in the allowlist.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Allowlist {
 
     // Do not instantiate.
-    private Allowlist() { }
+    private Allowlist() {
+    }
 
     /**
      * Reads in a sequence of integers from the allowlist file, specified as

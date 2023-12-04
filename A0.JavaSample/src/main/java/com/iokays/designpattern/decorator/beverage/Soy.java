@@ -1,8 +1,9 @@
 package com.iokays.designpattern.decorator.beverage;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "豆浆")
+/**
+ * 豆浆
+ */
 public class Soy extends CondimentDecorator {
 
     private Beverage beverage;

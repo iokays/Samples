@@ -28,20 +28,21 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code GREP} class provides a client for reading in a sequence of
- *  lines from standard input and printing to standard output those lines
- *  that contain a substring matching a specified regular expression.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code GREP} class provides a client for reading in a sequence of
+ * lines from standard input and printing to standard output those lines
+ * that contain a substring matching a specified regular expression.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class GREP {
 
     // do not instantiate
-    private GREP() { }
+    private GREP() {
+    }
 
     /**
      * Interprets the command-line argument as a regular expression
@@ -52,17 +53,17 @@ public class GREP {
      *
      * @param args the command-line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         String regexp = "(.*" + args[0] + ".*)";
         NFA nfa = new NFA(regexp);
-        while (StdIn.hasNextLine()) { 
+        while (StdIn.hasNextLine()) {
             String line = StdIn.readLine();
             if (nfa.recognizes(line)) {
                 StdOut.println(line);
             }
         }
-    } 
-} 
+    }
+}
 
 /******************************************************************************
  *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.

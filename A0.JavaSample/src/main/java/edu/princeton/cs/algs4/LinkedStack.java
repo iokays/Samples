@@ -6,7 +6,7 @@
  *
  *  A generic stack, implemented using a linked list. Each stack
  *  element is of type Item.
- *  
+ *
  *  % more tobe.txt 
  *  to be or not to - be - - that - - - is
  *
@@ -22,23 +22,23 @@ import java.util.NoSuchElementException;
 
 
 /**
- *  The {@code LinkedStack} class represents a last-in-first-out (LIFO) stack of
- *  generic items.
- *  It supports the usual <em>push</em> and <em>pop</em> operations, along with methods
- *  for peeking at the top item, testing if the stack is empty, and iterating through
- *  the items in LIFO order.
- *  <p>
- *  This implementation uses a singly linked list with a non-static nested class for 
- *  linked-list nodes. See {@link Stack} for a version that uses a static nested class.
- *  The <em>push</em>, <em>pop</em>, <em>peek</em>, <em>size</em>, and <em>is-empty</em>
- *  operations all take constant time in the worst case.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code LinkedStack} class represents a last-in-first-out (LIFO) stack of
+ * generic items.
+ * It supports the usual <em>push</em> and <em>pop</em> operations, along with methods
+ * for peeking at the top item, testing if the stack is empty, and iterating through
+ * the items in LIFO order.
+ * <p>
+ * This implementation uses a singly linked list with a non-static nested class for
+ * linked-list nodes. See {@link Stack} for a version that uses a static nested class.
+ * The <em>push</em>, <em>pop</em>, <em>peek</em>, <em>size</em>, and <em>is-empty</em>
+ * operations all take constant time in the worst case.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class LinkedStack<Item> implements Iterable<Item> {
     private int n;          // size of the stack
@@ -61,6 +61,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Is this stack empty?
+     *
      * @return true if this stack is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -69,6 +70,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in the stack.
+     *
      * @return the number of items in the stack
      */
     public int size() {
@@ -77,6 +79,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Adds the item to this stack.
+     *
      * @param item the item to add
      */
     public void push(Item item) {
@@ -90,6 +93,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Removes and returns the item most recently added to this stack.
+     *
      * @return the item most recently added
      * @throws java.util.NoSuchElementException if this stack is empty
      */
@@ -105,6 +109,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Returns (but does not remove) the item most recently added to this stack.
+     *
      * @return the item most recently added to this stack
      * @throws java.util.NoSuchElementException if this stack is empty
      */
@@ -115,6 +120,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
     /**
      * Returns a string representation of this stack.
+     *
      * @return the sequence of items in the stack in LIFO order, separated by spaces
      */
     public String toString() {
@@ -123,9 +129,10 @@ public class LinkedStack<Item> implements Iterable<Item> {
             s.append(item + " ");
         return s.toString();
     }
-       
+
     /**
      * Returns an iterator to this stack that iterates through the items in LIFO order.
+     *
      * @return an iterator to this stack that iterates through the items in LIFO order.
      */
     public Iterator<Item> iterator() {
@@ -135,13 +142,19 @@ public class LinkedStack<Item> implements Iterable<Item> {
     // an iterator, doesn't implement remove() since it's optional
     private class LinkedIterator implements Iterator<Item> {
         private Node current = first;
-        public boolean hasNext()  { return current != null;                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
             Item item = current.item;
-            current = current.next; 
+            current = current.next;
             return item;
         }
     }
@@ -156,13 +169,11 @@ public class LinkedStack<Item> implements Iterable<Item> {
         }
         if (n == 0) {
             if (first != null) return false;
-        }
-        else if (n == 1) {
-            if (first == null)      return false;
+        } else if (n == 1) {
+            if (first == null) return false;
             if (first.next != null) return false;
-        }
-        else {
-            if (first == null)      return false;
+        } else {
+            if (first == null) return false;
             if (first.next == null) return false;
         }
 

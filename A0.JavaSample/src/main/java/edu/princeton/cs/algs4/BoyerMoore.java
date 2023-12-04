@@ -33,15 +33,15 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code BoyerMoore} class finds the first occurrence of a pattern string
- *  in a text string.
- *  <p>
- *  This implementation uses the Boyer-Moore algorithm (with the bad-character
- *  rule, but not the strong good suffix rule).
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code BoyerMoore} class finds the first occurrence of a pattern string
+ * in a text string.
+ * <p>
+ * This implementation uses the Boyer-Moore algorithm (with the bad-character
+ * rule, but not the strong good suffix rule).
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/53substring">Section 5.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class BoyerMoore {
     private final int R;     // the radix
@@ -71,7 +71,7 @@ public class BoyerMoore {
      * Preprocesses the pattern string.
      *
      * @param pattern the pattern string
-     * @param R the alphabet size
+     * @param R       the alphabet size
      */
     public BoyerMoore(char[] pattern, int R) {
         this.R = R;
@@ -91,9 +91,9 @@ public class BoyerMoore {
      * Returns the index of the first occurrrence of the pattern string
      * in the text string.
      *
-     * @param  txt the text string
+     * @param txt the text string
      * @return the index of the first occurrence of the pattern string
-     *         in the text string; n if no such match
+     * in the text string; n if no such match
      */
     public int search(String txt) {
         int m = pat.length();
@@ -101,9 +101,9 @@ public class BoyerMoore {
         int skip;
         for (int i = 0; i <= n - m; i += skip) {
             skip = 0;
-            for (int j = m-1; j >= 0; j--) {
-                if (pat.charAt(j) != txt.charAt(i+j)) {
-                    skip = Math.max(1, j - right[txt.charAt(i+j)]);
+            for (int j = m - 1; j >= 0; j--) {
+                if (pat.charAt(j) != txt.charAt(i + j)) {
+                    skip = Math.max(1, j - right[txt.charAt(i + j)]);
                     break;
                 }
             }
@@ -117,9 +117,9 @@ public class BoyerMoore {
      * Returns the index of the first occurrrence of the pattern string
      * in the text string.
      *
-     * @param  text the text string
+     * @param text the text string
      * @return the index of the first occurrence of the pattern string
-     *         in the text string; n if no such match
+     * in the text string; n if no such match
      */
     public int search(char[] text) {
         int m = pattern.length;
@@ -127,9 +127,9 @@ public class BoyerMoore {
         int skip;
         for (int i = 0; i <= n - m; i += skip) {
             skip = 0;
-            for (int j = m-1; j >= 0; j--) {
-                if (pattern[j] != text[i+j]) {
-                    skip = Math.max(1, j - right[text[i+j]]);
+            for (int j = m - 1; j >= 0; j--) {
+                if (pattern[j] != text[i + j]) {
+                    skip = Math.max(1, j - right[text[i + j]]);
                     break;
                 }
             }
@@ -150,7 +150,7 @@ public class BoyerMoore {
         String pat = args[0];
         String txt = args[1];
         char[] pattern = pat.toCharArray();
-        char[] text    = txt.toCharArray();
+        char[] text = txt.toCharArray();
 
         BoyerMoore boyermoore1 = new BoyerMoore(pat);
         BoyerMoore boyermoore2 = new BoyerMoore(pattern, 256);

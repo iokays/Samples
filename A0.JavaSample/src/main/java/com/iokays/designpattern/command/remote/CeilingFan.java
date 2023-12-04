@@ -1,21 +1,30 @@
 package com.iokays.designpattern.command.remote;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value = "吊扇", description = "吊扇")
+/**
+ * 吊扇
+ * 吊扇
+ */
 public class CeilingFan {
 
-    @ApiModelProperty("高速")
+    /**
+     * 高速
+     */
     public static final int HIGH = 3;
 
-    @ApiModelProperty("中速")
+    /**
+     * 中速
+     */
     public static final int MEDIUM = 2;
 
-    @ApiModelProperty("低速")
+    /**
+     * 低速
+     */
     public static final int LOW = 1;
 
-    @ApiModelProperty("关闭")
+    /**
+     * 关闭
+     */
     public static final int OFF = 0;
 
     private String location;

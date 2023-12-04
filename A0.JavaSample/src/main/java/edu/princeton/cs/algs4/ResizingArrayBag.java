@@ -2,7 +2,7 @@
  *  Compilation:  javac ResizingArrayBag.java
  *  Execution:    java ResizingArrayBag
  *  Dependencies: StdIn.java StdOut.java
- *  
+ *
  *  Bag implementation with a resizing array.
  *
  ******************************************************************************/
@@ -13,21 +13,21 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The {@code ResizingArrayBag} class represents a bag (or multiset) of 
- *  generic items. It supports insertion and iterating over the 
- *  items in arbitrary order.
- *  <p>
- *  This implementation uses a resizing array.
- *  See {@link LinkedBag} for a version that uses a singly linked list.
- *  The <em>add</em> operation takes constant amortized time; the
- *  <em>isEmpty</em>, and <em>size</em> operations
- *  take constant time. Iteration takes time proportional to the number of items.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code ResizingArrayBag} class represents a bag (or multiset) of
+ * generic items. It supports insertion and iterating over the
+ * items in arbitrary order.
+ * <p>
+ * This implementation uses a resizing array.
+ * See {@link LinkedBag} for a version that uses a singly linked list.
+ * The <em>add</em> operation takes constant amortized time; the
+ * <em>isEmpty</em>, and <em>size</em> operations
+ * take constant time. Iteration takes time proportional to the number of items.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class ResizingArrayBag<Item> implements Iterable<Item> {
     private Item[] a;         // array of items
@@ -43,6 +43,7 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
 
     /**
      * Is this bag empty?
+     *
      * @return true if this bag is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -51,6 +52,7 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in this bag.
+     *
      * @return the number of items in this bag
      */
     public int size() {
@@ -68,16 +70,18 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
 
     /**
      * Adds the item to this bag.
+     *
      * @param item the item to add to this bag
      */
     public void add(Item item) {
-        if (n == a.length) resize(2*a.length);    // double size of array if necessary
+        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
         a[n++] = item;                            // add item
     }
 
 
     /**
      * Returns an iterator that iterates over the items in the bag in arbitrary order.
+     *
      * @return an iterator that iterates over the items in the bag in arbitrary order
      */
     public Iterator<Item> iterator() {
@@ -87,8 +91,14 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
     // an iterator, doesn't implement remove() since it's optional
     private class ArrayIterator implements Iterator<Item> {
         private int i = 0;
-        public boolean hasNext()  { return i < n;                               }
-        public void remove()      { throw new UnsupportedOperationException();  }
+
+        public boolean hasNext() {
+            return i < n;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();

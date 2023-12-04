@@ -1,8 +1,9 @@
 package com.iokays.designpattern.templatemethod.coffee;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel("带钩子的咖啡因饮料")
+/**
+ * 带钩子的咖啡因饮料
+ */
 public class CoffeeWithHook extends CaffeineBeverageWithHook {
 
     @Override
@@ -20,8 +21,7 @@ public class CoffeeWithHook extends CaffeineBeverageWithHook {
         String answer = getUserInput();
         if (answer.toLowerCase().startsWith("y")) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

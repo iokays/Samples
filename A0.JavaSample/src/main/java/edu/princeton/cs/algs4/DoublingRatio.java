@@ -19,27 +19,29 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code DoublingRatio} class provides a client for measuring
- *  the running time of a method using a doubling ratio test.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
- *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code DoublingRatio} class provides a client for measuring
+ * the running time of a method using a doubling ratio test.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
+ * of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class DoublingRatio {
     private static final int MAXIMUM_INTEGER = 1000000;
 
     // This class should not be instantiated.
-    private DoublingRatio() { }
+    private DoublingRatio() {
+    }
 
     /**
      * Returns the amount of time to call {@code ThreeSum.count()} with <em>n</em>
      * random 6-digit integers.
+     *
      * @param n the number of integers
      * @return amount of time (in seconds) to call {@code ThreeSum.count()}
-     *   with <em>n</em> random 6-digit integers
+     * with <em>n</em> random 6-digit integers
      */
     public static double timeTrial(int n) {
         int[] a = new int[n];
@@ -58,15 +60,15 @@ public class DoublingRatio {
      *
      * @param args the command-line arguments
      */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         double prev = timeTrial(125);
         for (int n = 250; true; n += n) {
             double time = timeTrial(n);
-            StdOut.printf("%7d %7.1f %5.1f\n", n, time, time/prev);
+            StdOut.printf("%7d %7.1f %5.1f\n", n, time, time / prev);
             prev = time;
-        } 
-    } 
-} 
+        }
+    }
+}
 
 
 /******************************************************************************

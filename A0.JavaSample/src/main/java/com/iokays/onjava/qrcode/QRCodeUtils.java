@@ -1,15 +1,16 @@
 package com.iokays.onjava.qrcode;
 
-import com.google.zxing.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.util.Hashtable;
 
 /**
- *
  * <a href="https://0o0.me/java/java-terminal-output-qrcode.html">JAVA 控制台输出二维码</a>
- *
  */
 public class QRCodeUtils {
 
@@ -40,11 +41,12 @@ public class QRCodeUtils {
     }
 
     /**
-     *  30 到 37 用于设置文本颜色，例如：
+     * 30 到 37 用于设置文本颜色，例如：
      * 30m：黑色, 31m：红色, 32m：绿色, 33m：黄色, 34m：蓝色, 35m：品红（洋红）, 36m：青色, 37m：白色,
      * <br>
      * 40 到 47 用于设置背景颜色，例如：
-     *, 40m：黑色背景, 41m：红色背景, 42m：绿色背景, 43m：黄色背景, 44m：蓝色背景, 45m：品红（洋红）背景, 46m：青色背景, 47m：白色背景
+     * , 40m：黑色背景, 41m：红色背景, 42m：绿色背景, 43m：黄色背景, 44m：蓝色背景, 45m：品红（洋红）背景, 46m：青色背景, 47m：白色背景
+     *
      * @param bitMatrix
      * @return
      */

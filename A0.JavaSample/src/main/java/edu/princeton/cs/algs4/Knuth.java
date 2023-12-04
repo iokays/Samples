@@ -4,7 +4,7 @@
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/11model/cards.txt
  *                https://algs4.cs.princeton.edu/11model/cardsUnicode.txt
- *  
+ *
  *  Reads in a list of strings and prints them in random order.
  *  The Knuth (or Fisher-Yates) shuffling algorithm guarantees
  *  to rearrange the elements in uniformly random order, under
@@ -31,7 +31,7 @@
  *  2♦ 3♦ 4♦ 5♦ 6♦ 7♦ 8♦ 9♦ 10♦ J♦ Q♦ K♦ A♦ 
  *  2♥ 3♥ 4♥ 5♥ 6♥ 7♥ 8♥ 9♥ 10♥ J♥ Q♥ K♥ A♥ 
  *  2♠ 3♠ 4♠ 5♠ 6♠ 7♠ 8♠ 9♠ 10♠ J♠ Q♠ K♠ A♠ 
- * 
+ *
  *  % java Knuth < cardsUnicode.txt
  *  2♠
  *  K♥
@@ -46,31 +46,33 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Knuth} class provides a client for reading in a 
- *  sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)
- *  shuffling algorithm. This algorithm guarantees to rearrange the
- *  elements in uniformly random order, under
- *  the assumption that Math.random() generates independent and
- *  uniformly distributed numbers between 0 and 1.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  See {@link StdRandom} for versions that shuffle arrays and
- *  subarrays of objects, doubles, and ints.
+ * The {@code Knuth} class provides a client for reading in a
+ * sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)
+ * shuffling algorithm. This algorithm guarantees to rearrange the
+ * elements in uniformly random order, under
+ * the assumption that Math.random() generates independent and
+ * uniformly distributed numbers between 0 and 1.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * See {@link StdRandom} for versions that shuffle arrays and
+ * subarrays of objects, doubles, and ints.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class Knuth { 
+public class Knuth {
 
     // this class should not be instantiated
-    private Knuth() { }
+    private Knuth() {
+    }
 
     /**
      * Rearranges an array of objects in uniformly random order
      * (under the assumption that {@code Math.random()} generates independent
      * and uniformly distributed numbers between 0 and 1).
+     *
      * @param a the array to be shuffled
      */
     public static void shuffle(Object[] a) {
@@ -88,6 +90,7 @@ public class Knuth {
      * Rearranges an array of objects in uniformly random order
      * (under the assumption that {@code Math.random()} generates independent
      * and uniformly distributed numbers between 0 and 1).
+     *
      * @param a the array to be shuffled
      */
     public static void shuffleAlternate(Object[] a) {

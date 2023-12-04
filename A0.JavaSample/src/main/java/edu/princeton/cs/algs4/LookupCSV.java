@@ -8,11 +8,11 @@
  *                https://algs4.cs.princeton.edu/35applications/elements.csv
  *                https://algs4.cs.princeton.edu/35applications/ip.csv
  *                https://algs4.cs.princeton.edu/35applications/morse.csv
- *  
+ *
  *  Reads in a set of key-value pairs from a two-column CSV file
  *  specified on the command line; then, reads in keys from standard
  *  input and prints out corresponding values.
- * 
+ *
  *  % java LookupCSV amino.csv 0 3     % java LookupCSV ip.csv 0 1 
  *  TTA                                www.google.com 
  *  Leucine                            216.239.41.99 
@@ -20,7 +20,7 @@
  *  Not found                          % java LookupCSV ip.csv 1 0 
  *  TCT                                216.239.41.99 
  *  Serine                             www.google.com 
- *                                 
+ *
  *  % java LookupCSV amino.csv 3 0     % java LookupCSV DJIA.csv 0 1 
  *  Glycine                            29-Oct-29 
  *  GGG                                252.38 
@@ -33,21 +33,22 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code LookupCSV} class provides a data-driven client for reading in a
- *  key-value pairs from a file; then, printing the values corresponding to the
- *  keys found on standard input. Both keys and values are strings.
- *  The fields to serve as the key and value are taken as command-line arguments.
- *  <p>
- *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * The {@code LookupCSV} class provides a data-driven client for reading in a
+ * key-value pairs from a file; then, printing the values corresponding to the
+ * keys found on standard input. Both keys and values are strings.
+ * The fields to serve as the key and value are taken as command-line arguments.
+ * <p>
+ * For additional documentation, see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class LookupCSV {
 
     // Do not instantiate.
-    private LookupCSV() { }
+    private LookupCSV() {
+    }
 
     public static void main(String[] args) {
         int keyField = Integer.parseInt(args[1]);
@@ -69,7 +70,7 @@ public class LookupCSV {
         while (!StdIn.isEmpty()) {
             String s = StdIn.readString();
             if (st.contains(s)) StdOut.println(st.get(s));
-            else                StdOut.println("Not found");
+            else StdOut.println("Not found");
         }
     }
 }

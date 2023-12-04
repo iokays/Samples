@@ -2,7 +2,7 @@
  *  Compilation:  javac Particle.java
  *  Execution:    none
  *  Dependencies: StdDraw.java
- *      
+ *
  *  A particle moving in the unit box with a given position, velocity,
  *  radius, and mass.
  *
@@ -10,21 +10,21 @@
 
 package edu.princeton.cs.algs4;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
- *  The {@code Particle} class represents a particle moving in the unit box,
- *  with a given position, velocity, radius, and mass. Methods are provided
- *  for moving the particle and for predicting and resolvling elastic
- *  collisions with vertical walls, horizontal walls, and other particles.
- *  This data type is mutable because the position and velocity change.
- *  <p>
- *  For additional documentation, 
- *  see <a href="https://algs4.cs.princeton.edu/61event">Section 6.1</a> of 
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code Particle} class represents a particle moving in the unit box,
+ * with a given position, velocity, radius, and mass. Methods are provided
+ * for moving the particle and for predicting and resolvling elastic
+ * collisions with vertical walls, horizontal walls, and other particles.
+ * This data type is mutable because the position and velocity change.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/61event">Section 6.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Particle {
     private static final double INFINITY = Double.POSITIVE_INFINITY;
@@ -40,13 +40,13 @@ public class Particle {
     /**
      * Initializes a particle with the specified position, velocity, radius, mass, and color.
      *
-     * @param  rx <em>x</em>-coordinate of position
-     * @param  ry <em>y</em>-coordinate of position
-     * @param  vx <em>x</em>-coordinate of velocity
-     * @param  vy <em>y</em>-coordinate of velocity
-     * @param  radius the radius
-     * @param  mass the mass
-     * @param  color the color
+     * @param rx     <em>x</em>-coordinate of position
+     * @param ry     <em>y</em>-coordinate of position
+     * @param vx     <em>x</em>-coordinate of velocity
+     * @param vy     <em>y</em>-coordinate of velocity
+     * @param radius the radius
+     * @param mass   the mass
+     * @param color  the color
      */
     public Particle(double rx, double ry, double vx, double vy, double radius, double mass, Color color) {
         this.vx = vx;
@@ -54,30 +54,30 @@ public class Particle {
         this.rx = rx;
         this.ry = ry;
         this.radius = radius;
-        this.mass   = mass;
-        this.color  = color;
+        this.mass = mass;
+        this.color = color;
     }
-         
+
     /**
      * Initializes a particle with a random position and velocity.
      * The position is uniform in the unit box; the velocity in
      * either direciton is chosen uniformly at random.
      */
     public Particle() {
-        rx     = StdRandom.uniform(0.0, 1.0);
-        ry     = StdRandom.uniform(0.0, 1.0);
-        vx     = StdRandom.uniform(-0.005, 0.005);
-        vy     = StdRandom.uniform(-0.005, 0.005);
+        rx = StdRandom.uniform(0.0, 1.0);
+        ry = StdRandom.uniform(0.0, 1.0);
+        vx = StdRandom.uniform(-0.005, 0.005);
+        vy = StdRandom.uniform(-0.005, 0.005);
         radius = 0.02;
-        mass   = 0.5;
-        color  = Color.BLACK;
+        mass = 0.5;
+        color = Color.BLACK;
     }
 
     /**
      * Moves this particle in a straight line (based on its velocity)
      * for the specified amount of time.
      *
-     * @param  dt the amount of time
+     * @param dt the amount of time
      */
     public void move(double dt) {
         rx += vx * dt;
@@ -100,7 +100,7 @@ public class Particle {
      * {@link #bounceOffHorizontalWall}.
      *
      * @return the number of collisions involving this particle with
-     *         vertical walls, horizontal walls, or other particles
+     * vertical walls, horizontal walls, or other particles
      */
     public int count() {
         return count;
@@ -110,24 +110,24 @@ public class Particle {
      * Returns the amount of time for this particle to collide with the specified
      * particle, assuming no interening collisions.
      *
-     * @param  that the other particle
+     * @param that the other particle
      * @return the amount of time for this particle to collide with the specified
-     *         particle, assuming no interening collisions; 
-     *         {@code Double.POSITIVE_INFINITY} if the particles will not collide
+     * particle, assuming no interening collisions;
+     * {@code Double.POSITIVE_INFINITY} if the particles will not collide
      */
     public double timeToHit(Particle that) {
         if (this == that) return INFINITY;
-        double dx  = that.rx - this.rx;
-        double dy  = that.ry - this.ry;
+        double dx = that.rx - this.rx;
+        double dy = that.ry - this.ry;
         double dvx = that.vx - this.vx;
         double dvy = that.vy - this.vy;
-        double dvdr = dx*dvx + dy*dvy;
+        double dvdr = dx * dvx + dy * dvy;
         if (dvdr > 0) return INFINITY;
-        double dvdv = dvx*dvx + dvy*dvy;
+        double dvdv = dvx * dvx + dvy * dvy;
         if (dvdv == 0) return INFINITY;
-        double drdr = dx*dx + dy*dy;
+        double drdr = dx * dx + dy * dy;
         double sigma = this.radius + that.radius;
-        double d = (dvdr*dvdr) - dvdv * (drdr - sigma*sigma);
+        double d = (dvdr * dvdr) - dvdv * (drdr - sigma * sigma);
         // if (drdr < sigma*sigma) StdOut.println("overlapping particles");
         if (d < 0) return INFINITY;
         return -(dvdr + Math.sqrt(d)) / dvdv;
@@ -138,14 +138,14 @@ public class Particle {
      * wall, assuming no interening collisions.
      *
      * @return the amount of time for this particle to collide with a vertical wall,
-     *         assuming no interening collisions; 
-     *         {@code Double.POSITIVE_INFINITY} if the particle will not collide
-     *         with a vertical wall
+     * assuming no interening collisions;
+     * {@code Double.POSITIVE_INFINITY} if the particle will not collide
+     * with a vertical wall
      */
     public double timeToHitVerticalWall() {
-        if      (vx > 0) return (1.0 - rx - radius) / vx;
-        else if (vx < 0) return (radius - rx) / vx;  
-        else             return INFINITY;
+        if (vx > 0) return (1.0 - rx - radius) / vx;
+        else if (vx < 0) return (radius - rx) / vx;
+        else return INFINITY;
     }
 
     /**
@@ -153,14 +153,14 @@ public class Particle {
      * wall, assuming no interening collisions.
      *
      * @return the amount of time for this particle to collide with a horizontal wall,
-     *         assuming no interening collisions; 
-     *         {@code Double.POSITIVE_INFINITY} if the particle will not collide
-     *         with a horizontal wall
+     * assuming no interening collisions;
+     * {@code Double.POSITIVE_INFINITY} if the particle will not collide
+     * with a horizontal wall
      */
     public double timeToHitHorizontalWall() {
-        if      (vy > 0) return (1.0 - ry - radius) / vy;
+        if (vy > 0) return (1.0 - ry - radius) / vy;
         else if (vy < 0) return (radius - ry) / vy;
-        else             return INFINITY;
+        else return INFINITY;
     }
 
     /**
@@ -168,14 +168,14 @@ public class Particle {
      * to the laws of elastic collision. Assumes that the particles are colliding
      * at this instant.
      *
-     * @param  that the other particle
+     * @param that the other particle
      */
     public void bounceOff(Particle that) {
-        double dx  = that.rx - this.rx;
-        double dy  = that.ry - this.ry;
+        double dx = that.rx - this.rx;
+        double dy = that.ry - this.ry;
         double dvx = that.vx - this.vx;
         double dvy = that.vy - this.vy;
-        double dvdr = dx*dvx + dy*dvy;             // dv dot dr
+        double dvdr = dx * dvx + dy * dvy;             // dv dot dr
         double dist = this.radius + that.radius;   // distance between particle centers at collison
 
         // magnitude of normal force
@@ -224,7 +224,7 @@ public class Particle {
      * @return the kinetic energy of this particle
      */
     public double kineticEnergy() {
-        return 0.5 * mass * (vx*vx + vy*vy);
+        return 0.5 * mass * (vx * vx + vy * vy);
     }
 }
 

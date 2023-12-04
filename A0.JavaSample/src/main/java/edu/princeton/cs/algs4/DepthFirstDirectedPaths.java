@@ -30,24 +30,24 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code DepthFirstDirectedPaths} class represents a data type for
- *  finding directed paths from a source vertex <em>s</em> to every
- *  other vertex in the digraph.
- *  <p>
- *  This implementation uses depth-first search.
- *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
- *  worst case, where <em>V</em> is the number of vertices and <em>E</em>
- *  is the number of edges.
- *  Each instance method takes &Theta;(1) time.
- *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
- *  <p>
- *  See {@link DepthFirstDirectedPaths} for a nonrecursive implementation.
- *  For additional documentation,  
- *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of  
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
+ * The {@code DepthFirstDirectedPaths} class represents a data type for
+ * finding directed paths from a source vertex <em>s</em> to every
+ * other vertex in the digraph.
+ * <p>
+ * This implementation uses depth-first search.
+ * The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ * worst case, where <em>V</em> is the number of vertices and <em>E</em>
+ * is the number of edges.
+ * Each instance method takes &Theta;(1) time.
+ * It uses &Theta;(<em>V</em>) extra space (not including the digraph).
+ * <p>
+ * See {@link DepthFirstDirectedPaths} for a nonrecursive implementation.
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class DepthFirstDirectedPaths {
     private boolean[] marked;  // marked[v] = true iff v is reachable from s
@@ -56,8 +56,9 @@ public class DepthFirstDirectedPaths {
 
     /**
      * Computes a directed path from {@code s} to every other vertex in digraph {@code G}.
-     * @param  G the digraph
-     * @param  s the source vertex
+     *
+     * @param G the digraph
+     * @param s the source vertex
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DepthFirstDirectedPaths(Digraph G, int s) {
@@ -68,7 +69,7 @@ public class DepthFirstDirectedPaths {
         dfs(G, s);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
             if (!marked[w]) {
@@ -80,9 +81,10 @@ public class DepthFirstDirectedPaths {
 
     /**
      * Is there a directed path from the source vertex {@code s} to vertex {@code v}?
-     * @param  v the vertex
+     *
+     * @param v the vertex
      * @return {@code true} if there is a directed path from the source
-     *         vertex {@code s} to vertex {@code v}, {@code false} otherwise
+     * vertex {@code s} to vertex {@code v}, {@code false} otherwise
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public boolean hasPathTo(int v) {
@@ -90,13 +92,14 @@ public class DepthFirstDirectedPaths {
         return marked[v];
     }
 
-    
+
     /**
      * Returns a directed path from the source vertex {@code s} to vertex {@code v}, or
      * {@code null} if no such path.
-     * @param  v the vertex
+     *
+     * @param v the vertex
      * @return the sequence of vertices on a directed path from the source vertex
-     *         {@code s} to vertex {@code v}, as an Iterable
+     * {@code s} to vertex {@code v}, as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
     public Iterable<Integer> pathTo(int v) {
@@ -113,7 +116,7 @@ public class DepthFirstDirectedPaths {
     private void validateVertex(int v) {
         int V = marked.length;
         if (v < 0 || v >= V)
-            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**
@@ -134,12 +137,10 @@ public class DepthFirstDirectedPaths {
                 StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
                     if (x == s) StdOut.print(x);
-                    else        StdOut.print("-" + x);
+                    else StdOut.print("-" + x);
                 }
                 StdOut.println();
-            }
-
-            else {
+            } else {
                 StdOut.printf("%d to %d:  not connected\n", s, v);
             }
 

@@ -1,6 +1,6 @@
 package com.iokays.onjava.blockchain;
 
-import io.swagger.annotations.ApiModelProperty;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.Serializable;
@@ -12,19 +12,26 @@ public class Block implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("区块的hash")
+    /**
+     * 前一个区块的hash
+     */
+    private final String previousHash;
+    /**
+     * 区块的数据
+     */
+    private final String data;
+    /**
+     * 时间戳
+     */
+    private final LocalDateTime timeStamp;
+    /**
+     * 区块的hash
+     */
     private String hash;
 
-    @ApiModelProperty("前一个区块的hash")
-    private final String previousHash;
-
-    @ApiModelProperty("区块的数据")
-    private final String data;
-
-    @ApiModelProperty("时间戳")
-    private final LocalDateTime timeStamp;
-
-    @ApiModelProperty("随机数")
+    /**
+     * 随机数
+     */
     private int nonce;
 
     public Block(String previousHash, String data) {
@@ -82,9 +89,8 @@ public class Block implements Serializable {
     }
 
 
-
     @Override
-    public  String toString() {
+    public String toString() {
         return "Block{" +
                 "hash='" + hash + '\'' +
                 ", previousHash='" + previousHash + '\'' +

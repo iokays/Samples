@@ -1,8 +1,9 @@
 package com.iokays.designpattern.observer.weather;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "气象站")
+/**
+ * 气象站
+ */
 public class WeatherStation {
 
     public static void main(String[] args) {

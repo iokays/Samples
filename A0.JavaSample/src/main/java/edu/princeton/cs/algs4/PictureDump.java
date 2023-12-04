@@ -3,7 +3,7 @@
  *  Execution:    java PictureDump width height < file
  *  Dependencies: BinaryStdIn.java Picture.java
  *  Data file:    http://introcs.cs.princeton.edu/stdlib/abra.txt
- *  
+ *
  *  Reads in a binary file and writes out the bits as w-by-h picture,
  *  with the 1 bits in black and the 0 bits in white.
  *
@@ -16,26 +16,27 @@
 
 package edu.princeton.cs.algs4;
 
-import java.awt.Color;
+import java.awt.*;
 
 
 /**
- *  The {@code PictureDump} class provides a client for displaying the contents
- *  of a binary file as a black-and-white picture.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  <p>
- *  See also {@link BinaryDump} and {@link HexDump}.
+ * The {@code PictureDump} class provides a client for displaying the contents
+ * of a binary file as a black-and-white picture.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * <p>
+ * See also {@link BinaryDump} and {@link HexDump}.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class PictureDump {
 
     // Do not instantiate.
-    private PictureDump() { }
+    private PictureDump() {
+    }
 
     /**
      * Reads in a sequence of bytes from standard input and draws
@@ -54,9 +55,8 @@ public class PictureDump {
                 if (!BinaryStdIn.isEmpty()) {
                     boolean bit = BinaryStdIn.readBoolean();
                     if (bit) picture.set(col, row, Color.BLACK);
-                    else     picture.set(col, row, Color.WHITE);
-                }
-                else {
+                    else picture.set(col, row, Color.WHITE);
+                } else {
                     picture.set(col, row, Color.RED);
                 }
             }

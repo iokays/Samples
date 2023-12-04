@@ -40,7 +40,7 @@ public class PublisherFlowSubscriber {
         /**
          * 测试发布消息
          */
-        List<String> list =  List.of("张三", "李四", "王五", "赵六");
+        List<String> list = List.of("张三", "李四", "王五", "赵六");
         list.forEach(publisher::submit); //向订阅者发布数据，需要保持前台的线程存活，否则当前线程执行结束，发布者和订阅者都被销毁了。
         /**
          * 关闭消息发布
@@ -56,7 +56,7 @@ public class PublisherFlowSubscriber {
     /**
      * 定义订阅者类，需要注意实现接口Flow.Subscriber 实现其泛型传递
      */
-    private static class MySubscirber<T> implements Flow.Subscriber<T>{
+    private static class MySubscirber<T> implements Flow.Subscriber<T> {
         /**
          * 订阅者自定义的属性，名字，关联的订阅平台
          */
@@ -69,6 +69,7 @@ public class PublisherFlowSubscriber {
 
         /**
          * 订阅的时候触发的方法
+         *
          * @param subscription 订阅者被关联的订阅平台
          */
         @Override
@@ -86,11 +87,12 @@ public class PublisherFlowSubscriber {
 
         /**
          * 获取一条数据后触发的方法
+         *
          * @param
          */
         @Override
         public void onNext(T t) {
-            System.out.println(name + "获取到了一条数据：" +t);
+            System.out.println(name + "获取到了一条数据：" + t);
             //再次获取一条数据...自循环触发自己循环调用，一直将所有数据获取完毕
             subscription.request(1);
             /**
@@ -105,6 +107,7 @@ public class PublisherFlowSubscriber {
 
         /**
          * 订阅出错时运行的方法
+         *
          * @param throwable 错误对象
          */
         @Override

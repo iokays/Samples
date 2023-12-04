@@ -16,26 +16,26 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code LinearProgramming} class represents a data type for solving a
- *  linear program of the form { max cx : Ax &le; b, x &ge; 0 }, where A is a m-by-n
- *  matrix, b is an m-length vector, and c is an n-length vector. For simplicity,
- *  we assume that A is of full rank and that b &ge; 0 so that x = 0 is a basic
- *  feasible soution.
- *  <p>
- *  The data type supplies methods for determining the optimal primal and
- *  dual solutions.
- *  <p>
- *  This is a bare-bones implementation of the <em>simplex algorithm</em>.
- *  It uses Bland's rule to determing the entering and leaving variables.
- *  It is not suitable for use on large inputs. It is also not robust
- *  in the presence of floating-point roundoff error.
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code LinearProgramming} class represents a data type for solving a
+ * linear program of the form { max cx : Ax &le; b, x &ge; 0 }, where A is a m-by-n
+ * matrix, b is an m-length vector, and c is an n-length vector. For simplicity,
+ * we assume that A is of full rank and that b &ge; 0 so that x = 0 is a basic
+ * feasible soution.
+ * <p>
+ * The data type supplies methods for determining the optimal primal and
+ * dual solutions.
+ * <p>
+ * This is a bare-bones implementation of the <em>simplex algorithm</em>.
+ * It uses Bland's rule to determing the entering and leaving variables.
+ * It is not suitable for use on large inputs. It is also not robust
+ * in the presence of floating-point roundoff error.
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class LinearProgramming {
     private static final double EPSILON = 1.0E-10;
@@ -44,35 +44,35 @@ public class LinearProgramming {
     private int n;          // number of original variables
 
     private int[] basis;    // basis[i] = basic variable corresponding to row i
-                            // only needed to print out solution, not book
+    // only needed to print out solution, not book
 
     /**
      * Determines an optimal solution to the linear program
      * { max cx : Ax &le; b, x &ge; 0 }, where A is a m-by-n
      * matrix, b is an m-length vector, and c is an n-length vector.
      *
-     * @param  A the <em>m</em>-by-<em>b</em> matrix
-     * @param  b the <em>m</em>-length RHS vector
-     * @param  c the <em>n</em>-length cost vector
+     * @param A the <em>m</em>-by-<em>b</em> matrix
+     * @param b the <em>m</em>-length RHS vector
+     * @param c the <em>n</em>-length cost vector
      * @throws IllegalArgumentException unless {@code b[i] >= 0} for each {@code i}
-     * @throws ArithmeticException if the linear program is unbounded
-     */ 
+     * @throws ArithmeticException      if the linear program is unbounded
+     */
     public LinearProgramming(double[][] A, double[] b, double[] c) {
         m = b.length;
         n = c.length;
         for (int i = 0; i < m; i++)
             if (!(b[i] >= 0)) throw new IllegalArgumentException("RHS must be nonnegative");
 
-        a = new double[m+1][n+m+1];
+        a = new double[m + 1][n + m + 1];
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 a[i][j] = A[i][j];
         for (int i = 0; i < m; i++)
-            a[i][n+i] = 1.0;
+            a[i][n + i] = 1.0;
         for (int j = 0; j < n; j++)
             a[m][j] = c[j];
         for (int i = 0; i < m; i++)
-            a[i][m+n] = b[i];
+            a[i][m + n] = b[i];
 
         basis = new int[m];
         for (int i = 0; i < m; i++)
@@ -106,15 +106,15 @@ public class LinearProgramming {
 
     // lowest index of a non-basic column with a positive cost
     private int bland() {
-        for (int j = 0; j < m+n; j++)
+        for (int j = 0; j < m + n; j++)
             if (a[m][j] > 0) return j;
         return -1;  // optimal
     }
 
-   // index of a non-basic column with most positive cost
+    // index of a non-basic column with most positive cost
     private int dantzig() {
         int q = 0;
-        for (int j = 1; j < m+n; j++)
+        for (int j = 1; j < m + n; j++)
             if (a[m][j] > a[m][q]) q = j;
 
         if (a[m][q] <= 0) return -1;  // optimal
@@ -129,7 +129,7 @@ public class LinearProgramming {
             // if (a[i][q] <= 0) continue;
             if (a[i][q] <= EPSILON) continue;
             else if (p == -1) p = i;
-            else if ((a[i][m+n] / a[i][q]) < (a[p][m+n] / a[p][q])) p = i;
+            else if ((a[i][m + n] / a[i][q]) < (a[p][m + n] / a[p][q])) p = i;
         }
         return p;
     }
@@ -139,7 +139,7 @@ public class LinearProgramming {
 
         // everything but row p and column q
         for (int i = 0; i <= m; i++)
-            for (int j = 0; j <= m+n; j++)
+            for (int j = 0; j <= m + n; j++)
                 if (i != p && j != q) a[i][j] -= a[p][j] * a[i][q] / a[p][q];
 
         // zero out column q
@@ -147,7 +147,7 @@ public class LinearProgramming {
             if (i != p) a[i][q] = 0.0;
 
         // scale row p
-        for (int j = 0; j <= m+n; j++)
+        for (int j = 0; j <= m + n; j++)
             if (j != q) a[p][j] /= a[p][q];
         a[p][q] = 1.0;
     }
@@ -156,10 +156,9 @@ public class LinearProgramming {
      * Returns the optimal value of this linear program.
      *
      * @return the optimal value of this linear program
-     *
      */
     public double value() {
-        return -a[m][m+n];
+        return -a[m][m + n];
     }
 
     /**
@@ -170,7 +169,7 @@ public class LinearProgramming {
     public double[] primal() {
         double[] x = new double[n];
         for (int i = 0; i < m; i++)
-            if (basis[i] < n) x[basis[i]] = a[i][m+n];
+            if (basis[i] < n) x[basis[i]] = a[i][m + n];
         return x;
     }
 
@@ -182,7 +181,7 @@ public class LinearProgramming {
     public double[] dual() {
         double[] y = new double[m];
         for (int i = 0; i < m; i++)
-            y[i] = -a[m][n+i];
+            y[i] = -a[m][n + i];
         return y;
     }
 
@@ -262,7 +261,7 @@ public class LinearProgramming {
         return true;
     }
 
-    private boolean check(double[][]A, double[] b, double[] c) {
+    private boolean check(double[][] A, double[] b, double[] c) {
         return isPrimalFeasible(A, b) && isDualFeasible(A, c) && isOptimal(b, c);
     }
 
@@ -271,7 +270,7 @@ public class LinearProgramming {
         StdOut.println("m = " + m);
         StdOut.println("n = " + n);
         for (int i = 0; i <= m; i++) {
-            for (int j = 0; j <= m+n; j++) {
+            for (int j = 0; j <= m + n; j++) {
                 StdOut.printf("%7.2f ", a[i][j]);
                 // StdOut.printf("%10.7f ", a[i][j]);
             }
@@ -279,7 +278,7 @@ public class LinearProgramming {
         }
         StdOut.println("value = " + value());
         for (int i = 0; i < m; i++)
-            if (basis[i] < n) StdOut.println("x_" + basis[i] + " = " + a[i][m+n]);
+            if (basis[i] < n) StdOut.println("x_" + basis[i] + " = " + a[i][m + n]);
         StdOut.println();
     }
 
@@ -288,8 +287,7 @@ public class LinearProgramming {
         LinearProgramming lp;
         try {
             lp = new LinearProgramming(A, b, c);
-        }
-        catch (ArithmeticException e) {
+        } catch (ArithmeticException e) {
             System.out.println(e);
             return;
         }
@@ -305,49 +303,49 @@ public class LinearProgramming {
 
     private static void test1() {
         double[][] A = {
-            { -1,  1,  0 },
-            {  1,  4,  0 },
-            {  2,  1,  0 },
-            {  3, -4,  0 },
-            {  0,  0,  1 },
+                {-1, 1, 0},
+                {1, 4, 0},
+                {2, 1, 0},
+                {3, -4, 0},
+                {0, 0, 1},
         };
-        double[] c = { 1, 1, 1 };
-        double[] b = { 5, 45, 27, 24, 4 };
+        double[] c = {1, 1, 1};
+        double[] b = {5, 45, 27, 24, 4};
         test(A, b, c);
     }
 
 
     // x0 = 12, x1 = 28, opt = 800
     private static void test2() {
-        double[] c = {  13.0,  23.0 };
-        double[] b = { 480.0, 160.0, 1190.0 };
+        double[] c = {13.0, 23.0};
+        double[] b = {480.0, 160.0, 1190.0};
         double[][] A = {
-            {  5.0, 15.0 },
-            {  4.0,  4.0 },
-            { 35.0, 20.0 },
+                {5.0, 15.0},
+                {4.0, 4.0},
+                {35.0, 20.0},
         };
         test(A, b, c);
     }
 
     // unbounded
     private static void test3() {
-        double[] c = { 2.0, 3.0, -1.0, -12.0 };
-        double[] b = {  3.0,   2.0 };
+        double[] c = {2.0, 3.0, -1.0, -12.0};
+        double[] b = {3.0, 2.0};
         double[][] A = {
-            { -2.0, -9.0,  1.0,  9.0 },
-            {  1.0,  1.0, -1.0, -2.0 },
+                {-2.0, -9.0, 1.0, 9.0},
+                {1.0, 1.0, -1.0, -2.0},
         };
         test(A, b, c);
     }
 
     // degenerate - cycles if you choose most positive objective function coefficient
     private static void test4() {
-        double[] c = { 10.0, -57.0, -9.0, -24.0 };
-        double[] b = {  0.0,   0.0,  1.0 };
+        double[] c = {10.0, -57.0, -9.0, -24.0};
+        double[] b = {0.0, 0.0, 1.0};
         double[][] A = {
-            { 0.5, -5.5, -2.5, 9.0 },
-            { 0.5, -1.5, -0.5, 1.0 },
-            { 1.0,  0.0,  0.0, 0.0 },
+                {0.5, -5.5, -2.5, 9.0},
+                {0.5, -1.5, -0.5, 1.0},
+                {1.0, 0.0, 0.0, 0.0},
         };
         test(A, b, c);
     }

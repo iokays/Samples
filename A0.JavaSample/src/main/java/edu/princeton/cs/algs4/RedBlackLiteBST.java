@@ -1,14 +1,12 @@
 package edu.princeton.cs.algs4;
 
 
-import java.util.HashMap;
-
 /******************************************************************************
  *  Compilation:  javac RedBlackLiteBST.java
  *  Execution:    java RedBlackLiteBST < input.txt
  *  Dependencies: StdIn.java StdOut.java  
  *  Data files:   https://algs4.cs.princeton.edu/33balanced/tinyST.txt  
- *    
+ *
  *  A symbol table implemented using a left-leaning red-black BST.
  *  This is the 2-3 version.
  *
@@ -18,7 +16,7 @@ import java.util.HashMap;
  *
  *  % more tinyST.txt
  *  S E A R C H E X A M P L E
- *  
+ *
  *  % java RedBlackLiteBST < tinyST.txt
  *  A 8
  *  C 4
@@ -35,7 +33,7 @@ import java.util.HashMap;
 
 public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
 
-    private static final boolean RED   = true;
+    private static final boolean RED = true;
     private static final boolean BLACK = false;
 
     private Node root;     // root of the BST
@@ -55,20 +53,20 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
         }
     }
 
-   /***************************************************************************
-    *  Standard BST search.
-    ***************************************************************************/
-
-    // return value associated with the given key, or null if no such key exists
+    /***************************************************************************
+     *  Standard BST search.
+     ***************************************************************************/
+// return value associated with the given key, or null if no such key exists
     public Value get(Key key) {
         return get(root, key);
     }
+
     public Value get(Node x, Key key) {
         while (x != null) {
             int cmp = key.compareTo(x.key);
-            if      (cmp < 0) x = x.left;
+            if (cmp < 0) x = x.left;
             else if (cmp > 0) x = x.right;
-            else              return x.val;
+            else return x.val;
         }
         return null;
     }
@@ -79,40 +77,38 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /***************************************************************************
-    *  Red-black tree insertion.
-    ***************************************************************************/
-
+    /***************************************************************************
+     *  Red-black tree insertion.
+     ***************************************************************************/
     public void put(Key key, Value val) {
         root = insert(root, key, val);
         root.color = BLACK;
         assert check();
     }
 
-    private Node insert(Node h, Key key, Value val) { 
+    private Node insert(Node h, Key key, Value val) {
         if (h == null) {
             n++;
             return new Node(key, val, RED);
         }
 
         int cmp = key.compareTo(h.key);
-        if      (cmp < 0) h.left  = insert(h.left,  key, val); 
-        else if (cmp > 0) h.right = insert(h.right, key, val); 
-        else              h.val   = val;
+        if (cmp < 0) h.left = insert(h.left, key, val);
+        else if (cmp > 0) h.right = insert(h.right, key, val);
+        else h.val = val;
 
         // fix-up any right-leaning links
-        if (isRed(h.right) && !isRed(h.left))      h = rotateLeft(h);
-        if (isRed(h.left)  &&  isRed(h.left.left)) h = rotateRight(h);
-        if (isRed(h.left)  &&  isRed(h.right))     flipColors(h);
+        if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
+        if (isRed(h.left) && isRed(h.right)) flipColors(h);
 
         return h;
     }
 
-   /***************************************************************************
-    *  Red-black tree helper functions.
-    ***************************************************************************/
-
-    // is node x red (and non-null) ?
+    /***************************************************************************
+     *  Red-black tree helper functions.
+     ***************************************************************************/
+// is node x red (and non-null) ?
     private boolean isRed(Node x) {
         if (x == null) return false;
         return x.color == RED;
@@ -150,9 +146,9 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /***************************************************************************
-    *  Utility functions.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Utility functions.
+     ***************************************************************************/
     // return number of key-value pairs in symbol table
     public int size() {
         return n;
@@ -164,14 +160,20 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
     // height of tree (1-node tree has height 0)
-    public int height() { return height(root); }
+    public int height() {
+        return height(root);
+    }
+
     private int height(Node x) {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
     }
 
     // return the smallest key; null if no such key
-    public Key min() { return min(root); }
+    public Key min() {
+        return min(root);
+    }
+
     private Key min(Node x) {
         Key key = null;
         while (x != null) {
@@ -182,7 +184,10 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
     // return the largest key; null if no such key
-    public Key max() { return max(root); }
+    public Key max() {
+        return max(root);
+    }
+
     private Key max(Node x) {
         Key key = null;
         while (x != null) {
@@ -193,31 +198,31 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /***************************************************************************
-    *  Iterate using an inorder traversal.
-    *  Iterating through N elements takes O(N) time.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Iterate using an inorder traversal.
+     *  Iterating through N elements takes O(N) time.
+     ***************************************************************************/
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<Key>();
         keys(root, queue);
         return queue;
     }
 
-    private void keys(Node x, Queue<Key> queue) { 
-        if (x == null) return; 
-        keys(x.left, queue); 
-        queue.enqueue(x.key); 
-        keys(x.right, queue); 
-    } 
+    private void keys(Node x, Queue<Key> queue) {
+        if (x == null) return;
+        keys(x.left, queue);
+        queue.enqueue(x.key);
+        keys(x.right, queue);
+    }
 
 
-   /***************************************************************************
-    *  Check integrity of red-black tree data structure.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Check integrity of red-black tree data structure.
+     ***************************************************************************/
     private boolean check() {
-        if (!isBST())            StdOut.println("Not in symmetric order");
-        if (!is23())             StdOut.println("Not a 2-3 tree");
-        if (!isBalanced())       StdOut.println("Not balanced");
+        if (!isBST()) StdOut.println("Not in symmetric order");
+        if (!is23()) StdOut.println("Not a 2-3 tree");
+        if (!isBalanced()) StdOut.println("Not balanced");
         return isBST() && is23() && isBalanced();
     }
 
@@ -235,21 +240,24 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
         if (min != null && x.key.compareTo(min) <= 0) return false;
         if (max != null && x.key.compareTo(max) >= 0) return false;
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
-    } 
+    }
 
     // Does the tree have no red right links, and at most one (left)
     // red links in a row on any path?
-    private boolean is23() { return is23(root); }
+    private boolean is23() {
+        return is23(root);
+    }
+
     private boolean is23(Node x) {
         if (x == null) return true;
         if (isRed(x.right)) return false;
         if (x != root && isRed(x) && isRed(x.left))
             return false;
         return is23(x.left) && is23(x.right);
-    } 
+    }
 
     // do all paths from root to leaf have same number of black edges?
-    private boolean isBalanced() { 
+    private boolean isBalanced() {
         int black = 0;     // number of black links on path from root to min
         Node x = root;
         while (x != null) {
@@ -264,19 +272,19 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
         if (x == null) return black == 0;
         if (!isRed(x)) black--;
         return isBalanced(x.left, black) && isBalanced(x.right, black);
-    } 
+    }
 
 
-   /***************************************************************************
-    *  Test client.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Test client.
+     ***************************************************************************/
     public static void main(String[] args) {
 
-        String test = "S E A R C H E X A M P L E"; 
-        String[] keys = test.split(" "); 
+        String test = "S E A R C H E X A M P L E";
+        String[] keys = test.split(" ");
         RedBlackLiteBST<String, Integer> st = new RedBlackLiteBST<String, Integer>();
-        for (int i = 0; i < keys.length; i++) 
-            st.put(keys[i], i); 
+        for (int i = 0; i < keys.length; i++)
+            st.put(keys[i], i);
 
         StdOut.println("size = " + st.size());
         StdOut.println("min  = " + st.min());
@@ -287,8 +295,8 @@ public class RedBlackLiteBST<Key extends Comparable<Key>, Value> {
         // print keys in order using allKeys()
         StdOut.println("Testing keys()");
         StdOut.println("--------------------------------");
-        for (String s : st.keys()) 
-            StdOut.println(s + " " + st.get(s)); 
+        for (String s : st.keys())
+            StdOut.println(s + " " + st.get(s));
         StdOut.println();
 
         // insert N elements in order if one command-line argument supplied

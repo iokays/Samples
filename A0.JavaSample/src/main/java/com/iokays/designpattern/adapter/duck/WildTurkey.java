@@ -1,8 +1,9 @@
 package com.iokays.designpattern.adapter.duck;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "火鸡")
+/**
+ * 火鸡
+ */
 public class WildTurkey implements Turkey {
 
     @Override

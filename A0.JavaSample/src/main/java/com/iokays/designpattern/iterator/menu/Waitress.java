@@ -1,18 +1,21 @@
 package com.iokays.designpattern.iterator.menu;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
 import java.util.Iterator;
 
-@ApiModel(value = "女招待")
+/**
+ * 女招待
+ */
 public class Waitress {
 
-    @ApiModelProperty(value = "煎饼屋菜单")
+    /**
+     * 煎饼屋菜单
+     */
     PancakeHouseMenu pancakeHouseMenu;
 
-    @ApiModelProperty(value = "餐厅菜单")
+    /**
+     * 餐厅菜单
+     */
     DinerMenu dinerMenu;
 
     public Waitress(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu) {
@@ -20,7 +23,9 @@ public class Waitress {
         this.dinerMenu = dinerMenu;
     }
 
-    @ApiOperation(value = "打印菜单")
+    /**
+     * 打印菜单
+     */
     public void printMenu() {
         Iterator pancakeIterator = pancakeHouseMenu.createIterator();
         Iterator dinerIterator = dinerMenu.createIterator();
@@ -30,23 +35,29 @@ public class Waitress {
         printMenu(dinerIterator);
     }
 
-    @ApiOperation(value = "打印迭代器菜单")
+    /**
+     * 打印迭代器菜单
+     */
     private void printMenu(Iterator iterator) {
         while (iterator.hasNext()) {
-            MenuItem menuItem = (MenuItem)iterator.next();
+            MenuItem menuItem = (MenuItem) iterator.next();
             System.out.print(menuItem.getName() + ", ");
             System.out.print(menuItem.getPrice() + " -- ");
             System.out.println(menuItem.getDescription());
         }
     }
 
-    @ApiOperation(value = "打印素食菜单")
+    /**
+     * 打印素食菜单
+     */
     public void printVegetarianMenu() {
         printVegetarianMenu(pancakeHouseMenu.createIterator());
         printVegetarianMenu(dinerMenu.createIterator());
     }
 
-    @ApiOperation(value = "是否为素食")
+    /**
+     * 是否为素食
+     */
     public boolean isItemVegetarian(String name) {
         Iterator breakfastIterator = pancakeHouseMenu.createIterator();
         if (isVegetarian(name, breakfastIterator)) {
@@ -59,10 +70,12 @@ public class Waitress {
         return false;
     }
 
-    @ApiOperation(value = "打印素食菜单")
+    /**
+     * 打印素食菜单
+     */
     private void printVegetarianMenu(Iterator iterator) {
         while (iterator.hasNext()) {
-            MenuItem menuItem = (MenuItem)iterator.next();
+            MenuItem menuItem = (MenuItem) iterator.next();
             if (menuItem.isVegetarian()) {
                 System.out.print(menuItem.getName());
                 System.out.println("\t\t" + menuItem.getPrice());
@@ -71,10 +84,12 @@ public class Waitress {
         }
     }
 
-    @ApiOperation(value = "是否为素食")
+    /**
+     * 是否为素食
+     */
     private boolean isVegetarian(String name, Iterator iterator) {
         while (iterator.hasNext()) {
-            MenuItem menuItem = (MenuItem)iterator.next();
+            MenuItem menuItem = (MenuItem) iterator.next();
             if (menuItem.getName().equals(name)) {
                 if (menuItem.isVegetarian()) {
                     return true;

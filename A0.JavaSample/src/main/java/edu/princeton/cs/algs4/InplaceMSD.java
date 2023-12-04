@@ -28,24 +28,24 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code InplaceMSD} class provides static methods for sorting an
- *  array of extended ASCII strings using in-place MSD radix sort.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code InplaceMSD} class provides static methods for sorting an
+ * array of extended ASCII strings using in-place MSD radix sort.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Ivan Pesin
+ * @author Ivan Pesin
  */
-
 public class InplaceMSD {
-    private static final int R             = 256;   // extended ASCII alphabet size
-    private static final int CUTOFF        =  15;   // cutoff to insertion sort
+    private static final int R = 256;   // extended ASCII alphabet size
+    private static final int CUTOFF = 15;   // cutoff to insertion sort
 
     // do not instantiate
-    private InplaceMSD() { } 
+    private InplaceMSD() {
+    }
 
-   /**
+    /**
      * Rearranges the array of extended ASCII strings in ascending order.
      * This is an unstable sorting algorithm.
      *
@@ -53,7 +53,7 @@ public class InplaceMSD {
      */
     public static void sort(String[] a) {
         int n = a.length;
-        sort(a, 0, n-1, 0);
+        sort(a, 0, n - 1, 0);
     }
 
     // return dth character of s, -1 if d = length of string
@@ -73,43 +73,43 @@ public class InplaceMSD {
         }
 
         // compute frequency counts
-        int[] heads = new int[R+2];
-        int[] tails = new int[R+1];
+        int[] heads = new int[R + 2];
+        int[] tails = new int[R + 1];
         for (int i = lo; i <= hi; i++) {
             int c = charAt(a[i], d);
-            heads[c+2]++;
+            heads[c + 2]++;
         }
 
         // transform counts to indices
         heads[0] = lo;
-        for (int r = 0; r < R+1; r++) {
-            heads[r+1] += heads[r];
-            tails[r] = heads[r+1];
+        for (int r = 0; r < R + 1; r++) {
+            heads[r + 1] += heads[r];
+            tails[r] = heads[r + 1];
         }
 
         // sort by d-th character in-place
-        for (int r = 0; r < R+1; r++) {
+        for (int r = 0; r < R + 1; r++) {
             while (heads[r] < tails[r]) {
                 int c = charAt(a[heads[r]], d);
                 while (c + 1 != r) {
-                    exch(a, heads[r], heads[c+1]++);
+                    exch(a, heads[r], heads[c + 1]++);
                     c = charAt(a[heads[r]], d);
                 }
                 heads[r]++;
             }
         }
-              
+
         // recursively sort for each character (excludes sentinel -1)
         for (int r = 0; r < R; r++)
-            sort(a, tails[r], tails[r+1] - 1, d+1);
+            sort(a, tails[r], tails[r + 1] - 1, d + 1);
     }
 
 
     // insertion sort a[lo..hi], starting at dth character
     private static void insertion(String[] a, int lo, int hi, int d) {
         for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j-1], d); j--)
-                exch(a, j, j-1);
+            for (int j = i; j > lo && less(a[j], a[j - 1], d); j--)
+                exch(a, j, j - 1);
     }
 
     // exchange a[i] and a[j]

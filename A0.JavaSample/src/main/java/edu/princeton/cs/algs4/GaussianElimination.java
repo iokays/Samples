@@ -2,7 +2,7 @@
  *  Compilation:  javac GaussianElimination.java
  *  Execution:    java GaussianElimination m n
  *  Dependencies: StdOut.java
- * 
+ *
  *  Gaussian elimination with partial pivoting for m-by-n system.
  *
  *  % java GaussianElimination m n
@@ -13,7 +13,7 @@
  *  3.000000
  *  -1.000000
  *  -2.000000
- * 
+ *
  *  System is infeasible
  *
  *  -6.250000
@@ -33,26 +33,26 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code GaussianElimination} data type provides methods
- *  to solve a linear system of equations <em>Ax</em> = <em>b</em>,
- *  where <em>A</em> is an <em>m</em>-by-<em>n</em> matrix
- *  and <em>b</em> is a length <em>n</em> vector.
- *  <p>
- *  This is a bare-bones implementation that uses Gaussian elimination
- *  with partial pivoting.
- *  See <a href = "https://algs4.cs.princeton.edu/99scientific/GaussianEliminationLite.java.html">GaussianEliminationLite.java</a>
- *  for a stripped-down version that assumes the matrix <em>A</em> is square
- *  and nonsingular. See {@link GaussJordanElimination} for an alternate
- *  implementation that uses Gauss-Jordan elimination.
- *  For an industrial-strength numerical linear algebra library,
- *  see <a href = "http://math.nist.gov/javanumerics/jama/">JAMA</a>.
- *  <p>
- *  For additional documentation, see
- *  <a href="https://algs4.cs.princeton.edu/99scientific">Section 9.9</a>
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The {@code GaussianElimination} data type provides methods
+ * to solve a linear system of equations <em>Ax</em> = <em>b</em>,
+ * where <em>A</em> is an <em>m</em>-by-<em>n</em> matrix
+ * and <em>b</em> is a length <em>n</em> vector.
+ * <p>
+ * This is a bare-bones implementation that uses Gaussian elimination
+ * with partial pivoting.
+ * See <a href = "https://algs4.cs.princeton.edu/99scientific/GaussianEliminationLite.java.html">GaussianEliminationLite.java</a>
+ * for a stripped-down version that assumes the matrix <em>A</em> is square
+ * and nonsingular. See {@link GaussJordanElimination} for an alternate
+ * implementation that uses Gauss-Jordan elimination.
+ * For an industrial-strength numerical linear algebra library,
+ * see <a href = "http://math.nist.gov/javanumerics/jama/">JAMA</a>.
+ * <p>
+ * For additional documentation, see
+ * <a href="https://algs4.cs.princeton.edu/99scientific">Section 9.9</a>
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class GaussianElimination {
     private static final double EPSILON = 1e-8;
@@ -66,10 +66,10 @@ public class GaussianElimination {
      * where <em>A</em> is an <em>m</em>-by-<em>n</em> matrix and <em>b</em>
      * is a length <em>m</em> vector.
      *
-     * @param  A the <em>m</em>-by-<em>n</em> constraint matrix
-     * @param  b the length <em>m</em> right-hand-side vector
+     * @param A the <em>m</em>-by-<em>n</em> constraint matrix
+     * @param b the length <em>m</em> right-hand-side vector
      * @throws IllegalArgumentException if the dimensions disagree, i.e.,
-     *         the length of {@code b} does not equal {@code m}
+     *                                  the length of {@code b} does not equal {@code m}
      */
     public GaussianElimination(double[][] A, double[] b) {
         m = A.length;
@@ -78,7 +78,7 @@ public class GaussianElimination {
         if (b.length != m) throw new IllegalArgumentException("Dimensions disagree");
 
         // build augmented matrix
-        a = new double[m][n+1];
+        a = new double[m][n + 1];
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
                 a[i][j] = A[i][j];
@@ -96,7 +96,7 @@ public class GaussianElimination {
 
             // find pivot row using partial pivoting
             int max = p;
-            for (int i = p+1; i < m; i++) {
+            for (int i = p + 1; i < m; i++) {
                 if (Math.abs(a[i][p]) > Math.abs(a[max][p])) {
                     max = i;
                 }
@@ -124,7 +124,7 @@ public class GaussianElimination {
 
     // pivot on a[p][p]
     private void pivot(int p) {
-        for (int i = p+1; i < m; i++) {
+        for (int i = p + 1; i < m; i++) {
             double alpha = a[i][p] / a[p][p];
             for (int j = p; j <= n; j++) {
                 a[i][j] -= alpha * a[p][j];
@@ -134,16 +134,16 @@ public class GaussianElimination {
 
     /**
      * Returns a solution to the linear system of equations <em>Ax</em> = <em>b</em>.
-     *      
+     *
      * @return a solution <em>x</em> to the linear system of equations
-     *         <em>Ax</em> = <em>b</em>; {@code null} if no such solution
+     * <em>Ax</em> = <em>b</em>; {@code null} if no such solution
      */
     public double[] primal() {
         // back substitution
         double[] x = new double[n];
-        for (int i = Math.min(n-1, m-1); i >= 0; i--) {
+        for (int i = Math.min(n - 1, m - 1); i >= 0; i--) {
             double sum = 0.0;
-            for (int j = i+1; j < n; j++) {
+            for (int j = i + 1; j < n; j++) {
                 sum += a[i][j] * x[j];
             }
 
@@ -168,9 +168,9 @@ public class GaussianElimination {
     /**
      * Returns true if there exists a solution to the linear system of
      * equations <em>Ax</em> = <em>b</em>.
-     *      
+     *
      * @return {@code true} if there exists a solution to the linear system
-     *         of equations <em>Ax</em> = <em>b</em>; {@code false} otherwise
+     * of equations <em>Ax</em> = <em>b</em>; {@code false} otherwise
      */
     public boolean isFeasible() {
         return primal() != null;
@@ -209,8 +209,7 @@ public class GaussianElimination {
             for (int i = 0; i < x.length; i++) {
                 StdOut.printf("%.6f\n", x[i]);
             }
-        }
-        else {
+        } else {
             StdOut.println("System is infeasible");
         }
         StdOut.println();
@@ -221,105 +220,105 @@ public class GaussianElimination {
     // 3-by-3 nonsingular system
     private static void test1() {
         double[][] A = {
-            { 0, 1,  1 },
-            { 2, 4, -2 },
-            { 0, 3, 15 }
+                {0, 1, 1},
+                {2, 4, -2},
+                {0, 3, 15}
         };
-        double[] b = { 4, 2, 36 };
+        double[] b = {4, 2, 36};
         test("test 1 (3-by-3 system, nonsingular)", A, b);
     }
 
     // 3-by-3 nonsingular system
     private static void test2() {
         double[][] A = {
-            {  1, -3,   1 },
-            {  2, -8,   8 },
-            { -6,  3, -15 }
+                {1, -3, 1},
+                {2, -8, 8},
+                {-6, 3, -15}
         };
-        double[] b = { 4, -2, 9 };
+        double[] b = {4, -2, 9};
         test("test 2 (3-by-3 system, nonsingular)", A, b);
     }
 
     // 5-by-5 singular: no solutions
     private static void test3() {
         double[][] A = {
-            {  2, -3, -1,  2,  3 },
-            {  4, -4, -1,  4, 11 },
-            {  2, -5, -2,  2, -1 },
-            {  0,  2,  1,  0,  4 },
-            { -4,  6,  0,  0,  7 },
+                {2, -3, -1, 2, 3},
+                {4, -4, -1, 4, 11},
+                {2, -5, -2, 2, -1},
+                {0, 2, 1, 0, 4},
+                {-4, 6, 0, 0, 7},
         };
-        double[] b = { 4, 4, 9, -6, 5 };
+        double[] b = {4, 4, 9, -6, 5};
         test("test 3 (5-by-5 system, no solutions)", A, b);
     }
 
     // 5-by-5 singular: infinitely many solutions
     private static void test4() {
         double[][] A = {
-            {  2, -3, -1,  2,  3 },
-            {  4, -4, -1,  4, 11 },
-            {  2, -5, -2,  2, -1 },
-            {  0,  2,  1,  0,  4 },
-            { -4,  6,  0,  0,  7 },
+                {2, -3, -1, 2, 3},
+                {4, -4, -1, 4, 11},
+                {2, -5, -2, 2, -1},
+                {0, 2, 1, 0, 4},
+                {-4, 6, 0, 0, 7},
         };
-        double[] b = { 4, 4, 9, -5, 5 };
+        double[] b = {4, 4, 9, -5, 5};
         test("test 4 (5-by-5 system, infinitely many solutions)", A, b);
     }
 
     // 3-by-3 singular: no solutions
     private static void test5() {
         double[][] A = {
-            {  2, -1,  1 },
-            {  3,  2, -4 },
-            { -6,  3, -3 },
+                {2, -1, 1},
+                {3, 2, -4},
+                {-6, 3, -3},
         };
-        double[] b = { 1, 4, 2 };
+        double[] b = {1, 4, 2};
         test("test 5 (3-by-3 system, no solutions)", A, b);
     }
 
     // 3-by-3 singular: infinitely many solutions
     private static void test6() {
         double[][] A = {
-            {  1, -1,  2 },
-            {  4,  4, -2 },
-            { -2,  2, -4 },
+                {1, -1, 2},
+                {4, 4, -2},
+                {-2, 2, -4},
         };
-        double[] b = { -3, 1, 6 };
+        double[] b = {-3, 1, 6};
         test("test 6 (3-by-3 system, infinitely many solutions)", A, b);
     }
 
     // 4-by-3 full rank and feasible system
     private static void test7() {
         double[][] A = {
-            { 0, 1,  1 },
-            { 2, 4, -2 },
-            { 0, 3, 15 },
-            { 2, 8, 14 }
+                {0, 1, 1},
+                {2, 4, -2},
+                {0, 3, 15},
+                {2, 8, 14}
         };
-        double[] b = { 4, 2, 36, 42 };
+        double[] b = {4, 2, 36, 42};
         test("test 7 (4-by-3 system, full rank)", A, b);
     }
 
     // 4-by-3 full rank and infeasible system
     private static void test8() {
         double[][] A = {
-            { 0, 1,  1 },
-            { 2, 4, -2 },
-            { 0, 3, 15 },
-            { 2, 8, 14 }
+                {0, 1, 1},
+                {2, 4, -2},
+                {0, 3, 15},
+                {2, 8, 14}
         };
-        double[] b = { 4, 2, 36, 40 };
+        double[] b = {4, 2, 36, 40};
         test("test 8 (4-by-3 system, no solution)", A, b);
     }
 
     // 3-by-4 full rank system
     private static void test9() {
         double[][] A = {
-            {  1, -3,   1,  1 },
-            {  2, -8,   8,  2 },
-            { -6,  3, -15,  3 }
+                {1, -3, 1, 1},
+                {2, -8, 8, 2},
+                {-6, 3, -15, 3}
         };
-        double[] b = { 4, -2, 9 };
+        double[] b = {4, -2, 9};
         test("test 9 (3-by-4 system, full rank)", A, b);
     }
 

@@ -1,13 +1,14 @@
 package com.iokays.onjava.lazy;
 
 import com.google.common.base.Suppliers;
-import io.swagger.annotations.ApiModel;
 import io.vavr.Lazy;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-@ApiModel("懒加载用例")
+/**
+ * 懒加载用例
+ */
 public class LazySample {
 
     public static void main(String[] args) {

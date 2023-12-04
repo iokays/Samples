@@ -8,7 +8,6 @@ import com.iokays.analysispattern.exception.UnableToPostException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class AccountingTransaction implements Serializable {
 
@@ -36,7 +35,8 @@ public class AccountingTransaction implements Serializable {
         entries.forEach(Entry::post);
         wasPosted = true;
     }
-    public boolean canPost(){
+
+    public boolean canPost() {
         return balance().isZero();
     }
 

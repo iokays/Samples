@@ -3,7 +3,7 @@
  *  Execution:    java HexDump < file
  *  Dependencies: BinaryStdIn.java StdOut.java
  *  Data file:    https://algs4.cs.princeton.edu/55compression/abra.txt
- *  
+ *
  *  Reads in a binary file and writes out the bytes in hex, 16 per line.
  *
  *  % more abra.txt
@@ -27,25 +27,26 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code HexDump} class provides a client for displaying the contents
- *  of a binary file in hexadecimal.
- *  <p>
- *  For additional documentation,
- *  see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  <p>
- *  See also {@link BinaryDump} and {@link PictureDump}.
- *  For more full-featured versions, see the Unix utilities
- *  {@code od} (octal dump) and {@code hexdump} (hexadecimal dump).
- *  <p>
+ * The {@code HexDump} class provides a client for displaying the contents
+ * of a binary file in hexadecimal.
+ * <p>
+ * For additional documentation,
+ * see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * <p>
+ * See also {@link BinaryDump} and {@link PictureDump}.
+ * For more full-featured versions, see the Unix utilities
+ * {@code od} (octal dump) and {@code hexdump} (hexadecimal dump).
+ * <p>
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class HexDump {
 
     // Do not instantiate.
-    private HexDump() { }
+    private HexDump() {
+    }
 
     /**
      * Reads in a sequence of bytes from standard input and writes
@@ -75,7 +76,7 @@ public class HexDump {
             StdOut.printf("%02x", c & 0xff);
         }
         if (bytesPerLine != 0) StdOut.println();
-        StdOut.println((i*8) + " bits");
+        StdOut.println((i * 8) + " bits");
     }
 }
 
