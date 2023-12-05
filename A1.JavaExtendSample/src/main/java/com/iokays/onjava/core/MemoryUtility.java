@@ -6,11 +6,12 @@ import java.lang.management.ManagementFactory;
 import java.util.function.LongUnaryOperator;
 
 import static io.vavr.API.printf;
+import static java.lang.String.format;
 
 public class MemoryUtility {
 
     private MemoryUtility() {
-        throw new AssertionError("No com.iokays.onjava.core.MemoryUtility instances for you!");
+        throw new AssertionError(format("No %s instances for you!", MemoryUtility.class.getName()));
     }
 
 
