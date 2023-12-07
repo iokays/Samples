@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = 21
+targetCompatibility = 21
+
+allprojects {
+    apply plugin: 'java'
+
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'https://repo.maven.apache.org/maven2' }
+    maven { url 'https://repository.jboss.org/nexus/content/groups/public-jboss' }
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation 'com.google.guava:guava:30.1.1-jre'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'commons-codec:commons-codec:1.16.0'
+    implementation 'org.jasypt:jasypt:1.9.3'
+    implementation 'io.vavr:vavr:1.0.0-alpha-4'
+    implementation 'org.jeasy:easy-random-core:5.0.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.5'
+    implementation "edu.stanford.nlp:stanford-corenlp:4.5.5:models"
+    implementation "edu.stanford.nlp:stanford-corenlp:4.5.5:models-english-kbp"
+
+    implementation 'org.apache.opennlp:opennlp-tools:2.3.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
