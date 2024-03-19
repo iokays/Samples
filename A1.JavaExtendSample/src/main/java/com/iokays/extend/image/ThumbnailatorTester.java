@@ -1,7 +1,7 @@
-package com.iokays.onjava.image;
+package com.iokays.extend.image;
 
 
-import com.iokays.onjava.core.MemoryUtility;
+import com.iokays.extend.core.MemoryUtility;
 import com.sun.management.OperatingSystemMXBean;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.lang3.StringUtils;

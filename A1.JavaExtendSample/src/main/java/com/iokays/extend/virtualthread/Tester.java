@@ -1,4 +1,4 @@
-package com.iokays.onjava.virtualthread;
+package com.iokays.extend.virtualthread;
 
 import org.junit.jupiter.api.Test;
 

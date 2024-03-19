@@ -1,4 +1,4 @@
-package com.iokays.onjava.core;
+package com.iokays.extend.core;
 
 import com.sun.management.OperatingSystemMXBean;
 

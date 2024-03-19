@@ -1,4 +1,4 @@
-package com.iokays.onjava.lazy;
+package com.iokays.extend.lazy;
 
 import com.google.common.base.Suppliers;
 import io.vavr.Lazy;

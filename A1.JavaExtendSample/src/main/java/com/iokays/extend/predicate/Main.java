@@ -1,4 +1,4 @@
-package com.iokays.onjava.predicate;
+package com.iokays.extend.predicate;
 
 public class Main {
 

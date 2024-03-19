@@ -1,4 +1,4 @@
-package com.iokays.onjava.exception;
+package com.iokays.extend.exception;
 
 import io.vavr.control.Try;
 

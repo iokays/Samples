@@ -1,4 +1,4 @@
-package com.iokays.onjava.stringtemplates;
+package com.iokays.extend.stringtemplates;
 
 
 public class Tester {

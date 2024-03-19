@@ -1,4 +1,4 @@
-package com.iokays.onjava.vector;
+package com.iokays.extend.vector;
 
 public class VectorSample {
 

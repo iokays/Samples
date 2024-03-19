@@ -1,4 +1,4 @@
-package com.iokays.onjava.sequencedcollections;
+package com.iokays.extend.sequencedcollections;
 
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;

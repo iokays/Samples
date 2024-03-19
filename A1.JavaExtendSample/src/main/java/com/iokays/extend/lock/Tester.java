@@ -1,4 +1,4 @@
-package com.iokays.onjava.lock;
+package com.iokays.extend.lock;
 
 import org.junit.jupiter.api.Test;
 

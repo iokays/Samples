@@ -1,4 +1,4 @@
-package com.iokays.onjava.blockchain;
+package com.iokays.extend.blockchain;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

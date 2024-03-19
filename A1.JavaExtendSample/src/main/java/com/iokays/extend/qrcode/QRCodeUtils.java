@@ -1,4 +1,4 @@
-package com.iokays.onjava.qrcode;
+package com.iokays.extend.qrcode;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
