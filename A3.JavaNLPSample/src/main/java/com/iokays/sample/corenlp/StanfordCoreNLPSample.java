@@ -25,7 +25,6 @@ public class StanfordCoreNLPSample {
     public static void main(String[] args) throws IOException {
         // 设置Stanford CoreNLP属性
         Properties props = new Properties();
-        props.setProperty("annotators", "tokenize, ssplit, pos, lemma");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         // 示例文本
