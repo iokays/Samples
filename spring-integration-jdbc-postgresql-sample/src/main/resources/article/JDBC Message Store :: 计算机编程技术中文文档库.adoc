@@ -1,0 +1,277 @@
+= JDBC Message Store :: 计算机编程技术中文文档库
+iokays
+:description: Spring 集成 JDBC 模块提供两个特定于 JDBC 的消息存储实现：JdbcMessageStore 和 JdbcChannelMessageStore。JdbcMessageStore 适用于计数器和索赔检查模式，而 JdbcChannelMessageStore 提供了专门用于消息通道、有针对性和更具可扩展性的实现。这些消息存储可以进行分区，使用表前缀或区域名称，以避免命名冲突和控制数据库元数据配置。PostgreSQL 特有的增强功能包括接收新消息时的推送通知，并使用事务支持和重试策略来处理通知订阅。
+:keywords: Spring Integration, 中文文档, 编程技术, JdbcMessageStore,  JdbcChannelMessageStore,  消息存储,  消息通道,  轮询,  FIFO,  优先队列,  分区,  PostgreSQL,  通知
+:url-source: https://www.iokays.com/docs/spring-integration/jdbc/message-store.html
+
+
+Spring 集成提供了两个特定于 JDBC 的消息存储实现。_JdbcMessageStore_ 适用于合计器和索赔检查模式。_JdbcChannelMessageStore_ 实现提供了专门用于消息通道、有针对性和更具可扩展性的实现。
+
+
+Spring Integration provides two JDBC specific message store implementations. The _JdbcMessageStore_ is suitable for use with aggregators and the claim check pattern. The _JdbcChannelMessageStore_ implementation provides a more targeted and scalable implementation specifically for message channel.
+
+
+请注意，您可以使用 _JdbcMessageStore_ 作为消息通道的后台，_JdbcChannelMessageStore_ 已针对该目的进行了优化。
+
+
+Note that you can use a _JdbcMessageStore_ to back a message channel, _JdbcChannelMessageStore_ is optimized for that purpose.
+
+
+从 5.0.11、5.1.2 版本开始，`JdbcChannelMessageStore`的索引已得到优化。如果您在这样的存储中具有大型消息组，您可能希望更改索引。此外，`PriorityChannel`的索引已注释掉，因为除非您使用由 JDBC 支持的此类通道，否则不需要它。
+
+
+Starting with versions 5.0.11, 5.1.2, the indexes for the _JdbcChannelMessageStore_ have been optimized. If you have large message groups in such a store, you may wish to alter the indexes. Furthermore, the index for _PriorityChannel_ is commented out because it is not needed unless you are using such channels backed by JDBC.
+
+
+使用`OracleChannelMessageStoreQueryProvider`时，优先级通道索引*must*将被添加，因为它包含在查询的提示中。
+
+
+When using the _OracleChannelMessageStoreQueryProvider_, the priority channel index *must* be added because it is included in a hint in the query.
+
+
+== link:#jdbc-db-init[]Initializing the Database
+
+
+在开始使用 JDBC 消息存储组件之前，您应该使用适当的对象来提供一个目标数据库。
+
+
+Before starting to use JDBC message store components, you should provision a target database with the appropriate objects.
+
+
+Spring 集成附带了一些示例脚本，可用于初始化数据库。在 _spring-integration-jdbc_ JAR 文件中，可以在 _org.springframework.integration.jdbc_ 包中找到脚本。它针对一系列常见的数据库平台提供了一个示例创建脚本和一个示例删除脚本。使用这些脚本的一种常用方法是引用 link:https://docs.spring.io/spring-framework/reference/data-access/jdbc/initializing-datasource.html[Spring JDBC data source initializer] 中的这些脚本。请注意，这些脚本作为示例和所需表名和列名的规范提供。你可能会发现你需要对它们进行增强以用于生产（例如，通过添加索引声明）。
+
+
+Spring Integration ships with some sample scripts that can be used to initialize a database. In the _spring-integration-jdbc_ JAR file, you can find scripts in the _org.springframework.integration.jdbc_ package. It provides an example create and an example drop script for a range of common database platforms. A common way to use these scripts is to reference them in a link:https://docs.spring.io/spring-framework/reference/data-access/jdbc/initializing-datasource.html[Spring JDBC data source initializer]. Note that the scripts are provided as samples and as specifications of the required table and column names. You may find that you need to enhance them for production use (for, example, by adding index declarations).
+
+
+从第 6.2 版开始，_JdbcMessageStore_、_JdbcChannelMessageStore_、_JdbcMetadataStore_ 和 _DefaultLockRepository_ 实现 _SmartLifecycle_，并在 _start()_ 方法中针对各自的表执行 _SELECT COUNT_ 查询，以确保在目标数据库中存在所需的表（根据提供的前缀）。如果所需的表不存在，则应用程序上下文将无法启动。可以通过 _setCheckDatabaseOnStart(false)_ 禁用此项检查。
+
+
+Starting with version 6.2, the _JdbcMessageStore_, _JdbcChannelMessageStore_, _JdbcMetadataStore_, and _DefaultLockRepository_ implement _SmartLifecycle_ and perform a`SELECT COUNT` query, on their respective tables, in the _start()_ method to ensure that the required table (according to the provided prefix) is present in the target database. If the required table does not exist, the application context fails to start. The check can be disabled via _setCheckDatabaseOnStart(false)_.
+
+
+== link:#jdbc-message-store-generic[]The Generic JDBC Message Store
+
+
+JDBC 模块提供了由数据库支持的 Spring Integration _MessageStore_（在索取检查模式中很重要）和 _MessageGroupStore_（在诸如聚合器等有状态模式中很重要）的实现。这两个接口都由 _JdbcMessageStore_ 实现，并且支持以 XML 配置存储实例，如下面的示例所示：
+
+
+The JDBC module provides an implementation of the Spring Integration _MessageStore_ (important in the claim check pattern) and _MessageGroupStore_ (important in stateful patterns such as an aggregator) backed by a database. Both interfaces are implemented by the _JdbcMessageStore_, and there is support for configuring store instances in XML, as the following example shows:
+
+
+您可以指定 _JdbcTemplate_ 而不是 _DataSource_。
+
+
+You can specify a _JdbcTemplate_ instead of a _DataSource_.
+
+
+以下示例显示了一些其他可选属性：
+
+
+The following example shows some other optional attributes:
+
+
+在前述示例中，我们指定了一个 _LobHandler_ 来将消息作为大对象进行处理（这对于 Oracle 来说通常非常必要），并指定了存储中查询生成的表名的前缀。表名前缀默认为 _INT__。
+
+
+In the preceding example, we have specified a _LobHandler_ for dealing with messages as large objects (which is often necessary for Oracle) and a prefix for the table names in the queries generated by the store. The table name prefix defaults to _INT__.
+
+
+== link:#jdbc-message-store-channels[]Backing Message Channels
+
+
+如果您打算使用 JDBC 支持消息通道，我们建议使用 _JdbcChannelMessageStore_ 实现。它只能与消息通道配合使用。
+
+
+If you intend to back message channels with JDBC, we recommend using the _JdbcChannelMessageStore_ implementation. It works only in conjunction with Message Channels.
+
+
+=== link:#supported-databases[]Supported Databases
+
+
+_JdbcChannelMessageStore_ 使用特定于数据库的 SQL 查询从数据库中检索消息。因此，您必须在 _JdbcChannelMessageStore_ 上设置 _ChannelMessageStoreQueryProvider_ 属性。此 _channelMessageStoreQueryProvider_ 提供针对您指定的特定数据库的 SQL 查询。Spring Integration 为以下关系型数据库提供支持：
+
+
+The _JdbcChannelMessageStore_ uses database-specific SQL queries to retrieve messages from the database. Therefore, you must set the _ChannelMessageStoreQueryProvider_ property on the _JdbcChannelMessageStore_. This _channelMessageStoreQueryProvider_ provides the SQL queries for the particular database you specify. Spring Integration provides support for the following relational databases:
+
+
+PostgreSQL
+
+
+HSQLDB
+
+
+MySQL
+
+
+Oracle
+
+
+Derby
+
+
+H2
+
+
+SqlServer
+
+
+Sybase
+
+
+DB2
+
+
+如果没有列出您的数据库，您可以实现 _ChannelMessageStoreQueryProvider_ 接口并提供您自己的自定义查询。
+
+
+If your database is not listed, you can implement the _ChannelMessageStoreQueryProvider_ interface and provide your own custom queries.
+
+
+版本 4.0 向表中添加了 _MESSAGE_SEQUENCE_ 列，以确保即使消息存储在同一毫秒内，也能按照先进先出 (FIFO) 排列顺序队列。
+
+
+Version 4.0 added the _MESSAGE_SEQUENCE_ column to the table to ensure first-in-first-out (FIFO) queueing even when messages are stored in the same millisecond.
+
+
+从第 6.2 版开始，_ChannelMessageStoreQueryProvider_ 公开一个 _isSingleStatementForPoll_ 标志，其中 _PostgresChannelMessageStoreQueryProvider_ 返回 _true_，且其用于轮询的查询现基于一条 _DELETE…​RETURNING_ 语句。_JdbcChannelMessageStore_ 咨询 _isSingleStatementForPoll_ 选项，如果只支持单轮询语句，则跳过单独的 _DELETE_ 语句。
+
+
+Starting with version 6.2, _ChannelMessageStoreQueryProvider_ exposes a _isSingleStatementForPoll_ flag, where the _PostgresChannelMessageStoreQueryProvider_ returns _true_ and its queries for polls are now based on a single _DELETE…​RETURNING_ statement. The _JdbcChannelMessageStore_ consults with the _isSingleStatementForPoll_ option and skips a separate _DELETE_ statement if only single poll statement is supported.
+
+
+=== link:#custom-message-insertion[]Custom Message Insertion
+
+
+自版本 5.0 起，通过重载 _ChannelMessageStorePreparedStatementSetter_ 类，你可以在 _JdbcChannelMessageStore_ 中提供一条自定义实现用于消息插入。你可以使用它来设置不同的列或更改表结构或序列化策略。例如，你可以将其结构作为 JSON 字符串存储，而不是默认序列化为 _byte[]_。
+
+
+Since version 5.0, by overloading the _ChannelMessageStorePreparedStatementSetter_ class, you can provide a custom implementation for message insertion in the _JdbcChannelMessageStore_. You can use it to set different columns or change the table structure or serialization strategy. For example, instead of default serialization to _byte[]_, you can store its structure as a JSON string.
+
+
+以下示例使用 _setValues_ 的默认实现来存储公共列，并覆盖存储消息负载为 _varchar_ 的行为：
+
+
+The following example uses the default implementation of _setValues_ to store common columns and overrides the behavior to store the message payload as a _varchar_:
+
+
+通常，我们不建议使用关系数据库进行排队。如果您可能的话，可考虑使用 JMS 或 AMQP 支持的通道。有关更多参考，请参见以下资源：
+
+
+Generally, we do not recommend using a relational database for queuing. Instead, if possible, consider using either JMS- or AMQP-backed channels instead. For further reference, see the following resource:
+
+
+link:https://mikehadlow.blogspot.com/2012/04/database-as-queue-anti-pattern.html[The Database As Queue Anti-Pattern].
+
+
+如果您仍计划将数据库用作队列，请考虑使用 PostgreSQL 及其通知机制，其在 {link:#postgresql-push[in a subsequent section]} 中进行了描述。
+
+
+If you are still planning to use your database as a queue, consider using PostgreSQL and its notification mechanism which is described link:#postgresql-push[in a subsequent section].
+
+
+=== link:#concurrent-polling[]Concurrent Polling
+
+
+轮询消息通道时，您可以选择使用 _TaskExecutor_ 引用配置关联的 _Poller_。
+
+
+When polling a message channel, you have the option to configure the associated _Poller_ with a _TaskExecutor_ reference.
+
+
+但请记住，如果你使用 JDBC 支持的消息通道，并且你计划轮询该通道，并因此以事务方式使用多线程的消息存储，则应确保使用支持 link:https://en.wikipedia.org/wiki/Multiversion_concurrency_control[Multiversion Concurrency Control] （MVCC）的关系数据库。否则，锁定可能是一个问题，在使用多线程时，性能可能无法达到预期。例如，Apache Derby 在这方面存在问题。
+
+
+Keep in mind, though, that if you use a JDBC backed message channel, and you plan to poll the channel and consequently the message store transactional with multiple threads, you should ensure that you use a relational database that supports link:https://en.wikipedia.org/wiki/Multiversion_concurrency_control[Multiversion Concurrency Control] (MVCC). Otherwise, locking may be an issue and the performance, when using multiple threads, may not materialize as expected. For example, Apache Derby is problematic in that regard.
+
+
+要实现更好的 JDBC 队列吞吐量，并在不同线程可能从队列轮询同一 _Message_ 时避免问题，在使用不支持 MVCC 的数据库时，将 _JdbcChannelMessageStore_ 的 _usingIdCache_ 属性设置为 _true_ *非常重要*。以下示例显示了如何进行此项设置：
+
+
+To achieve better JDBC queue throughput and avoid issues when different threads may poll the same _Message_ from the queue, it is *important* to set the _usingIdCache_ property of _JdbcChannelMessageStore_ to _true_ when using databases that do not support MVCC. The following example shows how to do so:
+
+
+=== link:#priority-channel[]Priority Channel
+
+
+从版本 4.0 开始，_JdbcChannelMessageStore_ 实现 _PriorityCapableChannelMessageStore_，并提供 _priorityEnabled_ 选项，允许将其用作 _priority-queue_ 实例的 _message-store_ 引用。为此，_INT_CHANNEL_MESSAGE_ 表有一个 _MESSAGE_PRIORITY_ 列来存储 _PRIORITY_ 消息标头的值。此外，新的 _MESSAGE_SEQUENCE_ 列使我们能够实现稳定的先进先出 (FIFO) 轮询机制，即使在同一毫秒内存储了具有相同优先级的多条消息时也是如此。按照 _order by MESSAGE_PRIORITY DESC NULLS LAST, CREATED_DATE, MESSAGE_SEQUENCE_ 从数据库中轮询（选择）消息。
+
+
+Starting with version 4.0, _JdbcChannelMessageStore_ implements _PriorityCapableChannelMessageStore_ and provides the _priorityEnabled_ option, letting it be used as a _message-store_ reference for _priority-queue_ instances. For this purpose, the _INT_CHANNEL_MESSAGE_ table has a _MESSAGE_PRIORITY_ column to store the value of _PRIORITY_ message headers. In addition, a new _MESSAGE_SEQUENCE_ column lets us achieve a robust first-in-first-out (FIFO) polling mechanism, even when multiple messages are stored with the same priority in the same millisecond. Messages are polled (selected) from the database with _order by MESSAGE_PRIORITY DESC NULLS LAST, CREATED_DATE, MESSAGE_SEQUENCE_.
+
+
+我们不建议对优先级和非优先级队列通道使用相同的`JdbcChannelMessageStore` bean，因为 _priorityEnabled_ 选项适用于整个存储，并且不会为队列通道保留正确的 FIFO 队列语义。但是，同一`INT_CHANNEL_MESSAGE`表（甚至是`region`）都可以用于两种`JdbcChannelMessageStore`类型。要配置该场景，您可以从另一个消息存储 bean 扩展一个，如下面的示例所示：
+
+
+We do not recommend using the same _JdbcChannelMessageStore_ bean for priority and non-priority queue channels, because the _priorityEnabled_ option applies to the entire store and proper FIFO queue semantics are not retained for the queue channel. However, the same _INT_CHANNEL_MESSAGE_ table (and even _region_) can be used for both _JdbcChannelMessageStore_ types. To configure that scenario, you can extend one message store bean from the other, as the following example shows:
+
+
+== link:#partitioning-a-message-store[]Partitioning a Message Store
+
+
+通常将 {_JdbcMessageStore_} 作为同一应用程序中应用程序或节点组的全局存储。为了提供一些针对名称冲突的保护并控制数据库元数据配置，消息存储允许将表格以两种方式进行分区。一种方法是通过更改前缀（如 {link:#jdbc-message-store-generic[described earlier]}）来使用单独的表格名称。另一种方法是指定 {_region_} 名称来对单一表格内的分区数据进行分区。使用第二种方法的一个重要用例是，当 {_MessageStore_} 正在管理作为 Spring Integration 消息通道的后备的持久队列时。持久通道的消息数据在存储中以通道名称为键。因此，如果通道名称并非全局唯一，通道将获取不针对它们的数据。为了避免这种危险，您可以使用消息存储 {_region_} 来为拥有相同逻辑名称的不同物理通道保留单独的数据。
+
+
+It is common to use a _JdbcMessageStore_ as a global store for a group of applications or nodes in the same application. To provide some protection against name clashes and to give control over the database meta-data configuration, the message store lets the tables be partitioned in two ways. One way is to use separate table names, by changing the prefix (as link:#jdbc-message-store-generic[described earlier]). The other way is to specify a _region_ name for partitioning data within a single table. An important use case for the second approach is when the _MessageStore_ is managing persistent queues that back a Spring Integration Message Channel. The message data for a persistent channel is keyed in the store on the channel name. Consequently, if the channel names are not globally unique, the channels can pick up data that is not intended for them. To avoid this danger, you can use the message store _region_ to keep data separate for different physical channels that have the same logical name.
+
+
+== link:#postgresql-push[]PostgreSQL: Receiving Push Notifications
+
+
+PostgreSQL 提供了一个侦听和通知框架，用于在对数据库表进行操作时接收推送通知。Spring Integration 利用此机制（从版本 6.0 开始）允许在向 _JdbcChannelMessageStore_ 添加新消息时接收推送通知。在使用此功能时，必须定义一个数据库触发器，它可以在包含在 Spring Integration JDBC 模块中的 _schema-postgresql.sql_ 文件的注释部分找到。
+
+
+PostgreSQL offers a listen and notification framework for receiving push notifications upon database table manipulations. Spring Integration leverages this mechanism (starting with version 6.0) to allow for receiving push notifications when new messages are added to a _JdbcChannelMessageStore_. When using this feature, a database trigger must be defined, which can be found as part of the comments of the _schema-postgresql.sql_ file which is included in the JDBC module of Spring Integration.
+
+
+推送通知通过 _PostgresChannelMessageTableSubscriber_ 类接收，该类允许其订阅者在为任何给定的 _region_ 和 _groupId_ 接收新消息时接收回调。即使在不同的 JVM 上追加消息，但对于同一个数据库，也会收到这些通知。_PostgresSubscribableChannel_ 实现使用 _PostgresChannelMessageTableSubscriber.Subscription_ 契约，以响应上述 _PostgresChannelMessageTableSubscriber_ 的通知从存储区提取消息。
+
+
+Push notifications are received via the _PostgresChannelMessageTableSubscriber_ class which allows its subscribers to receive a callback upon the arrival of new messages for any given _region_ and _groupId_. These notifications are received even if a message was appended on a different JVM, but to the same database. The _PostgresSubscribableChannel_ implementation uses a _PostgresChannelMessageTableSubscriber.Subscription_ contract to pull messages from the store as a reaction for notification from the mentioned _PostgresChannelMessageTableSubscriber_ notifications.
+
+
+例如，可以按如下方式接收 _some group_ 的推送通知：
+
+
+For example, push notifications for _some group_ can be received as follows:
+
+
+*交易支持*
+
+
+*Transaction support*
+
+
+从 6.0.5 版开始，在 _PostgresSubscribableChannel_ 上指定 _PlatformTransactionManager_ 将在事务中通知订阅者。订阅器中的异常将导致事务回滚并消息将被放回消息存储区。默认情况下，事务支持未激活。
+
+
+Starting with version 6.0.5, specifying a _PlatformTransactionManager_ on a _PostgresSubscribableChannel_ will notify subscribers in a transaction. An exception in a subscriber will cause the transaction to be rolled back and the message to be put back in the message store. Transactional support is not activated by default.
+
+
+*重试*
+
+
+*Retries*
+
+
+从 6.0.5 版开始，可以通过向 _PostgresSubscribableChannel_ 提供 _RetryTemplate_ 来指定重试策略。默认情况下，不执行任何重试。
+
+
+Starting with version 6.0.5, a retry policy can be specified by providing a _RetryTemplate_ to the _PostgresSubscribableChannel_. By default, no retries are performed.
+
+
+任何 active _PostgresChannelMessageTableSubscriber_ 在其活动生命周期内占用 exclusive JDBC _Connection_。因此，此连接不能来自池化 _DataSource_ 非常重要。此类连接池通常希望在预定义的超时窗口内关闭已发出的连接。
+
+
+Any active _PostgresChannelMessageTableSubscriber_ occupies an exclusive JDBC _Connection_ for the duration of its active life cycle. It is therefore important that this connection does not originate from a pooling _DataSource_. Such connection pools do normally expect that issued connections are closed within a predefined timeout window.
+
+
+对于此 exclusive 连接的需求，还建议一个 JVM 仅运行一个 _PostgresChannelMessageTableSubscriber_，该 subscriber 可用来注册任意数量的订阅项。
+
+
+For this need of an exclusive connection, it is also recommended that a JVM only runs a single _PostgresChannelMessageTableSubscriber_ which can be used to register any number of subscriptions.
+
+
+link:https://beian.miit.gov.cn/[粤ICP备2024239452号-1]
+
+
