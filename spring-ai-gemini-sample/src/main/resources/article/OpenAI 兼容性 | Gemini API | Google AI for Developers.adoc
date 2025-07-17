@@ -1,0 +1,841 @@
+AsciidocContent[title=OpenAI 兼容性 | Gemini API | Google AI for Developers, content== OpenAI 兼容性 | Gemini API | Google AI for Developers
+:url-source: https://ai.google.dev/gemini-api/docs/openai?hl=zh-cn
+
+
+
+
+
+我们推出了批量模式，该模式具有更高的速率限值，并且可享受 50% 的令牌折扣。link:https://ai.google.dev/gemini-api/docs/batch-mode?hl=zh-cn[了解详情]
+
+
+  此页面由 link://cloud.google.com/translate/?hl=zh-cn[Cloud Translation API] 翻译。 
+
+
+link:https://ai.google.dev/?hl=zh-cn[ 首页 ]link:https://ai.google.dev/gemini-api?hl=zh-cn[ Gemini API ]link:https://ai.google.dev/gemini-api/docs?hl=zh-cn[ 模型 ]
+
+
+ 发送反馈 
+
+
+OpenAI 兼容性
+
+
+
+
+
+
+
+
+
+
+
+
+
+您可以使用 OpenAI 库（Python 和 TypeScript/JavaScript）以及 REST API 访问 Gemini 模型，只需更新三行代码并使用 link:https://aistudio.google.com/apikey?hl=zh-cn[Gemini API 密钥]即可。如果您尚未使用 OpenAI 库，我们建议您直接link:https://ai.google.dev/gemini-api/docs/quickstart?hl=zh-cn[调用 Gemini API]。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+response = client.chat.completions.create(
+    model="gemini-2.5-flash",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": "Explain to me how AI works"
+        }
+    ]
+)
+
+print(response.choices[0].message)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+const response = await openai.chat.completions.create({
+    model: "gemini-2.0-flash",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        {
+            role: "user",
+            content: "Explain to me how AI works",
+        },
+    ],
+});
+
+console.log(response.choices[0].message);
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "model": "gemini-2.0-flash",
+    "messages": [
+        {"role": "user", "content": "Explain to me how AI works"}
+    ]
+    }'
+_
+具体变化只需三行代码！
+
+*_api_key="GEMINI_API_KEY"_*：将“_GEMINI_API_KEY_”替换为您的实际 Gemini API 密钥，您可以在 link:https://aistudio.google.com?hl=zh-cn[Google AI Studio] 中获取该密钥。
+
+*_base_url="https://generativelanguage.googleapis.com/v1beta/openai/"_*：这会指示 OpenAI 库向 Gemini API 端点（而非默认网址）发送请求。
+
+*_model="gemini-2.0-flash"_*：选择兼容的 Gemini 模型
+思考型
+Gemini 2.5 模型经过训练，能够深入思考复杂问题，从而显著提升推理能力。Gemini API 附带一个link:https://ai.google.dev/gemini-api/docs/thinking?hl=zh-cn#set-budget[“思考预算”参数]，可让您精细控制模型的思考量。
+
+与 Gemini API 不同，OpenAI API 提供三种思考控制级别：_"low"_、_"medium"_ 和 _"high"_，分别对应于 1,024、8,192 和 24,576 个令牌。
+
+如果您想停用思考功能，可以将 _reasoning_effort_ 设置为 _"none"_（请注意，对于 2.5 Pro 型号，无法关闭推理功能）。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+response = client.chat.completions.create(
+    model="gemini-2.5-flash",
+    reasoning_effort="low",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": "Explain to me how AI works"
+        }
+    ]
+)
+
+print(response.choices[0].message)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+const response = await openai.chat.completions.create({
+    model: "gemini-2.5-flash",
+    reasoning_effort: "low",
+    messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        {
+            role: "user",
+            content: "Explain to me how AI works",
+        },
+    ],
+});
+
+console.log(response.choices[0].message);
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "model": "gemini-2.5-flash",
+    "reasoning_effort": "low",
+    "messages": [
+        {"role": "user", "content": "Explain to me how AI works"}
+      ]
+    }'
+_
+Gemini 思考模型还会生成link:https://ai.google.dev/gemini-api/docs/thinking?hl=zh-cn#summaries[思考摘要]，并且可以使用确切的link:https://ai.google.dev/gemini-api/docs/thinking?hl=zh-cn#set-budget[思考预算]。 您可以使用 link:#extra-body[_extra_body_] 字段在请求中添加这些字段。
+
+请注意，_reasoning_effort_ 和 _thinking_budget_ 的功能重叠，因此不能同时使用。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+response = client.chat.completions.create(
+    model="gemini-2.5-flash",
+    messages=[{"role": "user", "content": "Explain to me how AI works"}],
+    extra_body={
+      'extra_body': {
+        "google": {
+          "thinking_config": {
+            "thinking_budget": 800,
+            "include_thoughts": True
+          }
+        }
+      }
+    }
+)
+
+print(response.choices[0].message)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+const response = await openai.chat.completions.create({
+    model: "gemini-2.5-flash",
+    messages: [{role: "user", content: "Explain to me how AI works",}],
+    extra_body: {
+      "google": {
+        "thinking_config": {
+          "thinking_budget": 800,
+          "include_thoughts": true
+        }
+      }
+    }
+});
+
+console.log(response.choices[0].message);
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "model": "gemini-2.5-flash",
+      "messages": [{"role": "user", "content": "Explain to me how AI works"}],
+      "extra_body": {
+        "google": {
+           "thinking_config": {
+             "include_thoughts": true
+           }
+        }
+      }
+    }'
+_流式
+Gemini API 支持link:https://ai.google.dev/gemini-api/docs/text-generation?lang=python&hl=zh-cn#generate-a-text-stream[流式回答]。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+response = client.chat.completions.create(
+  model="gemini-2.0-flash",
+  messages=[
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!"}
+  ],
+  stream=True
+)
+
+for chunk in response:
+    print(chunk.choices[0].delta)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    model: "gemini-2.0-flash",
+    messages: [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Hello!"}
+    ],
+    stream: true,
+  });
+
+  for await (const chunk of completion) {
+    console.log(chunk.choices[0].delta.content);
+  }
+}
+
+main();
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "model": "gemini-2.0-flash",
+    "messages": [
+        {"role": "user", "content": "Explain to me how AI works"}
+    ],
+    "stream": true
+  }'
+_函数调用
+函数调用可让您更轻松地从生成式模型获取结构化数据输出，并且link:https://ai.google.dev/gemini-api/docs/function-calling/tutorial?hl=zh-cn[Gemini API 中支持此功能]。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+tools = [
+  {
+    "type": "function",
+    "function": {
+      "name": "get_weather",
+      "description": "Get the weather in a given location",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "The city and state, e.g. Chicago, IL",
+          },
+          "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
+        },
+        "required": ["location"],
+      },
+    }
+  }
+]
+
+messages = [{"role": "user", "content": "What's the weather like in Chicago today?"}]
+response = client.chat.completions.create(
+  model="gemini-2.0-flash",
+  messages=messages,
+  tools=tools,
+  tool_choice="auto"
+)
+
+print(response)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+async function main() {
+  const messages = [{"role": "user", "content": "What's the weather like in Chicago today?"}];
+  const tools = [
+      {
+        "type": "function",
+        "function": {
+          "name": "get_weather",
+          "description": "Get the weather in a given location",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "The city and state, e.g. Chicago, IL",
+              },
+              "unit": {"type": "string", "enum": ["celsius", "fahrenheit"]},
+            },
+            "required": ["location"],
+          },
+        }
+      }
+  ];
+
+  const response = await openai.chat.completions.create({
+    model: "gemini-2.0-flash",
+    messages: messages,
+    tools: tools,
+    tool_choice: "auto",
+  });
+
+  console.log(response);
+}
+
+main();
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+  "model": "gemini-2.0-flash",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What'\''s the weather like in Chicago today?"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_weather",
+        "description": "Get the current weather in a given location",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "description": "The city and state, e.g. Chicago, IL"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"]
+            }
+          },
+          "required": ["location"]
+        }
+      }
+    }
+  ],
+  "tool_choice": "auto"
+}'
+_图片理解
+Gemini 模型是原生多模态模型，在link:https://ai.google.dev/gemini-api/docs/vision?hl=zh-cn[许多常见的视觉任务]中都能提供出色的性能。
+Python_import base64
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+# Function to encode the image
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
+
+# Getting the base64 string
+base64_image = encode_image("Path/to/agi/image.jpeg")
+
+response = client.chat.completions.create(
+  model="gemini-2.0-flash",
+  messages=[
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What is in this image?",
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url":  f"data:image/jpeg;base64,{base64_image}"
+          },
+        },
+      ],
+    }
+  ],
+)
+
+print(response.choices[0])
+_JavaScript_import OpenAI from "openai";
+import fs from 'fs/promises';
+
+const openai = new OpenAI({
+  apiKey: "GEMINI_API_KEY",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+async function encodeImage(imagePath) {
+  try {
+    const imageBuffer = await fs.readFile(imagePath);
+    return imageBuffer.toString('base64');
+  } catch (error) {
+    console.error("Error encoding image:", error);
+    return null;
+  }
+}
+
+async function main() {
+  const imagePath = "Path/to/agi/image.jpeg";
+  const base64Image = await encodeImage(imagePath);
+
+  const messages = [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "What is in this image?",
+        },
+        {
+          "type": "image_url",
+          "image_url": {
+            "url": `data:image/jpeg;base64,${base64Image}`
+          },
+        },
+      ],
+    }
+  ];
+
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gemini-2.0-flash",
+      messages: messages,
+    });
+
+    console.log(response.choices[0]);
+  } catch (error) {
+    console.error("Error calling Gemini API:", error);
+  }
+}
+
+main();
+_REST_bash -c '
+  base64_image=$(base64 -i "Path/to/agi/image.jpeg");
+  curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer GEMINI_API_KEY" \
+    -d "{
+      \"model\": \"gemini-2.0-flash\",
+      \"messages\": [
+        {
+          \"role\": \"user\",
+          \"content\": [
+            { \"type\": \"text\", \"text\": \"What is in this image?\" },
+            {
+              \"type\": \"image_url\",
+              \"image_url\": { \"url\": \"data:image/jpeg;base64,${base64_image}\" }
+            }
+          ]
+        }
+      ]
+    }"
+'
+_生成图片*注意*： 图片生成功能仅适用于付费层级。
+生成图片：
+Python_import base64
+from openai import OpenAI
+from PIL import Image
+from io import BytesIO
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+)
+
+response = client.images.generate(
+    model="imagen-3.0-generate-002",
+    prompt="a portrait of a sheepadoodle wearing a cape",
+    response_format='b64_json',
+    n=1,
+)
+
+for image_data in response.data:
+  image = Image.open(BytesIO(base64.b64decode(image_data.b64_json)))
+  image.show()
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "GEMINI_API_KEY",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+});
+
+async function main() {
+  const image = await openai.images.generate(
+    {
+      model: "imagen-3.0-generate-002",
+      prompt: "a portrait of a sheepadoodle wearing a cape",
+      response_format: "b64_json",
+      n: 1,
+    }
+  );
+
+  console.log(image.data);
+}
+
+main();
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/images/generations" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer GEMINI_API_KEY" \
+  -d '{
+        "model": "imagen-3.0-generate-002",
+        "prompt": "a portrait of a sheepadoodle wearing a cape",
+        "response_format": "b64_json",
+        "n": 1,
+      }'
+_音频理解
+分析音频输入：
+Python_import base64
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+with open("/path/to/your/audio/file.wav", "rb") as audio_file:
+  base64_audio = base64.b64encode(audio_file.read()).decode('utf-8')
+
+response = client.chat.completions.create(
+    model="gemini-2.0-flash",
+    messages=[
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "Transcribe this audio",
+        },
+        {
+              "type": "input_audio",
+              "input_audio": {
+                "data": base64_audio,
+                "format": "wav"
+          }
+        }
+      ],
+    }
+  ],
+)
+
+print(response.choices[0].message.content)
+_JavaScript_import fs from "fs";
+import OpenAI from "openai";
+
+const client = new OpenAI({
+  apiKey: "GEMINI_API_KEY",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+});
+
+const audioFile = fs.readFileSync("/path/to/your/audio/file.wav");
+const base64Audio = Buffer.from(audioFile).toString("base64");
+
+async function main() {
+  const response = await client.chat.completions.create({
+    model: "gemini-2.0-flash",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: "Transcribe this audio",
+          },
+          {
+            type: "input_audio",
+            input_audio: {
+              data: base64Audio,
+              format: "wav",
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  console.log(response.choices[0].message.content);
+}
+
+main();
+_REST*注意*： 如果您收到 _Argument list too long_ 错误，则说明音频文件的编码可能过长，curl 无法处理。_bash -c '
+  base64_audio=$(base64 -i "/path/to/your/audio/file.wav");
+  curl "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer GEMINI_API_KEY" \
+    -d "{
+      \"model\": \"gemini-2.0-flash\",
+      \"messages\": [
+        {
+          \"role\": \"user\",
+          \"content\": [
+            { \"type\": \"text\", \"text\": \"Transcribe this audio file.\" },
+            {
+              \"type\": \"input_audio\",
+              \"input_audio\": {
+                \"data\": \"${base64_audio}\",
+                \"format\": \"wav\"
+              }
+            }
+          ]
+        }
+      ]
+    }"
+'
+_结构化输出
+Gemini 模型可以以link:https://ai.google.dev/gemini-api/docs/structured-output?hl=zh-cn[您定义的任何结构]输出 JSON 对象。
+Python_from pydantic import BaseModel
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+class CalendarEvent(BaseModel):
+    name: str
+    date: str
+    participants: list[str]
+
+completion = client.beta.chat.completions.parse(
+    model="gemini-2.0-flash",
+    messages=[
+        {"role": "system", "content": "Extract the event information."},
+        {"role": "user", "content": "John and Susan are going to an AI conference on Friday."},
+    ],
+    response_format=CalendarEvent,
+)
+
+print(completion.choices[0].message.parsed)
+_JavaScript_import OpenAI from "openai";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai"
+});
+
+const CalendarEvent = z.object({
+  name: z.string(),
+  date: z.string(),
+  participants: z.array(z.string()),
+});
+
+const completion = await openai.beta.chat.completions.parse({
+  model: "gemini-2.0-flash",
+  messages: [
+    { role: "system", content: "Extract the event information." },
+    { role: "user", content: "John and Susan are going to an AI conference on Friday" },
+  ],
+  response_format: zodResponseFormat(CalendarEvent, "event"),
+});
+
+const event = completion.choices[0].message.parsed;
+console.log(event);
+_Embeddings
+文本嵌入可衡量文本字符串的相关性，并且可以使用 link:https://ai.google.dev/gemini-api/docs/embeddings?hl=zh-cn[Gemini API] 生成。
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key="GEMINI_API_KEY",
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+response = client.embeddings.create(
+    input="Your text string goes here",
+    model="gemini-embedding-001"
+)
+
+print(response.data[0].embedding)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: "GEMINI_API_KEY",
+    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+async function main() {
+  const embedding = await openai.embeddings.create({
+    model: "gemini-embedding-001",
+    input: "Your text string goes here",
+  });
+
+  console.log(embedding);
+}
+
+main();
+_REST_curl "https://generativelanguage.googleapis.com/v1beta/openai/embeddings" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer GEMINI_API_KEY" \
+-d '{
+    "input": "Your text string goes here",
+    "model": "gemini-embedding-001"
+  }'
+__extra_body_
+Gemini 支持的某些功能在 OpenAI 模型中不可用，但可以使用 _extra_body_ 字段启用。
+
+*_extra_body_ 功能*
+_safety_settings_对应于 Gemini 的 _SafetySetting_。_cached_content_对应于 Gemini 的 _GenerateContentRequest.cached_content_。_thinking_config_对应于 Gemini 的 _ThinkingConfig_。_cached_content_
+下面是一个使用 _extra_body_ 设置 _cached_content_ 的示例：
+Python_from openai import OpenAI
+
+client = OpenAI(
+    api_key=MY_API_KEY,
+    base_url="https://generativelanguage.googleapis.com/v1beta/"
+)
+
+stream = client.chat.completions.create(
+    model="gemini-2.5-pro",
+    n=1,
+    messages=[
+        {
+            "role": "user",
+            "content": "Summarize the video"
+        }
+    ],
+    stream=True,
+    stream_options={'include_usage': True},
+    extra_body={
+        'extra_body':
+        {
+            'google': {
+              'cached_content': "cachedContents/0000aaaa1111bbbb2222cccc3333dddd4444eeee"
+          }
+        }
+    }
+)
+
+for chunk in stream:
+    print(chunk)
+    print(chunk.usage.to_dict())
+_列出模型
+获取可用 Gemini 模型的列表：
+Python_from openai import OpenAI
+
+client = OpenAI(
+  api_key="GEMINI_API_KEY",
+  base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+models = client.models.list()
+for model in models:
+  print(model.id)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "GEMINI_API_KEY",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+});
+
+async function main() {
+  const list = await openai.models.list();
+
+  for await (const model of list) {
+    console.log(model);
+  }
+}
+main();
+_REST_curl https://generativelanguage.googleapis.com/v1beta/openai/models \
+-H "Authorization: Bearer GEMINI_API_KEY"
+_检索模型
+检索 Gemini 模型：
+Python_from openai import OpenAI
+
+client = OpenAI(
+  api_key="GEMINI_API_KEY",
+  base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+
+model = client.models.retrieve("gemini-2.0-flash")
+print(model.id)
+_JavaScript_import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: "GEMINI_API_KEY",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+});
+
+async function main() {
+  const model = await openai.models.retrieve("gemini-2.0-flash");
+  console.log(model.id);
+}
+
+main();
+_REST_curl https://generativelanguage.googleapis.com/v1beta/openai/models/gemini-2.0-flash \
+-H "Authorization: Bearer GEMINI_API_KEY"
+_当前限制
+我们正在扩大功能支持范围，因此对 OpenAI 库的支持仍处于 Beta 版阶段。
+
+如果您对支持的参数、即将推出的功能有任何疑问，或者在开始使用 Gemini 时遇到任何问题，请加入我们的link:https://discuss.ai.google.dev/c/gemini-api/4?hl=zh-cn[开发者论坛]。
+后续步骤
+请试用我们的 link:https://colab.sandbox.google.com/github/google-gemini/cookbook/blob/main/quickstarts/Get_started_OpenAI_Compatibility.ipynb?hl=zh-cn[OpenAI 兼容性 Colab]，通过更详细的示例进行操作。
+
+
+
+
+
+
+ 发送反馈 
+
+
+
+
+
+]
