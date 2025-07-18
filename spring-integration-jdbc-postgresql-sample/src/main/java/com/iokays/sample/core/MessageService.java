@@ -33,6 +33,7 @@ public class MessageService {
     private void subscribe() {
         subscribableChannel.subscribe(message -> {
             log.debug("message: {}", message);
+            // 还可以发送给MQ: 实现分布式事务-本地消息表 (经典的ebay模式)
             receivedMessage.add(message);
         });
     }
