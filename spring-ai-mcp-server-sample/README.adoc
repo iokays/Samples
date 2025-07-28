@@ -1,0 +1,5 @@
+== 本用例对 AI MCP 服务进行测试
+
+1. 启动服务 执行 `Applicaiton` .
+
+2. 执行测试 `McpToolsTest` .

@@ -1,0 +1,22 @@
+spring:
+  ai:
+    mcp:
+      server:
+        name: sample-mcp-server
+        version: 1.0.0
+        type: ASYNC  # Recommended for reactive applications
+        instructions: "This reactive server provides weather information tools and resources"
+        sse-message-endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
