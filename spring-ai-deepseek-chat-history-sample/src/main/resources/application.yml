@@ -1,0 +1,31 @@
+spring:
+  config:
+    import:
+      - classpath:common-config.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-test
+    username: user-me
+    password: pw-Aa123456
+    driver-class-name: org.postgresql.Driver
+  ai:
+    chat:
+      client:
+        enabled: true
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+    deepseek:
+      api-key: ${deepseek.api-key}
+      chat:
+        options:
+          model: deepseek-chat
+          reasoning-effort: none
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

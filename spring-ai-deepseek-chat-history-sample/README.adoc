@@ -1,0 +1,15 @@
+== 本用例对DeepSeek的对话记录的基本功能进行测试,  测试前需要做如下准备:
+
+1. 配置 DeepSeek 的 API Key
+
+2. 配置 postgresql 数据源
+
+ docker run --name my-postgres \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d postgres:latest
+
+
+3. 运行测试 `ChatServiceTest`
