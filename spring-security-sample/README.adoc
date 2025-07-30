@@ -1,0 +1,5 @@
+这是一个 Spring Security 的示例项目
+
+1.1 执行测试 `HomeControllerTest.java`
+
+1.2 或启动后访问 http://localhost:8080

@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework  # 启用头转发支持, 自动处理 X-Forwarded-Proto 头，正确地识别请求协议为 HTTPS
+spring:
+  application:
+    name: spring-security-sample
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
