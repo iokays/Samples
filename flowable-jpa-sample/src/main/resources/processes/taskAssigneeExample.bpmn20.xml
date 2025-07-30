@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             id="taskAssigneeExample"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             targetNamespace="org.flowable.examples">
+
+    <process id="LoanRequestProcess" name="创建和处理贷款申请的流程">
+        <startEvent id='theStart'/>
+        <sequenceFlow id='flow1' sourceRef='theStart' targetRef='createLoanRequest'/>
+
+        <serviceTask id='createLoanRequest' name='创建贷款申请'
+                     flowable:expression="${loanRequestRepository.newLoanRequest(customerName, amount)}"
+                     flowable:resultVariable="loanRequest"/>
+        <sequenceFlow id='flow2' sourceRef='createLoanRequest' targetRef='approveTask'/>
+
+        <userTask id="approveTask" name="审批申请"/>
+        <sequenceFlow id='flow3' sourceRef='approveTask' targetRef='approveOrDissaprove'/>
+
+        <serviceTask id='approveOrDissaprove' name='存储决策'
+                     flowable:expression="${loanRequest.setApproved(approvedByManager)}"/>
+        <sequenceFlow id='flow4' sourceRef='approveOrDissaprove' targetRef='exclusiveGw'/>
+
+        <exclusiveGateway id="exclusiveGw" name="排他网关审批"/>
+        <sequenceFlow id="endFlow1" sourceRef="exclusiveGw" targetRef="theEnd">
+            <conditionExpression xsi:type="tFormalExpression">${loanRequest.approved}</conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="endFlow2" sourceRef="exclusiveGw" targetRef="sendRejectionLetter">
+            <conditionExpression xsi:type="tFormalExpression">${!loanRequest.approved}</conditionExpression>
+        </sequenceFlow>
+
+        <userTask id="sendRejectionLetter" name="发送拒绝信"/>
+        <sequenceFlow id='flow5' sourceRef='sendRejectionLetter' targetRef='theOtherEnd'/>
+
+        <endEvent id='theEnd'/>
+        <endEvent id='theOtherEnd'/>
+    </process>
+
+</definitions>
