@@ -1,0 +1,14 @@
+这是一个 QueryDSL的用例项目
+
+1. 配置 postgresql 数据源
+
+ docker run --name my-postgres \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d postgres:latest
+
+2. 执行 `schema-postgres.sql`
+
+3. 运行 `QueryApplicationServiceTest`

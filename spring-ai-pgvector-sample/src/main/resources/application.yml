@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: spring-ai-pgvector-sample
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-test
+    username: user-me
+    password: pw-Aa123456
+    driver-class-name: org.postgresql.Driver
+    auto-commit: true
+    minimum-idle: 4
+    maximum-pool-size: 8
+  ai:
+    embedding:
+      transformer:
+        tokenizer:
+          uri: https://modelscope.cn/models/sentence-transformers/all-MiniLM-L6-v2/resolve/master/tokenizer.json
+        onnx:
+          modelUri: https://modelscope.cn/models/sentence-transformers/all-MiniLM-L6-v2/resolve/master/onnx/model.onnx
+    vectorstore:
+      pgvector:
+        initialize-schema: true # 如果下面的dimensions参数设置正确的话,可以让spring 自动来创建.
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 384 # all-MiniLm-L6-v2 提供的向量维度是384
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

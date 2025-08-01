@@ -1,0 +1,12 @@
+ 本用例是基于 flowable 的流程引擎，使用 JPA与HibernateEnvers来存储流程实例数据和数据历史记录。
+
+1. 配置 postgresql 数据源
+
+ docker run --name my-postgres \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d postgres:latest
+
+2. 运行 `FlowableApplicationServiceTest`

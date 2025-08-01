@@ -1,0 +1,16 @@
+== 本用例是基于pgvetor向量库的简单用例项目
+
+1. 配置 `pgvetor` 向量库 (也可以根据该github项目中的手动安装pgvector插件)
+
+ docker run --name my-pgvector \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d pgvector/pgvector:pg17
+
+2. 执行 `schema-vector.sql` SQL脚本 (可选, 在不修改该用例项目配置的情况下, 系统会默认创建)
+
+3. 测试 `DocumentApplicationServiceTest` (相似度测试)
+
+第一次启动, 需要下载all-MiniLM-L-v2, 需要一段等待时间, 请耐心等待或提供更快的源.
