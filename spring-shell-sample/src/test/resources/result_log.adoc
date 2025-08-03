@@ -1,0 +1,11 @@
+my-sheller:>help AVAILABLE COMMANDS
+
+Built-In Commands help: Display help about available commands stacktrace: Display the full stacktrace of the last error.
+clear: Clear the shell screen.
+quit, exit: Exit the shell.
+history: Display or save the history of previously run commands version: Show version info script: Read and execute commands from a file.
+
+Default customer insert: 新增用户 customer update: 更新用户 customer del: 一个新的客户操作类 customer: 查看用户 find-all: 查询所有的客户
+
+my-sheller:>find-all 14:26:17.032 [main] INFO c.i.s.c.a.command.CustomerCommander - all: {}
+my-sheller:>customer insert Andy 14:26:32.514 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 1, name: Andy my-sheller:>customer insert Yuanbing 14:27:29.489 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 2, name: Yuanbing my-sheller:>customer update 2 yuanbing 14:28:22.441 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 2, name: yuanbing my-sheller:>customer update -i 2 -n Yuanbing 14:28:31.852 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 2, name: Yuanbing my-sheller:>find-all 14:28:40.509 [main] INFO c.i.s.c.a.command.CustomerCommander - all: {1=Andy, 2=Yuanbing} my-sheller:>customer 1 14:28:57.484 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 1, name: Andy my-sheller:>cutomer -i 2 No command found for 'cutomer -i 2' my-sheller:>customer -i 2 14:29:24.503 [main] INFO c.i.s.c.a.command.CustomerCommander - id: 2, name: Yuanbing my-sheller:>customer del 1 my-sheller:>find-all 14:29:47.392 [main] INFO c.i.s.c.a.command.CustomerCommander - all: {2=Yuanbing}

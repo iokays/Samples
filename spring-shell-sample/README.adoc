@@ -1,0 +1,4 @@
+这是一个 Spring Shell 的示例项目, 描述了 @ShellMethod @Command 新旧两种注解的使用方法.
+
+启动执行 `Application` 即可, 在启动的命令行输入命令即可.
+

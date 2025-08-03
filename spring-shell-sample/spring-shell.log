@@ -1,0 +1,17 @@
+1754202169828:help
+1754202376991:find-all
+1754202392507:customer insert Andy
+1754202449480:customer insert Yuanbing
+1754202471940:update -i 2 -n yuanbing
+1754202502416:customer update 2 yuanbing
+1754202511845:customer update -i 2 -n Yuanbing
+1754202520505:find-all
+1754202537480:customer 1
+1754202545044:cutomer -i 2
+1754202564495:customer -i 2
+1754202576386:customer del 1
+1754202608545:find-all
+1754202762585:old findAll
+1754202769440:old find-all
+1754202793653:old customer findAll
+1754202803269:old customer find-all
