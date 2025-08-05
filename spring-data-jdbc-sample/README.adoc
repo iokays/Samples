@@ -1,0 +1,18 @@
+本用例是基于 spring-data-jdbc 实现聚合根保存, 并级联存储聚合根内的实体与值对象等行为.
+
+1. 配置数据源
+
+ docker run --name my-postgres \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d postgres:latest
+
+2. 执行脚本
+
+ schema.sql: 用于生成测试的表结构
+
+3. 运行测试
+
+ MyEntityRepositoryTest
