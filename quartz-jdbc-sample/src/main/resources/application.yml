@@ -1,0 +1,65 @@
+spring:
+  shell:
+    interactive:
+      enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-test
+    username: user-me
+    password: pw-Aa123456
+    driver-class-name: org.postgresql.Driver
+
+  # quartz配置
+  quartz:
+    # quartz任务存储类型：jdbc或memory
+    job-store-type: jdbc
+    # 是否等待任务执行完毕后，容器才会关闭
+    wait-for-jobs-to-complete-on-shutdown: false
+    # 配置的job是否覆盖已经存在的job信息
+    overwrite-existing-jobs: true
+    # 初始化表结构
+    jdbc:
+      initialize-schema: always
+    # quartz原生配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            # 调度器实例名称
+            instanceName: scheduler
+            # 默认主机名和时间戳生成实例ID，可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
+            instanceId: AUTO
+          jobStore:
+            # 调度信息存储处理类
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            # 使用完全兼容JDBC的驱动
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            # quartz相关表前缀
+            tablePrefix: qrtz_
+            # 是否将JobDataMap中的属性转为字符串存储
+            useProperties: false
+            # 在被认为“失火”之前，调度程序将“容忍”一个Triggers将其下一个启动时间通过的毫秒数。默认值（如果您在配置中未输入此属性）为60000（60秒）
+            misfireThreshold: 60000
+            # 设置此实例“检入”与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
+            clusterCheckinInterval: 5000
+            # 打开集群功能
+            isClustered: true
+          threadPool:
+            # 指定线程池实现类，对调度器提供固定大小的线程池
+            class: org.quartz.simpl.SimpleThreadPool
+            # 设置并发线程数量
+            threadCount: 5
+            # 指定线程优先级
+            threadPriority: 5
+
+
+
+
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

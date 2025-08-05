@@ -1,0 +1,13 @@
+这是一个 Quartz Jdbc 的示例项目, 描述了 结合Spring boot 和 Quartz Jdbc 的使用方法
+
+1. 配置 postgresql 数据源
+
+ docker run --name my-postgres \
+ -e POSTGRES_USER=user-me \
+ -e POSTGRES_PASSWORD=pw-Aa123456 \
+ -e POSTGRES_DB=db-test \
+ -p 5432:5432 \
+ -d postgres:latest
+
+2. 运行 `QuartzApplicationServiceTest`
+
