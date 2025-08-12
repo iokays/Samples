@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db-test
+    username: user-me
+    password: pw-Aa123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop # 仅仅只是测试用，生产环境请使用validate
+
+logging:
+  level:
+    root: INFO
+    com.iokays: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
