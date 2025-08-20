@@ -1,0 +1,25 @@
+spring:
+  datasource:
+  url: jdbc:h2:mem:iokays-core;DB_CLOSE_DELAY=-1;MODE=MySQL
+  driver-class-name: org.h2.Driver
+  ai:
+    mcp:
+      server:
+        name: excel2sql-mcp-server
+        version: 1.0.0
+        type: ASYNC  # Recommended for reactive applications
+        instructions: "This reactive server provides weather information tools and resources"
+        sse-message-endpoint: /mcp/messages
+        capabilities:
+          tool: true
+          resource: true
+          prompt: true
+          completion: true
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

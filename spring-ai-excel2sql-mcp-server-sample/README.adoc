@@ -1,0 +1,25 @@
+== 这是提供基于excel文件转SQL, 并提供给AI的MCP服务.
+
+1. 启动服务 执行 `Applicaiton` . 会自动保存默认的一个file文件,且文件编码为 10001
+
+2. 验证 2.1. 执行测试 `McpToolsTest`, 可以测试Tool是否正常.
+2.2. 连接chat客户端,配置MCP, 测试使用效果.
+
+
+=== 客户端测试[Cherry Studio]
+
+1. 配置使用的模型, 这里我使用的 DeepSeek, 保存并启动.
+2. 配置ExcelToSql的MCP: http://localhost:8080/sse, 保存并启动, 能正常启动,就说明配置成功,可以看到工具列表.
+3. 在聊天界面选择启动的模型和选择 ExcelToSQL 的MCP服务.
+
+直接提问:
+查询这个文件10001, 里面谁的成绩最好.
+
+AI回答:
+
+1. 我将使用ExcelTo-getTables工具获取fileCode=10001的表结构，然后根据表结构查询成绩最好的学生。
+2. ExcelToSql 服务器 : getTables
+3. 根据获取的表结构，我将查询一班(t_excel_10001_0)和二班(t_excel_10001_1)中总分最高的学生。
+4. ExcelToSql 服务器 : query
+5. ExcelToSql 服务器 : query
+6. 查询结果显示，在一班(t_excel_10001_0)和二班(t_excel_10001_1)中，成绩最好的学生都是霍去病，总分为720分。

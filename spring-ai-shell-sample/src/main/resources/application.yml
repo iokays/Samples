@@ -1,0 +1,47 @@
+spring:
+  shell:
+    interactive:
+      enabled: true
+  main:
+    web-application-type: none
+  banner-mode: off
+  config:
+    import:
+      - classpath:common-config.yml
+  datasource:
+    url: jdbc:h2:mem:spring-ai-shell-sample;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+  ai:
+    chat:
+      client:
+        enabled: true
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: always
+            schema: classpath:org/springframework/ai/chat/memory/repository/jdbc/schema-mariadb.sql
+    deepseek:
+      api-key: ${deepseek.api-key}
+      chat:
+        options:
+          model: deepseek-chat
+          reasoning-effort: none
+    mcp:
+      client:
+        enabled: true #默认不启动,
+        name: ai-mcp-client
+        version: 1.0.0
+        request-timeout: 60s
+        type: ASYNC
+        sse:
+          connections:
+            server1:
+              url: http://localhost:8080 # 可以使用上篇文章搭建的 ExcelToSQL MCP服务.
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
