@@ -1,0 +1,13 @@
+本用例是基于Spring Boot的 @Value 的示例项目
+
+演示了@Value的用法:
+
+1. @Value("${property}") 用于获取配置文件中的属性值
+2. @Value("${property:default}") 用于获取配置文件中的属性值,如果属性不存在则使用默认值
+3. @Value("#{systemProperties['property']}") 用于获取系统属性值
+4. @Value("#{systemEnvironment['property']}") 用于获取系统环境变量值
+5. @Value("#{bean.property}") 用于获取bean的属性值
+6. @Value("#{bean.method()}") 用于获取bean的方法返回值
+7. @Value("#{bean.list}") 用于获取bean的list集合
+8. @Value("#{bean.map}") 用于获取bean的map集合
+

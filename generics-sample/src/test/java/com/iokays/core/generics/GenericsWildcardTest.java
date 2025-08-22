@@ -49,9 +49,9 @@ public class GenericsWildcardTest {
 
     /**
      * 下界通配符 <? super T>
-     *     某种未知类型，但已知它是 T 或其父类"
-     *     安全写入：可以添加 T 及其子类
-     *     不安全读取：只能读取为 Object
+     * 某种未知类型，但已知它是 T 或其父类"
+     * 安全写入：可以添加 T 及其子类
+     * 不安全读取：只能读取为 Object
      */
     @Test
     void testLowerBoundedWildcard() {
