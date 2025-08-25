@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/test-mongodb # ?replicaSet=rs0 # replicaSet=rs0 保证事务
+      auto-index-creation: true
+    transaction:
+      default-timeout: 30s
+
+logging:
+  level:
+    root: INFO
+    com.iokays: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

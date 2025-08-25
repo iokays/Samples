@@ -1,0 +1,44 @@
+这是一个 基于 DDD 实现的Mongodb基础组件抽象库
+
+通用模块:
+
+1. 定义了DDD的通用概念, 如聚合根,实体,值对象,领域事件,领域服务,应用服务,应用层,领域层,基础设施层.
+2. 定义了基于 Mongodb 的数据库主键, 业务主键的使用方式.
+3. 定义了值对象,实体,聚合根,在 Mongodb 中的实现方式.
+4. 定义了基于JPA的领域事件,领域服务,应用服务,应用层,领域层,基础设施层的实现方式.
+
+核心模块:
+
+1. 定义了整个项目的架构, 包括领域事件,领域服务,应用服务,应用层,领域层,基础设施层.
+2. 定义了分布式锁的使用方式.
+3. 提供了一个简单的基于SpringBoot, Spring Data Mongodb 的示例项目.
+
+** Mongodb Docker: 单机安装, 对事务的支持
+
+ docker run -d \
+ --name mongodb \
+ -p 27017:27017 \
+ -v mongo_data:/data/db \
+ mongo:latest \
+ mongod --replSet rs0 --bind_ip_all
+
+** 进入容器内的 MongoDB shell
+
+ docker exec -it mongodb mongosh
+
+** 在 MongoDB shell 中初始化副本集
+
+ rs.initiate({
+   _id: "rs0",
+   members: [
+     { _id: 0, host: "localhost:27017" }
+   ]
+ })
+
+** 检查副本集状态
+
+ rs.status()
+
+
+
+
