@@ -1,0 +1,15 @@
+这是一个 Spring Security Oauth2 Authorization 的示例项目
+
+因为所有的存储器都是使用的内存存储, 所以直接启动即可.
+
+1. 运行 `Application`
+
+2. 模拟了第三方调用Oauth服务.
+
+2.1 浏览器打开: `http://localhost:8080/third/authorization`
+
+登录成功后: 会出现类似如下结果:
+
+ {"access_token":"eyJraWQiOiJkM2VmZjcxNi1lOGQ4LTRmZmQtYWJiYS00M2FiYzZiYTZhYzEiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXVkIjoibG9naW4tY2xpZW50IiwibmJmIjoxNzU2MzQ3NDUyLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJleHAiOjE3NTYzNDc3NTIsImlhdCI6MTc1NjM0NzQ1MiwianRpIjoiMzdhNDcyNzQtNTcxMC00NTE0LTlkZGUtYjI5NmZkMWNkZWY3In0.U5cle1bTlRzWXBh2otdktnH49sHrnNF7i-IlAjLG48RENjT2wjEg2bS8KlZPs-Pwf9u-cehyQrDHlRXfjPs8iEvvdvmKbtkmFr-7GDFgyAKRGOhStdxrTGcOci2OaVFuCdUYgtNb6xDBNbNtNmdmSpiH2Gw5QbqSfPO1OTPgWT1m7VZlf7jxmssU6IKPODvS2zwaMCf68U7NXrlj0wybUyhnyhXR3YJIJU3muJxrxSOfxGwaB25hzTLhvmWOAM5doXV2HIpLnPSt8RKQgSHGP1-G9_3bBdemL44UQQFa-cWGwJmyXTOh5WsB5pKARIXPLdTTGlvmz1HfTzZxcLnWEA","refresh_token":"raTE8Y1swoGL-k-eJotz11mKyr2Mv9GleUCCRCyrhnkBCJyjfOcAiTqkGLIXTkOo3N_O9UmJkW0vhmWk3bb9DSW65GfDDGg24YvNBYpgDHePZw-A-6rBR7iW3egrkIlk","token_type":"Bearer","expires_in":299}
+
+

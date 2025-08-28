@@ -1,0 +1,7 @@
+= Spring Data Redis 消息队列示例
+
+1. 配置 redis 数据源
+
+ docker run --name my-redis -p 6379:6379 -d redis redis-server --requirepass "pw-Aa123456"
+
+2. 运行 `RedisServiceTest`

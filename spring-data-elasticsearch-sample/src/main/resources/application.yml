@@ -1,0 +1,27 @@
+spring:
+  elasticsearch:
+    uris: http://localhost:9200 # Elasticsearch 节点地址，多个用逗号分隔
+    # 连接池配置
+    connection-timeout: 5000     # 连接超时和Socket超时设置（毫秒）
+    socket-timeout: 30000
+    # 可选：路径前缀（如果ES有反向代理）
+    # path-prefix: /es
+
+  # Spring Data 特定配置
+  data:
+    elasticsearch:
+      # 是否启用仓库支持
+      repositories:
+        enabled: true
+        # 索引配置
+        auto-index-creation: true # 是否自动创建索引和映射
+
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
