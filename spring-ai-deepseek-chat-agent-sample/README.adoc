@@ -1,0 +1,5 @@
+== 本用例是 Spring AI 对五种Agent模式的演示用例
+
+1. 配置 DeepSeek 的 API Key
+
+2. 运行测试类

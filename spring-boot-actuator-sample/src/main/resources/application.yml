@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework  # 启用头转发支持, 自动处理 X-Forwarded-Proto 头，正确地识别请求协议为 HTTPS
+spring:
+  application:
+    name: spring-boot-actuator-sample
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, beans, mappings, loggers, caches, configprops, myCustomInfo # 明确列出端点
+      base-path: /actuator # 可选：自定义基础路径
+  endpoint:
+    health:
+      show-details: never # when_authorized 在授权时显示健康详情
+  server:
+    port: 9090 # 可选：使用独立的管理端口
+
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"

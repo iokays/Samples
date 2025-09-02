@@ -1,0 +1,40 @@
+= 这是一个 Spring Boot Actuator 的示例项目
+
+== 启动 `Application`
+
+== 请求
+
+
+. http://localhost:9090/actuator/myCustomInfo[自定义端点]
+
+ `{"appName":"Spring Boot Actuator Sample","developer":"iokays","timestamp":1756385650863}`
+
+. http://localhost:9090/actuator/health[显示应用健康信息]
+
+ {"status":"UP"}
+
+. http://localhost:9090/actuator/env[暴露 Spring ConfigurableEnvironment 中的属性]
+
+ ```
+ {"activeProfiles":[],"defaultProfiles":["default"],"propertySources":[{"name":"server.ports","properties":{"local.server.port":{"value":"******"},"local.management.port":{"value":"******"}}},
+ ```
+
+. http://localhost:9090/actuator/mappings[显示所有 @RequestMapping 路径的集合]
+
+ `"handler":"com.iokays.sample.core.adapter.web.HomeController#hello()","predicate":"{GET [/]}"},`
+
+. http://localhost:9090/actuator/beans[显示应用中所有 Spring Bean 的列表]
+
+  `"contexts":{"spring-boot-actuator-sample":{"mappings":{"servletFilters":[{"className":"org.springframework.boot.servlet.filter.OrderedRequestContextFilter","name":"requestContextFilter","servletNameMappings":[],"urlPatternMappings":["/*"]},{"className":"org.springframework.web.filter.ServerHttpObservationFilter","name":"webMvcObservationFilter","servletNameMappings":[],"urlPatternMappings":["/*"]},`
+
+. http://localhost:9090/actuator/metrics[显示应用指标]
+
+ `{"names":["application.ready.time","application.started.time","disk.free","disk.total","executor.active","executor.completed","executor.pool.core","executor.pool.max","executor.pool.size","executor.queue.remaining","executor.queued","jvm.buffer.count","jvm.buffer.memory.used","jvm.buffer.total.capacity","jvm.classes.loaded","jvm.classes.unloaded","jvm.compilation.time","jvm.gc.concurrent.phase.time","jvm.gc.live.data.size","jvm.gc.max.data.size","jvm.gc.memory.allocated","jvm.gc.memory.promoted","jvm.gc.overhead","jvm.gc.pause","jvm.info","jvm.memory.committed","jvm.memory.max","jvm.memory.usage.after.gc","jvm.memory.used","jvm.threads.daemon","jvm.threads.live","jvm.threads.peak","jvm.threads.started","jvm.threads.states","logback.events","process.cpu.time","process.cpu.usage","process.files.max","process.files.open","process.start.time","process.uptime","system.cpu.count","system.cpu.usage","system.load.average.1m","tomcat.sessions.active.current","tomcat.sessions.active.max","tomcat.sessions.alive.max","tomcat.sessions.created","tomcat.sessions.expired","tomcat.sessions.rejected"]}`
+
+. http://localhost:9090/actuator/loggers[显示和修改应用程序中日志器的配置]
+`"groups":{"web":{"members":["org.springframework.core.codec","org.springframework.http","org.springframework.web","org.springframework.boot.actuate.endpoint.web","org.springframework.boot.web.servlet.ServletContextInitializerBeans"]},"sql":{"members":["org.springframework.jdbc.core","org.hibernate.SQL","org.jooq.tools.LoggerListener"]}}`
+
+
+. http://localhost:9090/actuator/configprops[显示所有 @ConfigurationProperties 的集合]
+`{"contexts":{"spring-boot-actuator-sample":{"beans":{"spring.ssl-org.springframework.boot.autoconfigure.ssl.SslProperties":{"inputs":{"bundle":{"pem":{},"jks":{},"watch":{"file":{"quietPeriod":{}}}}},`
+
