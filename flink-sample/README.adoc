@@ -1,0 +1,43 @@
+这是一个 Flink Java 的简单用例项目
+
+1. 配置 Flink
+
+ docker network create flink-network
+
+ docker run -d --network flink-network -p 8888:8081 -p 6123:6123 --name flink-jobmanager -e JOB_MANAGER_RPC_ADDRESS=flink-jobmanager apache/flink:java11 jobmanager
+
+ docker run -d --network flink-network --name flink-taskmanager -e JOB_MANAGER_RPC_ADDRESS=flink-jobmanager apache/flink:java11 taskmanager
+
+2. 编译Jar包 gradle build
+
+
+3. 提交任务
+
+ docker exec -it flink-jobmanager mkdir /flink-data
+ docker cp input.txt flink-jobmanager:/flink-data/input.txt
+
+ #JobManager 在启动任务时可以找到文件，但当它将任务分发给 TaskManager 执行时，TaskManager 找不到文件, 也需要同样的操作
+ docker exec -it flink-taskmanager mkdir /flink-data
+ docker cp input.txt flink-taskmanager:/flink-data/input.txt
+
+ docker cp my-app.jar flink-jobmanager:/job.jar
+
+4. 运行任务 docker exec -it flink-jobmanager flink run /job.jar
+
+
+5. 查询结果 输出通常会打印到 TaskManager 容器的日志中，而不是 JobManager。 请在 TaskManager 容器中查看日志，会得到类似如下的输出：
+
+ (a,11)
+ (s,2)
+ (In,1)
+ (We,1)
+ (as,3)
+ (at,2)
+ (by,2)
+ (in,2)
+ (is,9)
+ (it,5)
+ (my,1)
+ (of,23)
+ (or,1)
+

@@ -1,0 +1,5 @@
+== AI 提示工程技术的用例
+
+1. 配置 open-ai 的 API Key
+
+2. 运行测试 `ChatClientServiceTest`

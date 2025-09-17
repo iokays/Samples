@@ -1,0 +1,535 @@
+:keywords: Spring Ai, 中文文档, 编程技术
+:url-source: https://www.iokays.com/docs/spring-ai/api/chat/prompt-engineering-patterns.html
+
+Prompt Engineering Patterns 基于全面的 Prompt Engineering Guide 实践提示工程技术。该指南涵盖了有效提示工程的理论、原则和模式，而在这里我们演示如何使用 Spring AI 流畅的 ChatClient API 将这些概念转化为可工作的 Java 代码。本文中使用的演示源代码可在以下位置获取： Prompt Engineering Patterns Examples 。
+
+1. Configuration 以下是使用 Gemini 翻译后的中文文本：配置部分概述了如何使用 Spring AI 设置和调整您的大型语言模型 (LLM)。它涵盖了为您的用例选择合适的 LLM 提供商，并配置重要的生成参数，这些参数控制着模型输出的质量、风格和格式。
+
+LLM Provider Selection 以下是使用 Gemini 将这段文字翻译成中文：在提示工程方面，您将首先选择一个模型。Spring AI 支持 各种模型（例如 OpenAI、Anthropic、Google Vertex AI、AWS Bedrock、Ollama 等），让您无需更改应用程序代码即可切换提供商——只需更新您的配置。只需添加选定的启动器依赖 spring-ai-anthropic-spring-boot-starter。例如，以下是如何启用 Anthropic Claude API：
+
+<dependency> <groupId>org.springframework.ai</groupId> <artifactId>spring-ai-starter-model-anthropic</artifactId> </dependency> 您可以通过以下方式指定 LLM 模型名称：
+
+.options(ChatOptions.builder()
+        .model("claude-3-7-sonnet-latest")  // Use Anthropic's Claude model
+        .build())
+以下是使用 Gemini 翻译后的文本：在 reference docs 中查找启用每个模型的详细信息。
+
+LLM Output Configuration chat options flow 在深入探讨提示工程技术之前，了解如何配置大型语言模型的输出行为至关重要。Spring AI 提供了多种配置选项，您可以通过 ` ChatOptions ` 构建器来控制生成过程的各个方面。
+
+所有配置都可以通过编程方式应用，如以下示例所示，或者在启动时通过 Spring 应用程序属性进行配置。
+
+Temperature 温度控制着模型响应的随机性或“创造性”。
+
+@ {s0}: 更具确定性、更集中的回应。更适合事实性问题、分类或一致性至关重要的任务。
+
+@ {s1}: 在确定性和创造力之间取得平衡。适用于一般用例。
+
+@ {s2}: 更具创造性、多样化且可能令人惊喜的回应。更适合创意写作、头脑风暴或生成多样化选项。
+
+.options(ChatOptions.builder()
+        .temperature(0.1)  // Very deterministic output
+        .build())
+理解温度对于提示工程至关重要，因为不同的技术受益于不同的温度设置。
+
+Output Length (MaxTokens) @ {s3} 参数限制了模型在其响应中可以生成的 token（词块）数量。
+
+@ {s4}: 用于单个词、短语或分类标签。
+
+@ {s5}: 用于段落或简短解释。
+
+@ {s6}: 用于长篇内容、故事或复杂解释。
+
+.options(ChatOptions.builder()
+        .maxTokens(250)  // Medium-length response
+        .build())
+设置适当的输出长度对于确保您获得完整的响应而没有不必要的冗长至关重要。
+
+Sampling Controls (Top-K and Top-P) 这些参数使您可以在生成过程中对 token 选择过程进行细粒度控制。
+
+@ {s7}: 将 token 选择限制为 K 个最可能的下一个 token。较高的值（例如 40-50）会引入更多多样性。
+
+@ {s8}: 动态地从累积概率超过 P 的最小 token 集中进行选择。0.8-0.95 这样的值很常见。
+
+.options(ChatOptions.builder()
+        .topK(40)      // Consider only the top 40 tokens
+        .topP(0.8)     // Sample from tokens that cover 80% of probability mass
+        .build())
+这些采样控件与温度协同工作以塑造响应特征。
+
+Structured Response Format 除了纯文本响应（使用` .content() ）之外，Spring AI还通过 .entity() `方法，使得将LLM响应直接映射到Java对象变得轻而易举。
+
+enum Sentiment {
+POSITIVE, NEUTRAL, NEGATIVE }
+
+Sentiment result = chatClient.prompt("...") .call() .entity(Sentiment.class); 当与指示模型返回结构化数据的系统提示结合使用时，此功能尤其强大。
+
+Model-Specific Options 虽然便携式` ChatOptions `为不同的LLM提供商提供了统一的接口，但Spring AI还提供了模型特定的选项类，这些类公开了提供商特定的功能和配置。这些模型特定的选项允许您利用每个LLM提供商的独特功能。
+
+// Using OpenAI-specific options
+OpenAiChatOptions openAiOptions = OpenAiChatOptions.builder() .model("gpt-4o") .temperature(0.2) .frequencyPenalty(0.5) // OpenAI-specific parameter .presencePenalty(0.3) // OpenAI-specific parameter .responseFormat(new ResponseFormat("json_object")) // OpenAI-specific JSON mode .seed(42) // OpenAI-specific deterministic generation .build();
+
+String result = chatClient.prompt("...") .options(openAiOptions) .call() .content();
+
+// Using Anthropic-specific options
+AnthropicChatOptions anthropicOptions = AnthropicChatOptions.builder() .model("claude-3-7-sonnet-latest") .temperature(0.2) .topK(40) // Anthropic-specific parameter .thinking(AnthropicApi.ThinkingType.ENABLED, 1000) // Anthropic-specific thinking configuration .build();
+
+String result = chatClient.prompt("...") .options(anthropicOptions) .call() .content(); 每个模型提供商都有自己的聊天选项实现（例如，` OpenAiChatOptions 、 AnthropicChatOptions 、 MistralAiChatOptions `），它们公开了提供商特定的参数，同时仍然实现了通用接口。这种方法使您可以灵活地使用便携式选项以实现跨提供商兼容性，或者在需要访问特定提供商的独特功能时使用模型特定选项。
+
+请注意，当使用模型特定选项时，您的代码将与该特定提供商绑定，从而降低了可移植性。这是在访问高级提供商特定功能与在应用程序中保持提供商独立性之间的一种权衡。
+
+2. Prompt Engineering Techniques 以下每个部分都实现了指南中的一种特定的提示工程技术。通过同时遵循“提示工程”指南和这些实现，您将不仅对可用的提示工程技术有深入的理解，而且还将了解如何在生产Java应用程序中有效地实现它们。
+
+2.1 Zero-Shot Prompting 零样本提示涉及要求AI执行任务而不提供任何示例。此方法测试模型从头开始理解和执行指令的能力。大型语言模型在大量的文本语料库上进行训练，使它们能够理解“翻译”、“摘要”或“分类”等任务的含义，而无需明确的演示。
+
+零样本非常适合模型在训练期间可能见过类似示例的直接任务，并且当您希望最小化提示长度时。但是，性能可能会因任务复杂性和指令的表述方式而异。
+
+// Implementation of Section 2.1: General prompting / zero shot (page 15)
+public void pt_zero_shot(ChatClient chatClient) {
+enum Sentiment {
+POSITIVE, NEUTRAL, NEGATIVE }
+
+    Sentiment reviewSentiment = chatClient.prompt("""
+            Classify movie reviews as POSITIVE, NEUTRAL or NEGATIVE.
+            Review: "Her" is a disturbing study revealing the direction
+            humanity is headed if AI is allowed to keep evolving,
+            unchecked. I wish there were more movies like this masterpiece.
+            Sentiment:
+            """)
+            .options(ChatOptions.builder()
+                    .model("claude-3-7-sonnet-latest")
+                    .temperature(0.1)
+                    .maxTokens(5)
+                    .build())
+            .call()
+            .entity(Sentiment.class);
+
+    System.out.println("Output: " + reviewSentiment);
+}
+此示例展示了如何在不提供示例的情况下对电影评论情感进行分类。请注意，为获得更确定性的结果，温度较低（0.1），并且直接将` .entity(Sentiment.class) `映射到Java枚举。
+
+` Reference: ` Brown, T. B., et al. (2020).
+"Language Models are Few-Shot Learners." arXiv:2005.14165. ` https://arxiv.org/abs/2005.14165 `
+
+2.2 One-Shot & Few-Shot Prompting 少样本提示为模型提供一个或多个示例，以帮助指导其响应，这对于需要特定输出格式的任务特别有用。通过向模型展示所需输入-输出对的示例，它可以学习模式并将其应用于新输入，而无需显式参数更新。
+
+单样本提供单个示例，当示例成本高昂或模式相对简单时，这很有用。少样本使用多个示例（通常为3-5个）来帮助模型更好地理解更复杂任务中的模式，或说明正确输出的不同变体。
+
+// Implementation of Section 2.2: One-shot & few-shot (page 16)
+public void pt_one_shot_few_shots(ChatClient chatClient) {
+String pizzaOrder = chatClient.prompt(""" Parse a customer's pizza order into valid JSON
+
+            EXAMPLE 1:
+            I want a small pizza with cheese, tomato sauce, and pepperoni.
+            JSON Response:
+            ```
+            {
+                "size": "small",
+                "type": "normal",
+                "ingredients": ["cheese", "tomato sauce", "pepperoni"]
+            }
+            ```
+
+            EXAMPLE 2:
+            Can I get a large pizza with tomato sauce, basil and mozzarella.
+            JSON Response:
+            ```
+            {
+                "size": "large",
+                "type": "normal",
+                "ingredients": ["tomato sauce", "basil", "mozzarella"]
+            }
+            ```
+
+            Now, I would like a large pizza, with the first half cheese and mozzarella.
+            And the other tomato sauce, ham and pineapple.
+            """)
+            .options(ChatOptions.builder()
+                    .model("claude-3-7-sonnet-latest")
+                    .temperature(0.1)
+                    .maxTokens(250)
+                    .build())
+            .call()
+            .content();
+}
+少样本提示对于需要特定格式、处理边缘情况或当任务定义在没有示例的情况下可能不明确的任务尤其有效。示例的质量和多样性显著影响性能。
+
+` Reference: ` Brown, T. B., et al. (2020).
+"Language Models are Few-Shot Learners." arXiv:2005.14165. ` https://arxiv.org/abs/2005.14165 `
+
+2.3 System, contextual and role prompting System Prompting 系统提示为语言模型设定了整体上下文和目的，定义了模型应该做什么的“大局”。它为模型的响应建立了行为框架、约束和高级目标，与具体的用户查询分开。
+
+系统提示在整个对话中充当持久的“使命宣言”，允许您设置全局参数，如输出格式、语气、道德界限或角色定义。与侧重于特定任务的用户提示不同，系统提示构成了所有用户提示应如何解释的框架。
+
+// Implementation of Section 2.3.1: System prompting
+public void pt_system_prompting_1(ChatClient chatClient) {
+String movieReview = chatClient .prompt() .system("Classify movie reviews as positive, neutral or negative.
+Only return the label in uppercase.") .user(""" Review: "Her" is a disturbing study revealing the direction humanity is headed if AI is allowed to keep evolving, unchecked.
+It's so disturbing I couldn't watch it.
+
+                    Sentiment:
+                    """)
+            .options(ChatOptions.builder()
+                    .model("claude-3-7-sonnet-latest")
+                    .temperature(1.0)
+                    .topK(40)
+                    .topP(0.8)
+                    .maxTokens(5)
+                    .build())
+            .call()
+            .content();
+}
+当系统提示与 Spring AI 的实体映射功能结合使用时，特别强大：
+
+// Implementation of Section 2.3.1: System prompting with JSON output
+record MovieReviews(Movie[] movie_reviews) {
+enum Sentiment {
+POSITIVE, NEUTRAL, NEGATIVE }
+
+    record Movie(Sentiment sentiment, String name) {
+    }
+}
+
+MovieReviews movieReviews = chatClient .prompt() .system(""" Classify movie reviews as positive, neutral or negative.
+Return valid JSON.
+""") .user(""" Review: "Her" is a disturbing study revealing the direction humanity is headed if AI is allowed to keep evolving, unchecked.
+It's so disturbing I couldn't watch it.
+
+                JSON Response:
+                """)
+        .call()
+        .entity(MovieReviews.class);
+系统提示对于多轮对话特别有价值，可以确保在多个查询中保持一致的行为，并用于建立适用于所有响应的格式约束，例如 JSON 输出。
+
+Reference: OpenAI。(2022)。“系统消息。” https://platform.openai.com/docs/guides/chat/introduction
+
+Role Prompting 角色提示指示模型采用特定的角色或形象，这会影响其生成内容的方式。通过为模型分配特定的身份、专业知识或视角，您可以影响其响应的风格、语气、深度和框架。
+
+角色提示利用了模型模拟不同专业领域和沟通风格的能力。常见的角色包括专家（例如，“您是一位经验丰富的数据科学家”）、专业人士（例如，“充当旅游向导”）或风格化角色（例如，“像莎士比亚一样解释”）。
+
+// Implementation of Section 2.3.2: Role prompting
+public void pt_role_prompting_1(ChatClient chatClient) {
+String travelSuggestions = chatClient .prompt() .system(""" I want you to act as a travel guide.
+I will write to you about my location and you will suggest 3 places to visit near me.
+In some cases, I will also give you the type of places I will visit.
+""") .user(""" My suggestion: "I am in Amsterdam and I want to visit only museums." Travel Suggestions:
+""") .call() .content(); } 角色提示可以通过风格指令进行增强：
+
+// Implementation of Section 2.3.2: Role prompting with style instructions
+public void pt_role_prompting_2(ChatClient chatClient) {
+String humorousTravelSuggestions = chatClient .prompt() .system(""" I want you to act as a travel guide.
+I will write to you about my location and you will suggest 3 places to visit near me in a humorous style.
+""") .user(""" My suggestion: "I am in Amsterdam and I want to visit only museums." Travel Suggestions:
+""") .call() .content(); } 这种技术对于专业领域知识、在响应中保持一致的语气以及与用户创建更具吸引力、个性化的互动特别有效。
+
+Reference: Shanahan, M. 等。(2023)。“大型语言模型的角色扮演。”arXiv:2305.16367。 https://arxiv.org/abs/2305.16367
+
+Contextual Prompting 上下文提示通过传递上下文参数为模型提供额外的背景信息。这种技术丰富了模型对特定情况的理解，从而无需混淆主要指令即可实现更相关和量身定制的响应。
+
+通过提供上下文信息，您可以帮助模型理解与当前查询相关的特定领域、受众、约束或背景事实。这会带来更准确、相关且框架恰当的响应。
+
+// Implementation of Section 2.3.3: Contextual prompting
+public void pt_contextual_prompting(ChatClient chatClient) {
+String articleSuggestions = chatClient .prompt() .user(u -> u.text(""" Suggest 3 topics to write an article about with a few lines of description of what this article should contain.
+
+                    Context: {context}
+                    """)
+                    .param("context", "You are writing for a blog about retro 80's arcade video games."))
+            .call()
+            .content();
+}
+Spring AI 通过 param() 方法注入上下文变量，使上下文提示变得清晰。当模型需要特定领域知识、将响应适应特定受众或场景以及确保响应符合特定约束或要求时，这种技术特别有价值。
+
+Reference: Liu, P. 等。(2021)。“是什么造就了 GPT-3 的良好上下文示例？”arXiv:2101.06804。 https://arxiv.org/abs/2101.06804
+
+2.4 Step-Back Prompting 退后提示通过首先获取背景知识将复杂的请求分解为更简单的步骤。这种技术鼓励模型首先“退后”一步，从眼前的问题考虑更广泛的上下文、基本原理或与问题相关的常识，然后再解决特定查询。
+
+通过将复杂问题分解为更易于管理的组件并首先建立基础知识，模型可以为难题提供更准确的响应。
+
+// Implementation of Section 2.4: Step-back prompting
+public void pt_step_back_prompting(ChatClient.Builder chatClientBuilder) {
+// Set common options for the chat client
+var chatClient = chatClientBuilder .defaultOptions(ChatOptions.builder() .model("claude-3-7-sonnet-latest") .temperature(1.0) .topK(40) .topP(0.8) .maxTokens(1024) .build()) .build();
+
+    // First get high-level concepts
+    String stepBack = chatClient
+            .prompt("""
+                    Based on popular first-person shooter action games, what are
+                    5 fictional key settings that contribute to a challenging and
+                    engaging level storyline in a first-person shooter video game?
+                    """)
+            .call()
+            .content();
+
+    // Then use those concepts in the main task
+    String story = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Write a one paragraph storyline for a new level of a first-
+                    person shooter video game that is challenging and engaging.
+
+                    Context: {step-back}
+                    """)
+                    .param("step-back", stepBack))
+            .call()
+            .content();
+}
+退后提示对于复杂的推理任务、需要专业领域知识的问题以及当您希望获得更全面和周到的响应而不是即时答案时特别有效。
+
+Reference: Zheng, Z. 等。(2023)。“退后一步：通过大型语言模型中的抽象激发推理。”arXiv:2310.06117。 https://arxiv.org/abs/2310.06117
+
+2.5 Chain of Thought (CoT) 思维链提示鼓励模型逐步推理问题，从而提高复杂推理任务的准确性。通过明确要求模型展示其工作或按逻辑步骤思考问题，您可以显著提高需要多步推理的任务的性能。
+
+CoT 通过鼓励模型在产生最终答案之前生成中间推理步骤来工作，类似于人类解决复杂问题的方式。这使得模型的思维过程变得明确，并帮助它得出更准确的结论。
+
+// Implementation of Section 2.5: Chain of Thought (CoT) - Zero-shot approach
+public void pt_chain_of_thought_zero_shot(ChatClient chatClient) {
+String output = chatClient .prompt(""" When I was 3 years old, my partner was 3 times my age.
+Now, I am 20 years old.
+How old is my partner?
+
+                    Let's think step by step.
+                    """)
+            .call()
+            .content();
+}
+
+// Implementation of Section 2.5: Chain of Thought (CoT) - Few-shot approach
+public void pt_chain_of_thought_singleshot_fewshots(ChatClient chatClient) {
+String output = chatClient .prompt(""" Q: When my brother was 2 years old, I was double his age.
+Now I am 40 years old.
+How old is my brother?
+Let's think step by step.
+A: When my brother was 2 years, I was 2 * 2 = 4 years old.
+That's an age difference of 2 years and I am older.
+Now I am 40 years old, so my brother is 40 - 2 = 38 years old.
+The answer is 38.
+Q: When I was 3 years old, my partner was 3 times my age.
+Now, I am 20 years old.
+How old is my partner?
+Let's think step by step.
+A:
+""") .call() .content(); } 关键短语“让我们一步一步地思考”会触发模型显示其推理过程。CoT 对于数学问题、逻辑推理任务以及任何需要多步推理的问题都特别有价值。它通过使中间推理明确来帮助减少错误。
+
+Reference: Wei, J. 等。(2022)。“思维链提示引发大型语言模型中的推理。”arXiv:2201.11903。 https://arxiv.org/abs/2201.11903
+
+2.6 Self-Consistency 自洽性涉及多次运行模型并聚合结果以获得更可靠的答案。该技术通过对相同问题采样不同的推理路径，并通过多数投票选择最一致的答案来解决大型语言模型输出的可变性。
+
+通过使用不同的温度或采样设置生成多个推理路径，然后聚合最终答案，自洽性提高了复杂推理任务的准确性。它本质上是大型语言模型输出的集成方法。
+
+// Implementation of Section 2.6: Self-consistency
+public void pt_self_consistency(ChatClient chatClient) {
+String email = """ Hi, I have seen you use Wordpress for your website.
+A great open source content management system.
+I have used it in the past too.
+It comes with lots of great user plugins.
+And it's pretty easy to set up.
+I did notice a bug in the contact form, which happens when you select the name field.
+See the attached screenshot of me entering text in the name field.
+Notice the JavaScript alert box that I inv0k3d.
+But for the rest it's a great website.
+I enjoy reading it.
+Feel free to leave the bug in the website, because it gives me more interesting things to read.
+Cheers, Harry the Hacker.
+""";
+
+    record EmailClassification(Classification classification, String reasoning) {
+        enum Classification {
+            IMPORTANT, NOT_IMPORTANT
+        }
+    }
+
+    int importantCount = 0;
+    int notImportantCount = 0;
+
+    // Run the model 5 times with the same input
+    for (int i = 0; i < 5; i++) {
+        EmailClassification output = chatClient
+                .prompt()
+                .user(u -> u.text("""
+                        Email: {email}
+                        Classify the above email as IMPORTANT or NOT IMPORTANT. Let's
+                        think step by step and explain why.
+                        """)
+                        .param("email", email))
+                .options(ChatOptions.builder()
+                        .temperature(1.0)  // Higher temperature for more variation
+                        .build())
+                .call()
+                .entity(EmailClassification.class);
+
+        // Count results
+        if (output.classification() == EmailClassification.Classification.IMPORTANT) {
+            importantCount++;
+        } else {
+            notImportantCount++;
+        }
+    }
+
+    // Determine the final classification by majority vote
+    String finalClassification = importantCount > notImportantCount ?
+            "IMPORTANT" : "NOT IMPORTANT";
+}
+自洽性对于高风险决策、复杂推理任务以及当您需要比单个响应更自信的答案时特别有价值。缺点是由于多次 API 调用导致计算成本和延迟增加。
+
+Reference: Wang, X., et al. (2022)。“自洽性提高了语言模型中的思维链推理。”arXiv:2203.11171。 https://arxiv.org/abs/2203.11171
+
+2.7 Tree of Thoughts (ToT) 思维树 (ToT) 是一种高级推理框架，通过同时探索多个推理路径来扩展思维链。它将问题解决视为一个搜索过程，模型生成不同的中间步骤，评估它们的潜力，并探索最有前途的路径。
+
+该技术对于具有多种可能方法或解决方案需要探索各种替代方案才能找到最佳路径的复杂问题特别有效。
+
+原始的“提示工程”指南没有提供 ToT 的实现示例，这可能是由于其复杂性。下面是一个演示核心概念的简化示例。
+
+游戏解决 ToT 示例：
+
+// Implementation of Section 2.7: Tree of Thoughts (ToT) - Game solving example
+public void pt_tree_of_thoughts_game(ChatClient chatClient) {
+// Step 1: Generate multiple initial moves
+String initialMoves = chatClient .prompt(""" You are playing a game of chess.
+The board is in the starting position.
+Generate 3 different possible opening moves.
+For each move:
+1. Describe the move in algebraic notation 2. Explain the strategic thinking behind this move 3. Rate the move's strength from 1-10 """) .options(ChatOptions.builder() .temperature(0.7) .build()) .call() .content();
+
+    // Step 2: Evaluate and select the most promising move
+    String bestMove = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Analyze these opening moves and select the strongest one:
+                    {moves}
+
+                    Explain your reasoning step by step, considering:
+                    1. Position control
+                    2. Development potential
+                    3. Long-term strategic advantage
+
+                    Then select the single best move.
+                    """).param("moves", initialMoves))
+            .call()
+            .content();
+
+    // Step 3: Explore future game states from the best move
+    String gameProjection = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Based on this selected opening move:
+                    {best_move}
+
+                    Project the next 3 moves for both players. For each potential branch:
+                    1. Describe the move and counter-move
+                    2. Evaluate the resulting position
+                    3. Identify the most promising continuation
+
+                    Finally, determine the most advantageous sequence of moves.
+                    """).param("best_move", bestMove))
+            .call()
+            .content();
+}
+Reference: Yao, S., et al. (2023)。“思维树：使用大型语言模型进行审慎问题解决。”arXiv:2305.10601。 https://arxiv.org/abs/2305.10601
+
+2.8 Automatic Prompt Engineering 自动提示工程使用 AI 来生成和评估替代提示。这种元技术利用语言模型本身来创建、完善和基准测试不同的提示变体，以找到特定任务的最佳表述。
+
+通过系统地生成和评估提示变体，APE 可以找到比手动工程更有效的提示，特别是对于复杂任务。这是一种利用 AI 提高自身性能的方法。
+
+// Implementation of Section 2.8: Automatic Prompt Engineering
+public void pt_automatic_prompt_engineering(ChatClient chatClient) {
+// Generate variants of the same request
+String orderVariants = chatClient .prompt(""" We have a band merchandise t-shirt webshop, and to train a chatbot we need various ways to order: "One Metallica t-shirt size S".
+Generate 10 variants, with the same semantics but keep the same meaning.
+""") .options(ChatOptions.builder() .temperature(1.0) // High temperature for creativity .build()) .call() .content();
+
+    // Evaluate and select the best variant
+    String output = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Please perform BLEU (Bilingual Evaluation Understudy) evaluation on the following variants:
+                    ----
+                    {variants}
+                    ----
+
+                    Select the instruction candidate with the highest evaluation score.
+                    """).param("variants", orderVariants))
+            .call()
+            .content();
+}
+APE 对于优化生产系统的提示、解决手动提示工程已达到极限的挑战性任务以及大规模系统地提高提示质量特别有价值。
+
+Reference: Zhou, Y., et al. (2022)。“大型语言模型是人类水平的提示工程师。”arXiv:2211.01910。 https://arxiv.org/abs/2211.01910
+
+2.9 Code Prompting 代码提示是指用于代码相关任务的专门技术。这些技术利用大型语言模型理解和生成编程语言的能力，使它们能够编写新代码、解释现有代码、调试问题以及在语言之间进行翻译。
+
+有效的代码提示通常涉及清晰的规范、适当的上下文（库、框架、样式指南），有时还有类似代码的示例。温度设置通常较低（0.1-0.3），以获得更确定性的输出。
+
+// Implementation of Section 2.9.1: Prompts for writing code
+public void pt_code_prompting_writing_code(ChatClient chatClient) {
+String bashScript = chatClient .prompt(""" Write a code snippet in Bash, which asks for a folder name.
+Then it takes the contents of the folder and renames all the files inside by prepending the name draft to the file name.
+""") .options(ChatOptions.builder() .temperature(0.1) // Low temperature for deterministic code .build()) .call() .content(); }
+
+// Implementation of Section 2.9.2: Prompts for explaining code
+public void pt_code_prompting_explaining_code(ChatClient chatClient) {
+String code = """ #!/bin/bash echo "Enter the folder name: " read folder_name if [ ! -d "$folder_name" ]; then echo "Folder does not exist." exit 1 fi files=( "$folder_name"/* ) for file in "${files[@]}"; do new_file_name="draft_$(basename "$file")" mv "$file" "$new_file_name" done echo "Files renamed successfully." """;
+
+    String explanation = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Explain to me the below Bash code:
+                    ```
+                    {code}
+                    ```
+                    """).param("code", code))
+            .call()
+            .content();
+}
+
+// Implementation of Section 2.9.3: Prompts for translating code
+public void pt_code_prompting_translating_code(ChatClient chatClient) {
+String bashCode = """ #!/bin/bash echo "Enter the folder name: " read folder_name if [ ! -d "$folder_name" ]; then echo "Folder does not exist." exit 1 fi files=( "$folder_name"/* ) for file in "${files[@]}"; do new_file_name="draft_$(basename "$file")" mv "$file" "$new_file_name" done echo "Files renamed successfully." """;
+
+    String pythonCode = chatClient
+            .prompt()
+            .user(u -> u.text("""
+                    Translate the below Bash code to a Python snippet:
+                    {code}
+                    """).param("code", bashCode))
+            .call()
+            .content();
+}
+代码提示对于自动化代码文档、原型设计、学习编程概念以及在编程语言之间进行翻译特别有价值。通过将其与少数样本提示或思维链等技术相结合，可以进一步增强其有效性。
+
+Reference: Chen, M., et al. (2021)。“评估在代码上训练的大型语言模型。”arXiv:2107.03374。 https://arxiv.org/abs/2107.03374
+
+Conclusion Spring AI 提供了一个优雅的 Java API，用于实现所有主要的提示工程技术。通过将这些技术与 Spring 强大的实体映射和流畅的 API 相结合，开发人员可以构建具有清晰、可维护代码的复杂 AI 驱动应用程序。
+
+最有效的方法通常涉及结合多种技术——例如，将系统提示与少数样本示例结合使用，或将思维链与角色提示结合使用。Spring AI 灵活的 API 使这些组合易于实现。
+
+在生产应用程序中，请记住：
+
+* 使用不同的参数（温度、top-k、top-p）测试提示
+
+* 考虑使用自洽性进行关键决策
+
+* 利用 Spring AI 的实体映射实现类型安全响应
+
+* 使用上下文提示提供特定于应用程序的知识
+
+借助这些技术和 Spring AI 强大的抽象，您可以创建健壮的 AI 驱动应用程序，提供一致、高质量的结果。
+
+References Brown, T. B., et al. (2020).
+"Language Models are Few-Shot Learners." arXiv:2005.14165.
+Wei, J., et al. (2022).
+"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models." arXiv:2201.11903.
+Wang, X., et al. (2022).
+"Self-Consistency Improves Chain of Thought Reasoning in Language Models." arXiv:2203.11171.
+Yao, S., et al. (2023).
+"Tree of Thoughts: Deliberate Problem Solving with Large Language Models." arXiv:2305.10601.
+Zhou, Y., et al. (2022).
+"Large Language Models Are Human-Level Prompt Engineers." arXiv:2211.01910.
+Zheng, Z., et al. (2023).
+"Take a Step Back: Evoking Reasoning via Abstraction in Large Language Models." arXiv:2310.06117.
+Liu, P., et al. (2021).
+"What Makes Good In-Context Examples for GPT-3?" arXiv:2101.06804.
+Shanahan, M., et al. (2023).
+"Role-Play with Large Language Models." arXiv:2305.16367.
+Chen, M., et al. (2021).
+"Evaluating Large Language Models Trained on Code." arXiv:2107.03374.
+Spring AI Documentation ChatClient API Reference Google’s Prompt Engineering Guide

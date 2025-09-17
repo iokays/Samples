@@ -1,0 +1,18 @@
+spring:
+  config:
+    import:
+      - classpath:common-config.yml
+  ai:
+    chat:
+      client:
+        enabled: true
+    openai:
+      api-key: ${openai.api-key}
+
+logging:
+  level:
+    root: INFO
+    com.iokays.sample: DEBUG
+  # 控制台输出配置
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n"
