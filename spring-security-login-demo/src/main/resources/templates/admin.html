@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>管理员页面</title>
+</head>
+<body>
+    <h1>管理员专属区域</h1>
+    <p>只有拥有 'ADMIN' 角色的用户才能看到此页面。</p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="登出"/>
+    </form>
+</body>
+</html>

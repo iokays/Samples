@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>你好!</title>
+</head>
+<body>
+    <h1>你好, 认证过的用户!</h1>
+    <p>欢迎来到受保护的页面。</p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="登出"/>
+    </form>
+</body>
+</html>

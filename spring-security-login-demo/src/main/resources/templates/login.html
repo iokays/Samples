@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>登录</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+</head>
+<body>
+    <div class="login-container">
+        <form th:action="@{/login}" method="post">
+            <h2>请登录</h2>
+            <div th:if="${param.error}" class="error">
+                无效的用户名或密码。
+            </div>
+            <div th:if="${param.logout}" class="success">
+                您已成功登出。
+            </div>
+            <div>
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名" required autofocus />
+            </div>
+            <div>
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" required />
+            </div>
+            <div>
+                <input type="submit" value="登录"/>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
