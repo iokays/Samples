@@ -1,0 +1,5 @@
+== 本用例对Gemini的基本功能进行测试,  测试前需要做如下准备:
+
+1. 配置 Gemini 的 API Key
+
+2. 运行测试 `MessageServiceTest`
