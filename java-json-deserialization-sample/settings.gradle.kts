@@ -1,0 +1,1 @@
+rootProject.name = "iokays-sample-jdk25"
