@@ -1,0 +1,1 @@
+rootProject.name = "jackson-jpa-lazy-loading-sample"
