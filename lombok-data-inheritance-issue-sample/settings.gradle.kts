@@ -1,0 +1,1 @@
+rootProject.name = "lombok-data-inheritance-issue-sample"
