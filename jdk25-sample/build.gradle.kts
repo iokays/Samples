@@ -1,6 +1,7 @@
 // Root Project中build.gradle
 plugins {
     id("java")
+    id("org.checkerframework") version "0.6.61"
 }
 
 // 确保 java 插件被正确应用
@@ -15,25 +16,31 @@ java {
 dependencies {
 
     // platform: 管理依赖的版本
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:+"))
-    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:+"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.0-RC1"))
+    implementation(platform("org.springframework.cloud:spring-cloud-dependencies:2025.1.0-M4"))
 
-    implementation("io.vavr:vavr:+") //0.10.7
-    implementation("com.google.guava:guava:+")
-    implementation("org.apache.commons:commons-collections4:+")
-    implementation("org.apache.commons:commons-lang3:+")
-    implementation("commons-codec:commons-codec:+")
-    implementation("commons-io:commons-io:+")
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.20.0"))
+    implementation(platform("com.google.guava:guava-bom:33.5.0-jre"))
+    implementation(platform("org.slf4j:slf4j-bom:2.1.0-alpha1"))
 
-    compileOnly("org.projectlombok:lombok:+")
-    annotationProcessor("org.projectlombok:lombok:+")
+    implementation("org.jspecify:jspecify:1.0.0") //强制性
 
-    testCompileOnly("org.projectlombok:lombok:+")
-    testAnnotationProcessor("org.projectlombok:lombok:+")
+    implementation("io.vavr:vavr:1.0.0-alpha-4")
+    implementation("com.google.guava:guava")
+    implementation("org.apache.commons:commons-collections4:4.5.0")
+    implementation("org.apache.commons:commons-lang3:3.19.0")
+    implementation("commons-codec:commons-codec:1.19.0")
+    implementation("commons-io:commons-io:2.20.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:+")
-    testImplementation("org.awaitility:awaitility:+")
-    testImplementation("net.datafaker:datafaker:+")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.42")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.0")
+    testImplementation("org.awaitility:awaitility:4.3.0")
+    testImplementation("net.datafaker:datafaker:2.5.3")
 }
 
 repositories {
@@ -45,3 +52,15 @@ repositories {
     maven { url = uri("https://repo.spring.io/snapshot") }
     google()
 }
+
+configure<org.checkerframework.gradle.plugin.CheckerFrameworkExtension> {
+    checkers = listOf(
+        "org.checkerframework.checker.nullness.NullnessChecker"
+    )
+}
+
+tasks.test {
+    useJUnitPlatform()
+    jvmArgs("--enable-preview")
+}
+
