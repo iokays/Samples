@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--        scan : 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true-->
+<configuration scan="false" scanPeriod="60 seconds" debug="ture">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %green(%m) %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="com.iokays" level="DEBUG"/>
+
+</configuration>
